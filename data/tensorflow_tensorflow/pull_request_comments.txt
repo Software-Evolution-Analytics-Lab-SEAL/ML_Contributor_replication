@@ -1,0 +1,2942 @@
+vrv(2015-11-09 21:02:53):Hey webmaven: as mentioned in our [Contribution doc](https://github.com/tensorflow/tensorflow/blob/master/CONTRIBUTING.md), we don't accept pull requests through github yet.  However, if you don't mind, I will make these edits internally and update the repository on our next upstream push with credit given to you.
+
+webmaven(2015-11-09 22:04:51):How is this, then?:
+https://tensorflow-review.googlesource.com/#/c/1050/
+
+makky3939(2015-11-10 01:36:04):Thanks! Should I create issue for this PR?
+
+vrv(2015-11-10 01:46:49):Up to you -- we've fixed it internally and will push it out to the git repo soon :).  Thanks for the typo fix!
+
+vrv(2015-11-10 02:01:04):Hi @ptarjan, as mentioned in our [Contribution doc](https://github.com/tensorflow/tensorflow/blob/master/CONTRIBUTING.md), we don't accept pull requests through github yet, and our contribution flow through googlesource.com isn't that easy yet -- for a change like this, would you mind if we fix internally and push the change out for you?
+
+ptarjan(2015-11-10 02:05:20):Feel free to do the change however you want (I have a signed google CLA on file if that helps). 
+
+When I was at Facebook I wrote a syncing system for pull requests to our pharbricator instance, and vice-versa. Maybe something like that would work for you?
+
+See all the PRs on https://github.com/facebook/hhvm for examples of this.
+
+vrv(2015-11-10 02:39:20):Nice :).  Yeah, we'll look into automatically converting the pull requests, and in the meantime we'll address this internally first.  Thanks for the feedback!
+
+bhack(2015-11-10 07:39:55):@vrv There is [Gerrithub](http://gerrithub.io) but it was not opensourced
+
+bhack(2015-11-10 07:44:28):Or take a look at the status of [this gerrit plugin](https://gerrit.googlesource.com/plugins/github/)
+
+BenMorganIO(2015-11-11 20:37:27)::+1: for this fix.
+
+mrdrozdov(2015-11-15 03:18:59):Creating an account on Gerrit was not too difficult. I followed the instructions here: https://tensorflow-review.googlesource.com/#/c/1061/2/CONTRIBUTING.md
+
+If that is the only requirement for going through the contribution flow, then I'd recommend giving it a shot.
+
+vrv(2015-11-17 19:44:07):Thanks @mrdrozdov.  Closing for now -- feel free to send through gerrit in the mean-time.
+
+alibitek(2015-11-10 12:13:10):Please note that according to the [README](https://github.com/tensorflow/tensorflow#tensorflow):
+
+```
+Note: Currently we do **not** accept pull requests on github -- see CONTRIBUTING.md for information on how to contribute code changes to TensorFlow through tensorflow.googlesource.com
+
+We use github issues for tracking requests and bugs, but please see Community for general questions and discussion.
+```
+
+kashif(2015-11-10 18:46:36):@mnemonicflow ok cool done, closing this pull request.
+
+kashif(2015-11-18 12:51:57):@vrv can you kindly have a look at:
+
+https://tensorflow-review.googlesource.com/#/c/1081/
+
+thanks!
+
+alibitek(2015-11-10 12:13:02):Please note that according to the [README](https://github.com/tensorflow/tensorflow#tensorflow):
+
+```
+Note: Currently we do **not** accept pull requests on github -- see CONTRIBUTING.md for information on how to contribute code changes to TensorFlow through tensorflow.googlesource.com
+
+We use github issues for tracking requests and bugs, but please see Community for general questions and discussion.
+```
+
+vrv(2015-11-10 17:41:39):Yeah, sorry about that.  We're working on the better contribution flow.  On the bright side, we already had a few bug reports about this and we've already fixed it -- we'll be pushing out the fix later today.
+
+andreimaksimenka(2015-11-13 05:02:39):On my instance I'm getting error:
+
+IOError: [Errno 13] Permission denied: '/Library/Python/2.7/site-packages/six.py'
+
+I've fixed it by running sudo pip <etc>
+
+ebrevdo(2015-11-13 05:25:24):You can also install in a virtualenv; six will then be installed locally.
+
+ebrevdo(2015-11-13 05:28:20):Thank you for this suggestion.  We are not currently accepting pull requests via github.  We will update the [common problems](http://tensorflow.org/get_started/os_setup.md#common_install_problems) section of our Get Started guide appropriately.
+
+davidpelayo(2015-11-10 21:24:44):I guess you mean `El Capitan`.
+
+aertoria(2015-11-10 23:42:36):that is correct
+
+vrv(2015-11-14 18:29:18):Thanks for the PR!  I think this was independently fixed in a commit earlier this week -- we appreciate the effort.
+
+futurely(2015-11-11 03:05:14):Maybe try other GPUs and other network architectures for ablative analysis?
+
+Yangqing(2015-11-11 05:02:13):Hey Jeff - your implementation looks all right. I'll take a look at that tomorrow when I am in office. From the face of it, seems like the automatic device placement put some of the backward ops on the CPU for some reason.
+
+jeffdonahue(2015-11-11 06:22:09):Seems likely that could be the issue.  Yangqing asked offline if I might have had busy CPUs at the time -- rerunning this again on the same machine now, with only a couple of processes with high CPU util. running (might have been building Caffe with `make -j` during the run I quoted originally...), I get much better forward-backward times (but still ~3x longer than Caffe's):
+
+```
+2015-11-10 22:11:35.540247: step 10, duration = 0.100
+2015-11-10 22:11:36.542970: step 20, duration = 0.101
+2015-11-10 22:11:37.546989: step 30, duration = 0.101
+2015-11-10 22:11:38.553355: step 40, duration = 0.101
+2015-11-10 22:11:39.560323: step 50, duration = 0.101
+2015-11-10 22:11:40.568854: step 60, duration = 0.101
+2015-11-10 22:11:41.575478: step 70, duration = 0.101
+2015-11-10 22:11:42.582592: step 80, duration = 0.100
+2015-11-10 22:11:43.587321: step 90, duration = 0.101
+2015-11-10 22:11:44.493066: Forward across 100 steps, 0.100 +/- 0.010 sec / batch
+2015-11-10 22:12:33.809496: step 10, duration = 1.616
+2015-11-10 22:12:47.661195: step 20, duration = 1.347
+2015-11-10 22:13:01.331951: step 30, duration = 1.385
+2015-11-10 22:13:15.189127: step 40, duration = 1.341
+2015-11-10 22:13:29.213192: step 50, duration = 1.633
+2015-11-10 22:13:42.824959: step 60, duration = 1.342
+2015-11-10 22:13:56.128193: step 70, duration = 1.317
+2015-11-10 22:14:09.408324: step 80, duration = 1.321
+2015-11-10 22:14:22.658480: step 90, duration = 1.321
+2015-11-10 22:14:37.811581: Forward-backward across 100 steps, 1.420 +/- 0.408 sec / batch
+```
+
+futurely(2015-11-11 06:31:59):That means the open source implementation is different from the internal version.
+
+Yangqing(2015-11-11 17:47:26):Hi Jeff - it turns out that there is an implicit memcpy going on when the session is run. Basically, when session.run(target) is called, we also fetch all the targets into numpy arrays (which is a feature that is not very well documented...). Since the gradients are on GPU and the numpy arrays are going to be on CPU, a memcpy is triggered that causes a nontrivial amount time.
+
+The reason we started to see this performance hit after adding FC layers is - as one may expect - because FC layers. I've added a proposed change to the code for experimentation on your side.
+
+I'll let the guys know and add these notes to the documentation. Thanks for digging into this!
+
+jeffdonahue(2015-11-11 20:54:14):Thanks for looking into this and posting the fix @Yangqing! The performance (see below) is now similar to what @soumith reported at https://github.com/soumith/convnet-benchmarks/issues/66.  I'm a bit confused as to why he didn't have to use the group trick in [his implementation](https://github.com/soumith/convnet-benchmarks/blob/master/tensorflow/benchmark_alexnet.py) to get these speeds -- when I run his script I get the previous slow speeds.  But the issue I raised here is resolved and I guess is not technically a bug so I'll close it.  Thanks again @Yangqing, and to the whole TensorFlow team for open-sourcing this.
+
+```
+2015-11-11 12:48:04.346213: step 10, duration = 0.326
+2015-11-11 12:48:07.607321: step 20, duration = 0.326
+2015-11-11 12:48:10.873735: step 30, duration = 0.326
+2015-11-11 12:48:14.139584: step 40, duration = 0.327
+2015-11-11 12:48:17.405379: step 50, duration = 0.328
+2015-11-11 12:48:20.676191: step 60, duration = 0.326
+2015-11-11 12:48:23.941887: step 70, duration = 0.326
+2015-11-11 12:48:27.229217: step 80, duration = 0.329
+2015-11-11 12:48:30.514869: step 90, duration = 0.329
+2015-11-11 12:48:33.473680: Forward-backward across 100 steps, 0.324 +/- 0.033 sec / batch
+```
+
+Yangqing(2015-11-11 21:07:47):Yeah, I was surprised too, although with a follow-up discussion it seems that the control flow was needed there as well. Sent a fix to Soumith for that earlier today.
+
+Thanks Jeff for initiating the investigation! I really appreciate it.
+
+Yangqing(2015-11-11 17:49:35):So, here intead of running with all grad being the target, we can have a "sink" that will not require memcpy. This can be achieved by:
+
+``` python
+sink = tf.group(*grad)
+time_tensorflow_run(sess, sink, "Forward-backward")
+```
+
+Note that this matches training time behavior, since we most likely would want everything to stay on the GPU during training, so no memcpy will be needed effectively.
+
+vrv(2015-11-17 19:42:53):As noted in our contributing.md, currently our changes have to go through gerrit.  Closing for now, thanks!
+
+vrv(2015-11-14 18:27:32):With the latest BFC allocator I think you mentioned this is no longer necessary.  We want to keep convolutional.py pretty simple -- if this is required for even smaller GPUs, we might want to just mention that in the file and point to an external example.  Thanks for looking into this and helping to verify the fix!
+
+almostimplemented(2015-12-14 06:13:58):Needed to apply this patch to run in my environment.
+
+Running on Ubuntu 14.04.3 LTS (Trusty Tahr) with NVIDIA GeForce GTX 780 Ti, for which NVidia Compute Capability == 3.5, using python2.7.
+
+Pulled from git repo Sunday December 13, top of git log:
+
+```
+commit 6936918ad8abd7ade445674d7c912e69157a1017
+Merge: 8de955d 10e62dc
+Author: Vijay Vasudevan <vrv@google.com>
+Date:   Fri Dec 11 23:17:16 2015 -0800
+
+    TensorFlow: Merging changes from internal
+```
+
+kazoo-of-the-north(2016-11-01 21:09:17):I encountered this error while running a p2 instance on AWS. I used this command to see how the GPU was doing:
+
+> watch nvidia-smi
+
+Beside the OOM woes, I also saw no GPU utilization.
+One thing that worked for me, was to make sure that I didn't have any extra notebooks running. I stopped all other running notebooks in jupyter, and restarted the kernel. After that, the GPU utilization came back and the OOM error went away.
+
+rpagliuca(2016-12-11 11:59:52):Thanks for the patch!!
+mobyIsMe(2017-10-18 07:38:17):I also get the OOM issue while with this reason:
+Here is the logs outputs from the terminal and the GPU usage status. My device is Ubuntu 14.04, GCC 4.8.4, Linux 2, python 2.7.6, GTX 1080(8G memory,total 4 GPUS in my linux server). Could anyone help me?
+
+```
+tensorflow/core/common_runtime/bfc_allocator.cc:275] Ran out of memory trying to allocate 256.0KiB.  See logs for memory state.
+W tensorflow/core/framework/op_kernel.cc:993] Resource exhausted: OOM when allocating tensor with shape[128,512]
+Traceback (most recent call last):
+  File "mnist_mlp.py", line 64, in <module>
+    validation_data=(x_test, y_test))
+  File "/usr/local/lib/python2.7/dist-packages/keras/models.py", line 845, in fit
+    initial_epoch=initial_epoch)
+  File "/usr/local/lib/python2.7/dist-packages/keras/engine/training.py", line 1485, in fit
+    initial_epoch=initial_epoch)
+  File "/usr/local/lib/python2.7/dist-packages/keras/engine/training.py", line 1140, in _fit_loop
+    outs = f(ins_batch)
+  File "/usr/local/lib/python2.7/dist-packages/keras/backend/tensorflow_backend.py", line 2073, in __call__
+    feed_dict=feed_dict)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 767, in run
+    run_metadata_ptr)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 965, in _run
+    feed_dict_string, options, run_metadata)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 1015, in _do_run
+    target_list, options, run_metadata)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/client/session.py", line 1035, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.ResourceExhaustedError: OOM when allocating tensor with shape[128,512]
+	 [[Node: dropout_1/cond/dropout/random_uniform/RandomUniform = RandomUniform[T=DT_INT32, dtype=DT_FLOAT, seed=87654321, seed2=4432543, _device="/job:localhost/replica:0/task:0/gpu:0"](dropout_1/cond/dropout/Shape)]]
+	 [[Node: Mean_3/_33 = _Recv[client_terminated=false, recv_device="/job:localhost/replica:0/task:0/cpu:0", send_device="/job:localhost/replica:0/task:0/gpu:0", send_device_incarnation=1, tensor_name="edge_546_Mean_3", tensor_type=DT_FLOAT, _device="/job:localhost/replica:0/task:0/cpu:0"]()]]
+
+Caused by op u'dropout_1/cond/dropout/random_uniform/RandomUniform', defined at:
+  File "mnist_mlp.py", line 49, in <module>
+    model.add(Dropout(0.2))
+  File "/usr/local/lib/python2.7/dist-packages/keras/models.py", line 455, in add
+    output_tensor = layer(self.outputs[0])
+  File "/usr/local/lib/python2.7/dist-packages/keras/engine/topology.py", line 554, in __call__
+    output = self.call(inputs, **kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/keras/layers/core.py", line 111, in call
+    training=training)
+  File "/usr/local/lib/python2.7/dist-packages/keras/backend/tensorflow_backend.py", line 2421, in in_train_phase
+    x = switch(training, x, alt)
+  File "/usr/local/lib/python2.7/dist-packages/keras/backend/tensorflow_backend.py", line 2380, in switch
+    else_expression_fn)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/ops/control_flow_ops.py", line 1738, in cond
+    orig_res, res_t = context_t.BuildCondBranch(fn1)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/ops/control_flow_ops.py", line 1639, in BuildCondBranch
+    r = fn()
+  File "/usr/local/lib/python2.7/dist-packages/keras/layers/core.py", line 109, in dropped_inputs
+    seed=self.seed)
+  File "/usr/local/lib/python2.7/dist-packages/keras/backend/tensorflow_backend.py", line 2681, in dropout
+    return tf.nn.dropout(x * 1., retain_prob, noise_shape, seed=seed)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/ops/nn_ops.py", line 1936, in dropout
+    dtype=x.dtype)
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/ops/random_ops.py", line 244, in random_uniform
+    seed2=seed2)
+Every 2.0s: nvidia-smi                    878cb24ce8b6: Wed Oct 18 07:26:58 2017
+
+Wed Oct 18 07:26:58 2017
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 375.39                 Driver Version: 367.48                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 1080    Off  | 0000:05:00.0     Off |                  N/A |
+| 86%   86C    P2   156W / 200W |   7789MiB /  8112MiB |     94%      Default |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 1080    Off  | 0000:06:00.0     Off |                  N/A |
+| 97%   93C    P2   129W / 200W |   7791MiB /  8113MiB |     98%      Default |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 1080    Off  | 0000:09:00.0     Off |                  N/A |
+| 86%   85C    P2   184W / 200W |   7791MiB /  8113MiB |     98%      Default |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 1080    Off  | 0000:0A:00.0     Off |                  N/A |
+| 47%   63C    P2   145W / 200W |   7791MiB /  8113MiB |     99%      Default |
++-------------------------------+----------------------+----------------------+
+Every 2.0s: nvidia-smi                     878cb24ce8b6: Wed Oct 18 07:26:58 2017
+
+Wed Oct 18 07:26:58 2017
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 375.39                 Driver Version: 367.48                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 1080    Off  | 0000:05:00.0     Off |                  N/A |
+| 86%   87C    P2   131W / 200W |   7789MiB /  8112MiB |     98%      Default |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 1080    Off  | 0000:06:00.0     Off |                  N/A |
+| 97%   93C    P2   124W / 200W |   7791MiB /  8113MiB |     99%      Default |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 1080    Off  | 0000:09:00.0     Off |                  N/A |
+| 86%   85C    P2   102W / 200W |   7791MiB /  8113MiB |     99%      Default |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 1080    Off  | 0000:0A:00.0     Off |                  N/A |
+| 47%   64C    P2   123W / 200W |   7791MiB /  8113MiB |     92%      Default |
++-------------------------------+----------------------+----------------------+
+
+Every 2.0s: nvidia-smi                                             878cb24ce8b6: Wed Oct 18 07:26:59 2017
+
+Wed Oct 18 07:26:59 2017
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 375.39                 Driver Version: 367.48                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 1080    Off  | 0000:05:00.0     Off |                  N/A |
+| 86%   86C    P2   138W / 200W |   7789MiB /  8112MiB |     96%      Default |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 1080    Off  | 0000:06:00.0     Off |                  N/A |
+| 97%   92C    P2   135W / 200W |   7791MiB /  8113MiB |     75%      Default |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 1080    Off  | 0000:09:00.0     Off |                  N/A |
+| 86%   85C    P2   100W / 200W |   7791MiB /  8113MiB |     99%      Default |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 1080    Off  | 0000:0A:00.0     Off |                  N/A |
+| 47%   63C    P2   120W / 200W |   7791MiB /  8113MiB |     93%      Default |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID  Type  Process name                               Usage      |
+Every 2.0s: nvidia-smi                                                           878cb24ce8b6: Wed Oct 18 07:29:25 2017
+
+Wed Oct 18 07:29:25 2017
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 375.39                 Driver Version: 367.48                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 1080    Off  | 0000:05:00.0     Off |                  N/A |
+| 85%   84C    P2   118W / 200W |   7789MiB /  8112MiB |     99%      Default |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 1080    Off  | 0000:06:00.0     Off |                  N/A |
+| 96%   90C    P2   121W / 200W |   7791MiB /  8113MiB |     99%      Default |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 1080    Off  | 0000:09:00.0     Off |                  N/A |
+| 86%   87C    P2   132W / 200W |   7791MiB /  8113MiB |     99%      Default |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 1080    Off  | 0000:0A:00.0     Off |                  N/A |
+| 46%   62C    P2   136W / 200W |   7791MiB /  8113MiB |     99%      Default |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID  Type  Process name                               Usage      |
+```
+vrv(2015-11-17 19:42:11):As noted in our contributing.md, currently our changes have to go through gerrit (which I see you've done, and we'll try to integrate soon).  Closing for now, thanks!
+
+vrv(2015-11-17 19:41:39):As noted in our contributing.md, currently our changes have to go through gerrit (which I see you've done, and we'll try to integrate soon).  Closing for now, thanks!
+
+vrv(2015-11-17 19:41:30):As noted in our contributing.md, currently our changes have to go through gerrit (which I see you've done, and we'll try to integrate soon).  Closing for now, thanks!
+
+formido(2015-11-19 00:39:07):Ah, I see, you don't take pull requests.
+
+pirate(2015-11-23 22:12:30):Aargh gerrit is such a pain... submitting through that in a bit.  Ya'll really need to get Github PRs working.
+
+pirate(2015-11-23 22:21:02):https://tensorflow-review.googlesource.com/#/c/1161/
+
+pirate(2015-12-23 17:39:09):@vrv 
+
+pirate(2015-12-23 18:55:35):Tested that and it didn't work for me on OS X, possibly because Tensorboard changes the cwd?
+
+vrv(2015-12-23 18:57:33):Hm, interesting.  Could replace os.getcwd() with os.path.realpath('.').  (The main point was that passing that field through all of the functions isn't really necessary, since it's not going to be configured by external callers.
+
+pirate(2015-12-23 19:02:58):Yup definitely, when I originally made this PR it was necessary because the current path was [changed in the launch function](https://github.com/tensorflow/tensorflow/blob/f41959ccb2d9d4c722fe8fc3351401d53bcf4900/tensorflow/tensorboard/tensorboard.py#L103).  Looks like we can remove that extra complexity and do what you suggest now that that bit was removed.  I'll commit it in a bit.
+
+pirate(2015-12-23 19:12:31):Committed your suggestion and tested, looks good! Tested with both absolute and relative.
+
+<img width="730" alt="screen shot 2015-12-23 at 2 11 09 pm" src="https://cloud.githubusercontent.com/assets/511499/11983134/1e2a9292-a97f-11e5-8d02-4c77b55d9688.PNG">
+
+<img width="1752" alt="screen shot 2015-12-23 at 2 11 33 pm" src="https://cloud.githubusercontent.com/assets/511499/11983135/1e2b1b4a-a97f-11e5-9e7a-02c6ce3c0ea5.PNG">
+
+vrv(2015-12-23 19:16:45):Thanks!  If you can squash the commits, I'll merge right after.
+
+jordanpn(2015-11-24 20:29:45):Closing the request. Didn't notice that the project doesn't use the pull request mechanism at the moment.
+
+vrv(2015-11-24 20:47:10):Sorry about that -- we already have a change internally that addresses this though.  Will be pushed out soon.
+
+jordanpn(2015-11-24 21:24:27):Thanks for letting me know, Vijay. And most of all, thanks for working on
+tensorflow and making it openly available!
+
+vrv(2015-12-07 22:24:54):For now, we accept changes only via Gerrit, see: https://github.com/tensorflow/tensorflow/blob/master/CONTRIBUTING.md#contributing-code
+
+vrv(2015-12-07 23:30:10):Hi Jeff, we sadly don't accept requests through github, only gerrit: https://github.com/tensorflow/tensorflow/blob/master/CONTRIBUTING.md
+
+If you want, I can integrate these changes myself, or feel free to make the request through gerrit.  Let me know!
+
+vrv(2015-12-07 23:37:42):Accepted via gerrit!
+
+vrv(2015-12-09 18:10:37):@zfrenchee, can you send this request via gerrit?  See https://github.com/tensorflow/tensorflow/blob/master/CONTRIBUTING.md and http://blog.mdda.net/ai/2015/11/10/contributing-to-tensorflow/
+
+alexlenail(2015-12-10 04:14:21):I'm not quite sure how to go about fixing this, because I'm not quite sure about the mapping between the g3doc and the public tensorflow webpage. I expected the link to be wrong all the way down, but it's right here, but wrong on the website. Is the website not part of this repo, or am I missing something? 
+
+vrv(2015-12-10 04:17:18):Website is pushed based on the repo, but it's not automatically pushed (yet), so there's some manual delay involved.  We're probably going to push the newest website soon, and if the URL is still wrong, feel free to let us know and we'll fix the website on our end
+
+elbamos(2015-12-12 20:37:28):@ville-k are there additional steps required for this?  I'm getting
+
+```
+Inconsistent crosstool configuration; no toolchain corresponding to 'local_darwin' found for cpu 'darwin'.
+```
+
+ville-k(2015-12-13 00:02:52):@elbamos Thanks for trying that out! Looks like I rushed the pull request and missed a step. I was not passing the "--config=cuda" option to bazel and the build code that gives you the error you reported never got run.  I'll:
+1. close this pull request
+2. fix the problem
+3. submit a new pullrequest
+
+elbamos(2015-12-13 00:05:54):Thanks -- please let me know when you file the new one.  I'm eagerly awaiting this... 
+
+There was an exchange on r/machinelearning where the google folks asked us to file a bug report about GPUs not working with Mac OS X, so if you get this working I think there's a good chance they pull it.  Also, you might want to consider modifying the config scripts so the cuda and cudnn versions can bet set as environment variables rather than hardcoding them. 
+
+vrv(2015-12-13 00:06:32):Thanks @ville-k.  Btw, we don't yet accept pull requests from GitHub, only Gerrit.  See https://github.com/tensorflow/tensorflow/blob/master/CONTRIBUTING.md for more info
+
+Once you get something working, we'd be happy to accept this improvement!  @zheng-xq for early visibility on this change.
+
+elbamos(2015-12-13 00:07:06):(And if there's anything I can do to help you, pls let me know!)
+
+vrv(2015-12-13 00:08:58):@elbamos: I think @zheng-xq was probably going to tackle the cudnn versions issue soon.  Not sure how he plans to do it though.
+
+tensorflow-jenkins(2015-12-20 08:43:03):Can one of the admins verify this patch?
+
+elbamos(2015-12-20 08:48:10):@tensorflow-jenkins  The patch does NOT work. 
+
+vrv(2015-12-20 17:34:41):Ok, we'll close this -- feel free to send us a new PR when it's ready!
+
+ville-k(2015-12-20 20:39:18):@vrv Thanks,  I'm hoping to submit a new PR soon. I have TensorFlow building and starting up on my Mac against CUDA 7.5. I still need to clean it up and debug a crash I'm getting while the GPU memory allocator is getting initialized.
+
+elbamos(2016-01-23 20:47:03):any news?
+
+benslaney(2016-02-06 01:26:59):any news??
+
+esd100(2016-04-07 18:54:07):See this thread ... https://github.com/tensorflow/tensorflow/pull/664
+
+teddddddy(2019-09-12 23:29:24):@tensorflow-jenkins
+vrv(2015-12-15 23:28:11):Hi @sdemyanov, thanks (again) for this change.  The same comment as the other pull request applies here :(.
+
+vrv(2015-12-15 23:27:36):Hi @sdemyanov, thanks for this change.
+
+Unfortunately, we don't yet accept changes via github, we hope to improve this in https://github.com/tensorflow/tensorflow/issues/26
+
+You can take a look at https://github.com/tensorflow/tensorflow/blob/master/CONTRIBUTING.md to see how to contribute right now.
+
+googlebot(2015-12-18 01:00:03):Thanks for your pull request.  It looks like this may be your first contribution to a Google open source project. Before we can look at your pull request, you'll need to sign a Contributor License Agreement (CLA).
+
+:memo: **Please visit https://cla.developers.google.com/ to sign.**
+
+Once you've signed, please reply here (e.g. `I signed it!`) and we'll verify.  Thanks.
+
+---
+- If you've already signed a CLA, it's possible we don't have your GitHub username or you're using a different email address.  Check [your existing CLA data](https://cla.developers.google.com/clas) and verify that your [email is set on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+- If you signed the CLA as a corporation, please let us know the company's name.
+
+<!-- need_sender_cla -->
+
+martinwicke(2015-12-18 01:14:04):I signed!
+
+googlebot(2015-12-18 01:14:05):CLAs look good, thanks!
+
+<!-- ok -->
+
+vrv(2015-12-18 01:21:17):LGTM, Approval
+
+jendap(2015-12-19 06:55:51):Should we delete the `readme-pr-change` branch?
+
+vrv(2015-12-19 06:59:30):oops, done.
+
+jendap(2015-12-19 07:01:54):Thanks!
+
+tensorflow-jenkins(2015-12-20 08:43:02):Can one of the admins verify this patch?
+
+mrry(2015-12-21 15:57:19):Hi Kenton,
+
+Thanks for resubmitting this as a pull request, and for adding the tests. I'd like to push a bit harder against `IndexedSlicesWithoutDenseShapeValue`. I've added some comments to `ops.py` that suggest where the problem with returning `None` could be addressed, and I'd prefer to address those internally. (Ideally all `IndexedSlices` would have dense shapes, but for the meantime we could address this with a helpful error message in the case that the fed value doesn't match the object being fed.)
+
+Derek.
+
+kentonl(2015-12-23 00:24:55):Thanks for reviewing this. If I understand your proposed solution correctly, fetching would fail if we use
+
+```
+lambda fetched_vals:
+  ops.IndexedSlicesValue(fetched_vals[0], fetched_values[1], fetched_values[2] if len(fetched_vals) == 3 else None)
+```
+
+since this call: https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/client/session.py#L321 would result in a TypeError due to `subfetch` being None. Or am I misinterpreting something?
+
+mrry(2015-12-28 19:19:34):Not quite: I was suggesting that, in the event `IndexedSlices` doesn't have a `dense_shape`, the fetch function would return a list of two "subfetch" tensors (the indices and values), instead of returning `None` for the `dense_shape`.
+
+kentonl(2016-01-06 13:22:54):The latest version implements your suggestions along with relevant changes to the tests.
+
+mrry(2016-01-11 17:42:49):Thanks for indulging me! :)
+
+This LGTM, so I'll go ahead and merge it.
+
+dennybritz(2015-12-19 07:57:14):Ah, you're right. Pinning the embedding matrix to the CPU still resulted in the same error, however. I also had to put the nce weights onto the CPU, but I don't see why this would be the case. Any ideas?
+
+The updated code now works on a GPU machine, this is the device placement: https://gist.github.com/dennybritz/9df7dd2553b0aa8db808
+
+vrv(2015-12-19 17:40:29):https://github.com/tensorflow/tensorflow/blob/20723e2b3d58cc48b2a302f7ea9806c8a75fd18f/tensorflow/python/ops/nn.py#L631 
+
+nce_weights / bias are used as input to the nce_loss higher-level function, which also, under the hood, calls embedding_lookup, so the same property is required.
+
+I thought our placement algorithm was supposed to ensure that the variable would not be placed on GPU if all consumers can only be placed on CPU, so hopefully we can dig in later to figure out how to solve this more generally.
+
+We also have a bug internally to add a self-test to word2vec_basic.py so we could catch this earlier.
+
+I'll take a closer look at this on Monday -- thanks for fixing this.
+
+dennybritz(2015-12-19 18:31:05):That makes sense then, thanks for the explanation. I guess another way to fix this is to allow soft placement in the session, but I'm not sure if that's cleaner since it's less explicit about what's happening?
+
+tensorflow-jenkins(2015-12-20 08:43:02):Can one of the admins verify this patch?
+
+vrv(2015-12-21 17:30:58):I'm generally not a fan of soft placement since it masks bugs, but in some cases it is necessary.  Here your annotations can solve the problem so let's go with this. 
+
+Can you squash your commits?  I'll merge soon after that.
+
+dennybritz(2015-12-21 17:35:40):Squashed it.
+
+dennybritz(2015-12-21 17:45:40):Fixed the spacing. It'd be a good idea to link to the official style guide from the contribution page.
+
+vrv(2015-12-21 17:49:36):Thanks, we're pretty inconsistent about hanging indents, so it was really about consistency within that file only.
+
+vrv(2015-12-19 01:44:36):Thanks @panmari!
+
+There are a few changes that will be necessary to get this to work.
+
+1) https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/ops/image_ops.cc#L25  All of the ops that you added are currently only defined for those set of types.  So this file needs to be updated to additionally include the ones you are adding kernel registrations for.  My suggestion would be to change the attribute of T to be "realnumbertype".
+
+2) After doing that, we should also write some tests to make sure these additional kernels are actually invoked properly.  Unfortunately, our current ops/image_ops_test.py does not really test many of the kernels.  Would you be willing to add the tests for these kernels?
+
+The way to do this would be to change https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/ops/image_ops_test.py#L576 to iterate various numpy dtypes for each of the kernels that we support.  We convert numpy dtypes to the appropriate tensorflow datatype, and this should be sufficient to test each of the kernels.
+
+If this doesn't make sense, or you'd rather us take a look at it, let us know, since this is a change we really should make.
+
+tensorflow-jenkins(2015-12-20 08:43:01):Can one of the admins verify this patch?
+
+vrv(2015-12-20 17:47:38):Is it possible add at least add a test for one of these new types, to make sure it works?  Again, we can take this over if that's too much work for you.
+
+panmari(2015-12-20 17:50:32):No problem, I'm right now writing some tests. But I'm running in the same issues as mentioned in #472. Most python tests just fail with the following message:
+
+```
++ /home/panmari/.cache/bazel/_bazel_panmari/f5b407cdd255b7813aa5a26beb5d6822/tensorflow/bazel-out/local_linux-fastbuild/bin/tensorflow/python/gen_docs_test.runfiles/tensorflow/python/gen_docs_combined --out_dir /home/panmari/.cache/bazel/_bazel_panmari/f5b407cdd255b7813aa5a26beb5d6822/tensorflow/_tmp/gen_docs_test_2
+RuntimeError: module compiled against API version a but this version of numpy is 9
+Traceback (most recent call last):
+  File "/home/panmari/.cache/bazel/_bazel_panmari/f5b407cdd255b7813aa5a26beb5d6822/tensorflow/bazel-out/local_linux-fastbuild/bin/tensorflow/python/gen_docs_test.runfiles/tensorflow/python/framework/gen_docs_combined.py", line 23, in <module>
+    import tensorflow.python.platform
+  File "/home/panmari/.cache/bazel/_bazel_panmari/f5b407cdd255b7813aa5a26beb5d6822/tensorflow/bazel-out/local_linux-fastbuild/bin/tensorflow/python/gen_docs_test.runfiles/tensorflow/__init__.py", line 23, in <module>
+    from tensorflow.python import *
+  File "/home/panmari/.cache/bazel/_bazel_panmari/f5b407cdd255b7813aa5a26beb5d6822/tensorflow/bazel-out/local_linux-fastbuild/bin/tensorflow/python/gen_docs_test.runfiles/tensorflow/python/__init__.py", line 50, in <module>
+    from tensorflow.python.framework.framework_lib import *
+  File "/home/panmari/.cache/bazel/_bazel_panmari/f5b407cdd255b7813aa5a26beb5d6822/tensorflow/bazel-out/local_linux-fastbuild/bin/tensorflow/python/gen_docs_test.runfiles/tensorflow/python/framework/framework_lib.py", line 62, in <module>
+    from tensorflow.python.framework.ops import Graph
+  File "/home/panmari/.cache/bazel/_bazel_panmari/f5b407cdd255b7813aa5a26beb5d6822/tensorflow/bazel-out/local_linux-fastbuild/bin/tensorflow/python/gen_docs_test.runfiles/tensorflow/python/framework/ops.py", line 40, in <module>
+    from tensorflow.python.framework import versions
+  File "/home/panmari/.cache/bazel/_bazel_panmari/f5b407cdd255b7813aa5a26beb5d6822/tensorflow/bazel-out/local_linux-fastbuild/bin/tensorflow/python/gen_docs_test.runfiles/tensorflow/python/framework/versions.py", line 24, in <module>
+    from tensorflow.python import pywrap_tensorflow
+  File "/home/panmari/.cache/bazel/_bazel_panmari/f5b407cdd255b7813aa5a26beb5d6822/tensorflow/bazel-out/local_linux-fastbuild/bin/tensorflow/python/gen_docs_test.runfiles/tensorflow/python/pywrap_tensorflow.py", line 28, in <module>
+    _pywrap_tensorflow = swig_import_helper()
+  File "/home/panmari/.cache/bazel/_bazel_panmari/f5b407cdd255b7813aa5a26beb5d6822/tensorflow/bazel-out/local_linux-fastbuild/bin/tensorflow/python/gen_docs_test.runfiles/tensorflow/python/pywrap_tensorflow.py", line 24, in swig_import_helper
+    _mod = imp.load_module('_pywrap_tensorflow', fp, pathname, description)
+ImportError: numpy.core.multiarray failed to import
+```
+
+vrv(2015-12-20 18:03:47):There's probably some other installation of numpy that is interfering -- try searching for other installations, and if they are not needed, try removing them.  IIRC, this is saying that tensorflow was compiled with 1.10.1 (likely) but the runtime is loading 1.9.  Or maybe change the paths so that 1.10 is preferentially chosen over 1.9?  I'm not an expert here :(
+
+panmari(2015-12-20 18:39:00):Luckily, the tests relevant for this PR worked for me. I extended some of them to test through all supported types. This required to change some test cases since 128 can not be represented as int8. Is there a way to make a custom error message for `assertAllClose`? It would be nice to know in these test for which resize algorithm/type they failed.
+
+vrv(2015-12-20 18:49:50):Hmm, not that I know of.  We want to add 'parameterized test' support to the python unit tests to make this easy.  Alternatively, you could make the base class a test harness that takes in one type, and then instantiate one class for each type being tested, so that the name of the class tells you which type failed.
+
+That being said, it's probably fine for now to leave it as is, since we do this type of test in a bunch of other files.  Thanks for making these changes!
+
+I'll take a closer look tomorrow.
+
+panmari(2015-12-20 19:09:34):Yeah, parametrized tests would be a perfect fit here. Thanks for all your guidance.
+
+vrv(2015-12-21 17:28:32):test this please
+
+vrv(2015-12-21 17:57:41):@jendap, tests didn't kick off :(
+
+(Running manually)
+
+panmari(2015-12-21 18:07:46):@vrv this was directed at a bot, not me?
+
+vrv(2015-12-21 18:10:34):Yes, it was directed at the bot.  We need to change our regex to somehow make that more clear. 
+
+srjoglekar246(2015-12-19 10:10:39):Just added the code, haven't changed any imports yet. Want to get general feedback before refining the code.
+
+vrv(2015-12-19 17:34:22):Hi @srjoglekar246, this looks pretty cool, and thanks for going through the work to put this together!
+
+One of the ideas we have been working on is a notion of "Functions" in the GraphDef, which would allow for re-usable components.  See [here](https://github.com/tensorflow/tensorflow/blob/d6357a5849db980df51d00d8a9ff874cda2faeb3/tensorflow/core/framework/function.proto#L14) for the proto definition.
+
+It's not ready yet and still needs some work (we may not do this as a proto in the GraphDef) but the underlying idea would be something that would obviate the need for copying elements around with unique names: you could define a subgraph as a function with inputs and outputs, and then re-use them.  So instead of having multiple versions of the graph stamped out at once, each with unique names, you could have one named function that could be called, ported across graphs, etc.
+
+Do you feel that such a feature would accomplish your higher level goals?
+
+srjoglekar246(2015-12-19 17:43:55):Aah yes. The whole idea was to enable reusability of dataflow-structures across Graph instances. If I am not wrong, your solution would need some careful handling of how sessions 'run' these portable functions. But if implemented right, it could save a lot of memory and accomplish what my code intends.
+
+vrv(2015-12-19 17:55:05):Yeah, there's some more plumbing in the internal execution of graphs that specially handles functions.
+
+For now, do you mind if we keep this pull request open but on the backburner, at least until we figure out whether functions may be an easier to use abstraction?
+
+(If you really want this checked in somewhere and know lots of others are using this, we've been intending to create a 'contrib' directory or repo where these types of utilities / functions could be placed).
+
+srjoglekar246(2015-12-19 17:59:14):Yeah no problem!
+On the other hand, a contrib directory for such scripts would be nice - especially for code that might be useful to a good audience as utilities (instead of being inside the main framework).
+
+tensorflow-jenkins(2015-12-20 08:43:01):Can one of the admins verify this patch?
+
+srjoglekar246(2016-01-09 04:29:50):Ping @vrv
+
+vrv(2016-01-09 04:36:37):We've considered adding a contrib directory but ownership and bug reports would be hard to manage -- probably needs to be a separate repo.  Adding @martinwicke since I think he's in the process of figuring this out.
+
+There's been more progress over the past few weeks on functions.  I think it's close -- take a look at an example:  https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/framework/function_test.py#L279  and let us know if that would sort of accomplish what you want
+
+bhack(2016-01-09 14:44:45):@vrv With the experience of [opecv-contrib](https://github.com/Itseez/opencv_contrib) it is hard to maintain a quality level in a contributed repository and grant a decent review time of that PRs. One of the best community scaling effort is the Debian developer/maintainer process. We can implement a very light version of this here. Github lowered the entrance cost of new developers trough the fork-PR process but also let proliferation of sparse or short time frame contributions. We can find a way to reward middle and long term valid contributors or contributors groups to maintain some contrib modules in Tensorflow and to review and accept related PR and issue on this target modules. I don't know what will be the best way to to this with the actual Github management features for handling process of module Orphaning, contributor/group MIA, new module proposal acceptance and module removal. I think that Wikifing community rules a little bit, using labels, repositories, and submodules the process could be managed in some way.
+
+srjoglekar246(2016-01-09 15:20:37):@vrv A separate repo would be nice, would even let users build a proper codebase for different algorithms implemented in tensorflow. Something like what sklearn is for scipy.
+As far as the code goes, it pretty much does what I wanted to achieve, with a better interface for reusable functions across graphs. Is it coming out in the next version? The function class would also enable running of different algorithms within same environment - a nice bonus.
+
+vrv(2016-01-09 18:09:54):@srjoglekar246, @bhack: we'll try to find something that works for contributions.
+
+As for functions: I'm not entirely sure what the state of it is, but I wanted to solicit early feedback from you since it seems like what you originally were trying to do with this PR.  It's being actively worked on so I'm hoping it will be ready "soon".
+
+srjoglekar246(2016-01-09 18:18:13):I guess once we can define reusable functions, we could do away with initialising ops as "tf.add", instead going for the method used here: https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/framework/function_test.py#L99 . My only suggestion would be to make the system smarter with respect to argument types (like adding float types to int types should automatically return a float, assuming shapes are compatible). But I guess it won't be too easy, especially in C++.
+
+cesarsalgado(2016-01-09 22:08:15):I'm afraid that creating a separate repo would lose the focus of the community as a whole.
+
+Edit: For example, I would like all implementations of new papers to have high quality documentation. I'm afraid that the the contrib repo would have a poor doc like some caffe PR has. Maybe if tensorflow has semi-offical implms of some paper this will disincentivize the main repo to make an official and better documented implem earlier than it would otherwise.
+
+martinwicke(2016-04-07 19:27:16):Sorry for the long silence -- if you're still interested, I'd like to merge this into contrib. Can you move the file to tensorflow/contrib/copy_graph/python/util/copy.py?
+
+Also, can you add a license header and the python3 from **future** imports, and can you add a test for this? 
+
+tensorflow-jenkins(2016-04-07 19:27:17):Can one of the admins verify this patch?
+
+srjoglekar246(2016-04-07 19:31:28):@martinwicke Will get it done by tomorrow. Any particular format/guideline for the unit test to be added?
+
+martinwicke(2016-04-07 19:36:16):Just make sure that it tests the functionality you claim your functions provide.
+
+martinwicke(2016-04-07 19:37:08):And can you modify the docstrings to match the tensorflow style guide (look at the "writing documentation" howto)?
+
+Thanks!
+
+srjoglekar246(2016-04-09 11:35:38):@martinwicke Could you take a look at the code (especially the BUILD and test files) and tell me if I am on the right track? 
+
+srjoglekar246(2016-04-12 12:20:33):@martinwicke Made the changes. Let me know if there's anything more to be modified.
+
+srjoglekar246(2016-04-15 05:35:05):Ping @martinwicke 
+
+gunan(2016-04-15 05:35:06):Can one of the admins verify this patch?
+
+martinwicke(2016-04-15 16:54:06):Jenkins, test this please.
+
+martinwicke(2016-04-15 16:58:14):I've had some minor comments about python module things, but otherwise looks good.
+
+srjoglekar246(2016-04-16 09:47:56):@martinwicke I made the changes, and fixed the bazel test errors. They all pass now. Have a look.
+
+martinwicke(2016-04-17 07:36:49):Thanks! 
+
+Jenkins, test this please.
+
+srjoglekar246(2016-04-17 15:17:01):@martinwicke Seems to work. Okay to be pushed in?
+
+martinwicke(2016-04-19 23:29:14):Thanks!
+
+thjashin(2016-11-08 13:06:35):Hi @vrv ,
+
+I'm currently writing some high-level library based on tensorflow. I'm relying a lot on copying existing ops to achieve re-usability of data flow structures. So I'm very interested in the "Functions" idea you mentioned here. I'm wondering how this is going on.
+Because I recently met some problems due to not copying op._control_flow_context, which makes gradients through tf.cond fail in copied subgraph. This problem also exists in this contribution.
+
+vrv(2016-11-08 16:43:07):There's been some work on functions but it's still kind of primitive and I don't know how well it composes with control flow.
+
+We have https://github.com/tensorflow/tensorflow/blob/5a566a7701381a5cf7f70fce397759483764e482/tensorflow/python/framework/function.py which isn't yet public (but until we seal the public interface it's still available to play around with), and it isn't getting that much love / attention unfortunately.  But if it proves useful, let us know and maybe we can at least make it public at some point.
+
+thjashin(2016-11-09 11:52:24):@vrv Thanks for the link. I had a look at functions and unfortunately that's not what I actually want. I can describe my high-level goals here. It's something like `theano.clone()` (related issues: #5479 #1070), which, in my view, can be seen as operation-level reuse rather than subgraph-level, which enables one to replace inputs of any operations in the graph. I guess this is also what the author of `tf.contrib.graph_editor` tries to achieve.
+
+martinwicke(2016-04-12 02:05:35):Can you import this before tensorflow
+
+martinwicke(2016-04-12 02:06:07):Can you add this module to gen_docs_combined.py? See the other contrib modules in there.
+
+srjoglekar246(2016-04-12 09:47:34):Sure. Can you let me know if/how to run the tensorflow tests on my machine?
+
+martinwicke(2016-04-15 16:53:55):Follow the instructions to build from source. If you can do that, you should be able to do 
+`bazel test tensorflow/...` to run the tests. You can also give explicit test targets to re-run only some tests.
+
+martinwicke(2016-04-15 16:54:55):This import seems redundant here.
+
+martinwicke(2016-04-15 16:56:25):You can probably leave this whole file empty. That would be preferred (assuming it works).
+
+googlebot(2015-12-20 08:50:01):Thanks for your pull request.  It looks like this may be your first contribution to a Google open source project. Before we can look at your pull request, you'll need to sign a Contributor License Agreement (CLA).
+
+:memo: **Please visit https://cla.developers.google.com/ to sign.**
+
+Once you've signed, please reply here (e.g. `I signed it!`) and we'll verify.  Thanks.
+
+---
+- If you've already signed a CLA, it's possible we don't have your GitHub username or you're using a different email address.  Check [your existing CLA data](https://cla.developers.google.com/clas) and verify that your [email is set on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+- If you signed the CLA as a corporation, please let us know the company's name.
+
+<!-- need_sender_cla -->
+
+jendap(2015-12-20 09:31:19):It works like a charm. Results are as expected:
+http://ci.tensorflow.org/job/tensorflow-pull-requests-multijob/1/
+
+CPU test have +1 test failed, Mac CPU have +1 failed test, gpu_pip and android demo app successful.
+
+No "Can one of the admins verify this patch?" question here because I'm admin.
+
+@martinwicke @vrv please add tensorflow-jenkins github user as collaborator and the status should appear (with next build).
+
+bhack(2015-12-20 09:57:03):@jendap Can the bot add a label like "admin" or "maintaner" when the PR was opened by developers with write access to this repo?
+
+vrv(2015-12-20 17:45:51):@jendap: done, thanks!
+
+tensorflow-jenkins(2015-12-20 10:50:32):Can one of the admins verify this patch?
+
+googlebot(2015-12-20 10:50:34):Thanks for your pull request.  It looks like this may be your first contribution to a Google open source project. Before we can look at your pull request, you'll need to sign a Contributor License Agreement (CLA).
+
+:memo: **Please visit https://cla.developers.google.com/ to sign.**
+
+Once you've signed, please reply here (e.g. `I signed it!`) and we'll verify.  Thanks.
+
+---
+- If you've already signed a CLA, it's possible we don't have your GitHub username or you're using a different email address.  Check [your existing CLA data](https://cla.developers.google.com/clas) and verify that your [email is set on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+- If you signed the CLA as a corporation, please let us know the company's name.
+
+<!-- need_sender_cla -->
+
+prolearner(2015-12-20 11:00:47):I signed the CLA
+
+googlebot(2015-12-20 11:00:48):CLAs look good, thanks!
+
+<!-- ok -->
+
+vrv(2015-12-20 17:38:01):LGTM
+
+tensorflow-jenkins(2015-12-20 10:57:57):Can one of the admins verify this patch?
+
+googlebot(2015-12-20 10:57:57):Thanks for your pull request.  It looks like this may be your first contribution to a Google open source project. Before we can look at your pull request, you'll need to sign a Contributor License Agreement (CLA).
+
+:memo: **Please visit https://cla.developers.google.com/ to sign.**
+
+Once you've signed, please reply here (e.g. `I signed it!`) and we'll verify.  Thanks.
+
+---
+- If you've already signed a CLA, it's possible we don't have your GitHub username or you're using a different email address.  Check [your existing CLA data](https://cla.developers.google.com/clas) and verify that your [email is set on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+- If you signed the CLA as a corporation, please let us know the company's name.
+
+<!-- need_sender_cla -->
+
+rldotai(2015-12-20 11:07:55):I signed it!
+
+googlebot(2015-12-20 11:07:57):CLAs look good, thanks!
+
+<!-- ok -->
+
+vrv(2015-12-20 17:39:21):#568 just did this and was a cleaner commit, so we pulled that one instead.  Thanks for the contribution though!
+
+tensorflow-jenkins(2015-12-20 14:22:06):Can one of the admins verify this patch?
+
+ogrisel(2015-12-20 14:27:11):Actually this is mostly a dupe of #568 and #569. Feel free to close this PR. I just added an entry in `.gitignore` for `__pycache__` folders on top of the other 2 PRs.
+
+ogrisel(2015-12-20 14:28:02):BTW, is there no continuous integration for Python 3. This kind of regressions are prone to re-appear if the tensorflow core devs do not use Python 3 themselves.
+
+vrv(2015-12-20 17:41:13):Yeah we just merged #568 -- do you want to update change or just send a new PR for the .gitignore?
+
+Yup, we're working on continuous integration tests with python 3 to prevent these regressions.
+
+vrv(2015-12-23 18:18:05):(re-open if you'd like)
+
+ogrisel(2015-12-23 21:53:05):Ok thanks, sorry for the slow reaction.
+
+mrry(2015-12-21 21:32:14):LGTM
+
+tensorflow-jenkins(2015-12-20 22:20:34):Can one of the admins verify this patch?
+
+vrv(2015-12-21 00:20:37):Let me try kicking off the test for this PR by saying some magic words
+
+vrv(2015-12-21 00:20:45):test this please
+
+vrv(2015-12-21 17:24:59):Looks generally fine, assigning to Sherry, the original reviewer.
+
+vrv(2016-01-04 03:58:49):@tensorflow-jenkins, test this please.
+
+vrv(2016-01-04 04:00:21):(Can you squash the commits if the tests are all passing?)
+
+MarkDaoust(2016-01-05 12:08:04):Done. Rebased on master.
+
+vrv(2016-01-06 22:18:18):@tensorflow-jenkins, test this please.
+
+vrv(2016-01-08 06:00:04):Merged (trying a new workflow where I merge manually via rebasing rather than clicking the button for a better history).
+
+tensorflow-jenkins(2015-12-20 22:54:51):Can one of the admins verify this patch?
+
+googlebot(2015-12-20 22:54:51):Thanks for your pull request.  It looks like this may be your first contribution to a Google open source project. Before we can look at your pull request, you'll need to sign a Contributor License Agreement (CLA).
+
+:memo: **Please visit https://cla.developers.google.com/ to sign.**
+
+Once you've signed, please reply here (e.g. `I signed it!`) and we'll verify.  Thanks.
+
+---
+- If you've already signed a CLA, it's possible we don't have your GitHub username or you're using a different email address.  Check [your existing CLA data](https://cla.developers.google.com/clas) and verify that your [email is set on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+- If you signed the CLA as a corporation, please let us know the company's name.
+
+<!-- need_sender_cla -->
+
+tensorflow-jenkins(2015-12-21 00:43:45):Can one of the admins verify this patch?
+
+vrv(2015-12-21 17:26:54):As @martinwicke mentioned in #558, this change has to be made internally in our website generation code.
+
+tensorflow-jenkins(2015-12-21 10:54:02):Can one of the admins verify this patch?
+
+bernardopires(2015-12-21 19:33:11):I've removed the other commit that changed the tech report link.
+
+bernardopires(2015-12-21 19:50:47):By the way, are you guys open to slight changes to the tutorial? The CIFAR tutorial talks a bit about the TensorBoard and I think it'd be nice if the command to run it was mentioned explicitly in the tutorial. Otherwise you have to look the documentation for the TensorBoard and open `cifar10_train.py` to see where the log files are being saved.
+
+vrv(2015-12-21 19:58:44):Simple changes / fixes like that seem fine to me -- I'll route it to the appropriate reviewer.
+
+Note that a lot of the team is out this week and next.
+
+tensorflow-jenkins(2015-12-21 21:01:33):Can one of the admins verify this patch?
+
+martinwicke(2015-12-25 02:42:55):Thanks, this is nice. Sadly, we won't be able to use the PR, because all the HTML is already auto-generated. I will add something like this to our processing pipeline. I'll probably go for the hover chain icon though. I'll leave this open until I actually do this.
+
+samjabrahams(2015-12-25 21:21:47):Cool, thanks for getting back on this. I should have realized that the API doc was auto-generated, whoops!
+
+Should be a fairly easy tweak on your end (once the hover-chain CSS is settled!). Let me know if there's anything related to this you'd like to delegate.
+
+martinwicke(2015-12-26 00:25:23):Eventually I want the whole doc generation pipeline to be open source, so
+people can preview their edits properly (and can fix issues in the
+processing), but we're not quite there yet.
+
+I'll get to this eventually.
+On Fri, Dec 25, 2015 at 13:21 Sam Abrahams notifications@github.com wrote:
+
+> Cool, thanks for getting back on this. I should have realized that the API
+> doc was auto-generated, whoops!
+> 
+> Should be a fairly easy tweak on your end. Let me know if there's anything
+> related to this you'd like to delegate.
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/584#issuecomment-167262917
+> .
+
+tensorflow-jenkins(2016-03-11 21:20:03):Can one of the admins verify this patch?
+
+panmari(2015-12-23 11:34:32):Rebased again on master due to changes in `tensorflow/python/ops/image_ops_test.py`
+
+panmari(2016-01-07 09:55:04):@martinwicke could I please get some feedback on this?
+
+tensorflow-jenkins(2016-01-07 09:55:06):Can one of the admins verify this patch?
+
+martinwicke(2016-01-07 20:54:28):Jenkins, test this please.
+
+martinwicke(2016-01-07 21:09:29):Assuming the tests pass, LGTM.
+
+martinwicke(2016-01-07 22:26:08):That is, after the line comment.
+
+vrv(2016-01-11 05:58:54):Cool, can you squash your commits?  We'll use this change as a way to test our eventual GPU test slave, maybe.
+
+panmari(2016-01-11 08:28:48):@vrv rebased on master and squashed, as requested.
+
+martinwicke(2016-01-11 17:28:01):Thanks! I'll wait to test until our GPU test machine comes online to test this. Should be today, I hope.
+
+martinwicke(2016-01-14 17:08:49):Sorry this is taking so long. Hardware is hard.
+
+panmari(2016-01-15 10:11:06)::computer: :hammer: ?
+
+ :smile: 
+
+martinwicke(2016-01-21 00:12:50):Jenkins, test this please.
+
+panmari(2016-01-25 15:23:03):Rebased on master again.
+
+martinwicke(2016-02-16 17:09:09):Jenkins, test this please.
+
+tensorflow-jenkins(2016-02-16 17:09:11):Can one of the admins verify this patch?
+
+vrv(2016-02-16 21:42:22):doh, port.h was removed -- @panmari you'll probably have to update the code one more time :(
+
+martinwicke(2016-02-16 22:54:06):On the plus side, we finally have working GPU tests now.
+
+On Tue, Feb 16, 2016 at 1:42 PM Vijay Vasudevan notifications@github.com
+wrote:
+
+> doh, port.h was removed -- @panmari https://github.com/panmari you'll
+> probably have to update the code one more time :(
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/588#issuecomment-184885352
+> .
+
+panmari(2016-02-17 06:59:40):Sure, will do! I'd have to adapt the code anyway to support the new flag
+introduced recently...
+
+On Tue, Feb 16, 2016, 23:55 Martin Wicke notifications@github.com wrote:
+
+> On the plus side, we finally have working GPU tests now.
+> 
+> On Tue, Feb 16, 2016 at 1:42 PM Vijay Vasudevan notifications@github.com
+> wrote:
+> 
+> > doh, port.h was removed -- @panmari https://github.com/panmari you'll
+> > probably have to update the code one more time :(
+> > 
+> > —
+> > Reply to this email directly or view it on GitHub
+> > <
+> > https://github.com/tensorflow/tensorflow/pull/588#issuecomment-184885352>
+> > .
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/588#issuecomment-184908475
+> .
+
+panmari(2016-02-18 21:06:51):I added another commit to support the newly added `align_cornes` flag and adapted some other things necessary. Unfortunately, on my local machine one of the tests in `//tensorflow/python:image_ops_test` is now failing. Could this be due to changes in the GPU allocator?
+
+vrv(2016-02-18 21:47:50):What's the failure in particular?
+
+panmari(2016-02-19 09:07:31):@vrv in the test where I compare the cpu resizing with the gpu resizing, I get completely different results there even though the other tests pass
+
+```
+FAIL: testCompareNearestNeighbor (__main__.ResizeImagesTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/panmari/.cache/bazel/_bazel_panmari/52e003c51984ee00b8d04ed6ebb99872/tensorflow/bazel-out/local_linux-opt/bin/tensorflow/python/image_ops_test.runfiles/tensorflow/python/ops/image_ops_test.py", line 990, in testCompareNearestNeighbor
+    self.assertAllClose(cpu_val, gpu_val, rtol=1e-5, atol=1e-5)
+  File "/home/panmari/.cache/bazel/_bazel_panmari/52e003c51984ee00b8d04ed6ebb99872/tensorflow/bazel-out/local_linux-opt/bin/tensorflow/python/image_ops_test.runfiles/tensorflow/python/framework/test_util.py", line 435, in assertAllClose
+    np.testing.assert_allclose(a, b, rtol=rtol, atol=atol)
+  File "/usr/local/lib/python2.7/dist-packages/numpy/testing/utils.py", line 1359, in assert_allclose
+    verbose=verbose, header=header)
+  File "/usr/local/lib/python2.7/dist-packages/numpy/testing/utils.py", line 713, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=1e-05, atol=1e-05
+
+(mismatch 100.0%)
+ x: array([[[[  0.,   1.,   2.],
+         [  0.,   1.,   2.],
+         [  3.,   4.,   5.],...
+ y: array([[[[  5.903004e+20,   1.406543e+01,   4.097450e-34],
+         [  5.903004e+20,   1.406543e+01,   4.097450e-34],
+         [  5.903004e+20,   1.406543e+01,   4.097450e-34],...
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.759s
+
+FAILED (failures=1)
+   1.50654290e-04   9.99999975e-06
+   5.90300359e+15   1.50654290e-04   9.99999975e-06   5.90300359e+15
+   1.50654290e-04   9.99999975e-06   5.90300359e+15   1.50654290e-04
+   9.99999975e-06   5.90300359e+15   1.50654290e-04   9.99999975e-06
+   5.90300359e+15   1.50654290e-04   9.99999975e-06   5.90300359e+15
+   1.50654290e-04   9.99999975e-06   5.90300359e+15   1.50654290e-04
+   9.99999975e-06   5.90300359e+15   1.50654290e-04   9.99999975e-06
+   5.90300359e+15   1.50654290e-04   9.99999975e-06   5.90300359e+15
+   1.50654290e-04   9.99999975e-06   5.90300359e+15   1.50654290e-04
+   9.99999975e-06   5.90300359e+15   1.50654290e-04   9.99999975e-06]
+area_ratio_hist  [ 70  73  90 100 133 154 162  95  80  43]
+```
+
+vrv(2016-02-25 07:08:56):@panmari: isn't that specifically the kernel you added that is showing different behavior between CPU and GPU?  That probably needs to be fixed, unless I'm mis-reading the error.
+
+panmari(2016-02-29 17:00:31):@vrv sorry, it took some time until I got around fixing this. Seemed like `np.float32` was interpreted differently due to some change since 0.6, leading to the failing test. I generalized my code a bit to make an extension to other types more easy.
+
+vrv(2016-03-03 23:53:09):@tensorflow-jenkins: test this please
+
+(i swear, we'll get this in!)
+
+vrv(2016-03-04 01:50:32):Merged, woohoo!
+
+panmari(2016-03-04 09:57:15):Cool, glad it finally happened :smile: 
+
+martinwicke(2016-01-07 21:07:09):Can you indent this to 4 below the indent of OP_REQUIRES_OK? Similar to line 229 below.
+
+panmari(2016-01-08 10:01:04):Done.
+
+vrv(2015-12-23 00:01:01):A test for this might be nice.
+
+carpedm20(2015-12-23 11:49:40):@vrv I added a test case for `identity_initializer` but I think `identity_initializer` should not have additional shape variable but we should by pass https://github.com/carpedm20/tensorflow/blob/master/tensorflow/python/ops/variable_scope.py#L110. However, I think it is not possible to by pass this without adding an additional parameter because return value of `identity_initializer` is only a `_initializer` method. Is there any suggestion for this or do you think requesting `shape` is necessary for `identity_initializer`?
+
+vrv(2015-12-23 22:23:38):@mrry and @lukaszkaiser might have better answers for you here, though most of us are on vacation for the next few days / weeks.
+
+girving(2015-12-24 01:03:48):How would this be used?  If you already know the whole value including shape, I thought you could just pass the value directly where the initializer would otherwise go.
+
+lukaszkaiser(2015-12-24 14:07:02):I'm planning to work on adding an option to just pass a value instead of an initializer in tf.get_variable. Maybe this initializer will not be needed then. Currently you can use "lamda x: x" as initializer, but we should have a better way soon.
+
+lukaszkaiser(2016-01-25 23:20:35):I've just made a CL that allows to use a Tensor as initializer in get_variable (should appear soon on git). I hope this closes this request, but feel free to re-open if needed.
+
+tensorflow-jenkins(2016-01-25 23:21:38):Can one of the admins verify this patch?
+
+vrv(2016-01-25 23:21:55):@lukaszkaiser: let's only close issues once they are publicly available
+
+(i am pushing soon)
+
+vrv(2015-12-23 17:59:39):Hm, looks like we're pretty inconsistent about default args for our optimizers.  In Adam we set default values for all parameters (including learning rate), for others, everything but learning rate has a default, and here everything but learning rate and decay has a default.  
+
+I'd be okay with this, since 0.9 seems to be a pretty common default from what I can tell, but @vincentvanhoucke for validation.
+
+(You should add documentation specifying the default in the docstring, at least).
+
+aymericdamien(2015-12-24 18:42:47):ok, I added default value to docstring
+
+vincentvanhoucke(2015-12-26 15:42:37):Looks reasonable. @vrv what's the protocol for this? Looks like I have the right permissions to merge the pull request, is that something I can just go ahead with and all the merging takes care of itself?
+
+vrv(2015-12-26 18:53:15):For simple changes like this, yeah.  But I would recommend that @aymericdamien sqaushes the commits into one first before merging.
+
+aymericdamien(2015-12-27 08:45:44):ok, I squashed the 2 commits together.
+
+vrv(2015-12-23 17:51:54):You actually have to update it here: https://github.com/tensorflow/tensorflow/blob/8b5d9ed13f188662dde7cce75362cd2394bde40c/tensorflow/python/ops/image_ops.py#L115
+
+then when we re-run our doc generation script, it will be fixed.
+
+akiomik(2015-12-23 20:20:47):Oops, I've fixed and pushed it now.
+
+vrv(2015-12-23 17:53:55):Like the other one, this needs fixing at the source: https://github.com/tensorflow/tensorflow/blob/091ed8cd4db82212fc6395ce4f1edf6b55ea2181/tensorflow/core/ops/array_ops.cc#L583
+
+akiomik(2015-12-23 20:26:53):OK, I've fixed it too.
+
+martinwicke(2015-12-25 01:57:32):LGTM
+
+tested
+
+vrv(2016-01-09 18:05:04):@danmane, @dsmilkov: let us know if this is okay to merge
+
+tensorflow-jenkins(2016-01-09 18:05:05):Can one of the admins verify this patch?
+
+decentralion(2016-01-11 18:03:59):At present this pull request only changes a compiled file (dist/tf-tensorboard.html) but not the corresponding source file (components/tf-image-dashboard/tf-image-grid.html).
+
+Please change the source as well and then this will be good to merge.
+
+bcoppens(2016-01-11 20:09:48):I've updated the pull request's commit so that now components/tf-image-dashboard/tf-image-grid.html is updated in addition to dist/tf-tensorboard.html
+
+vrv(2016-01-13 18:15:52):@danmane: still looks good?  if so i'll merge
+
+decentralion(2016-01-14 19:25:49):Looks good. Thanks! :)
+
+googlebot(2015-12-24 18:33:23):Thanks for your pull request.  It looks like this may be your first contribution to a Google open source project. Before we can look at your pull request, you'll need to sign a Contributor License Agreement (CLA).
+
+:memo: **Please visit https://cla.developers.google.com/ to sign.**
+
+Once you've signed, please reply here (e.g. `I signed it!`) and we'll verify.  Thanks.
+
+---
+- If you've already signed a CLA, it's possible we don't have your GitHub username or you're using a different email address.  Check [your existing CLA data](https://cla.developers.google.com/clas) and verify that your [email is set on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+- If you signed the CLA as a corporation, please let us know the company's name.
+
+<!-- need_sender_cla -->
+
+keiji(2015-12-24 18:35:41):I updated my CLA Information.
+
+googlebot(2015-12-24 18:35:42):CLAs look good, thanks!
+
+<!-- ok -->
+
+martinwicke(2015-12-24 23:55:18):Thanks!
+
+rekhajoshm(2015-12-25 20:17:45):Thanks @vrv for the review.updated.please check.thanks.
+
+vrv(2015-12-25 20:23:28):ok, looks good, please squash the commit into one
+
+rekhajoshm(2015-12-25 20:48:42):Done.thanks @vrv 
+
+omasoud(2016-03-10 00:54:56):If I actually want to see these log messages, how can I un-suppress them? (logging.basicConfig(level=logging.DEBUG) made no difference)
+
+yaroslavvb(2016-06-29 10:45:14):@omasoud You could add the following to `tensorflow/core/platform/logging.h` and recompile:
+
+`#define VLOG_IS_ON(lvl) ((lvl) <= 1)`
+
+andrewharp(2015-12-27 20:39:23):The command is fine as-is, it just requires a recent version of adb -- I can verify that it works with ADB 1.0.32 Revision 09a0d98bebce-android (although it did not with another 1.0.32 adb binary). If you don't see "-g" listed as an install option when you type "adb" then you are not using a recent enough version.
+
+This only seems to work here because adb ignores all but the first character after '-'. Additionally, "-g" should not be necessary unless you are using an Android 6.0 or higher device.
+
+If you would like to to modify your PR to clarify the instructions please do so, otherwise I'll update them internally.
+
+jalammar(2015-12-28 04:36:19):Aha! Makes sense!
+
+Certainly. I'll modify it today. Thanks for clarifying.
+
+jalammar(2015-12-28 06:20:15):How does this sound?
+
+jalammar(2015-12-28 17:57:15):Should be good now
+
+bernardopires(2015-12-29 11:24:03):Thanks for the fast review! I've changed the command to `tensorboard` as you suggested. :)
+
+vrv(2016-01-06 22:17:55):Sorry for the delay, can you update this to handle the conflicts?
+
+tensorflow-jenkins(2016-01-06 22:17:56):Can one of the admins verify this patch?
+
+bernardopires(2016-01-07 11:20:14):Merged upstream and handled the conflicts.
+
+vrv(2016-01-08 05:00:21):Sorry -- can you merge (again) and make sure to squash the commits into one?
+
+vrv(2016-02-01 19:01:24):Closing since it looks like you've given up :(.  Feel free to ping this thread / rebase and we'll re-open and merge.
+
+vrv(2016-01-04 19:30:08):@tensorflow-jenkins, test this please.
+
+zheng-xq(2016-01-04 21:10:24):This CL passes my local testing. 
+
+zheng-xq(2016-01-04 21:10:29):LGTM
+
+wchan(2016-01-02 19:01:18):missing the GPU impl, did you forget to git add the file? cause the code references it but the file is missing ; )
+
+also, I think a few lines are over 80 chars. but otherwise, LGTM.
+
+vrv(2016-01-06 22:17:31):@zffchen78: when you get a chance can you take a look at this?
+
+tensorflow-jenkins(2016-01-06 22:17:33):Can one of the admins verify this patch?
+
+zffchen78(2016-01-07 17:59:03):LGTM
+
+Mistobaan(2016-01-07 21:55:35):@vrv ok I will add the cuda part and do the edits !
+
+osdf(2016-01-08 16:07:45):Two suggestions:
+- could you add a learning rate parameter `lr`? The original publication does not have it, but flexibility here is a good thing.
+- could you rename `decay_rate` to `rho`, following the paper and the rmsprop impl in the same file?
+
+I think there is a mistake:
+https://github.com/Mistobaan/tensorflow/blob/7a262ee6467c909cae723e0de5fb87a2a7e9a664/tensorflow/core/kernels/training_ops.cc#L53
+This line either should have `accum = ...` (instead of `+=`) or follow the respective line in the rmsprop implementation further down (https://github.com/Mistobaan/tensorflow/blob/7a262ee6467c909cae723e0de5fb87a2a7e9a664/tensorflow/core/kernels/training_ops.cc#L133).
+
+wchan(2016-01-16 05:09:13):FYI, there's a couple of bugs, namely the += shoulda been =
+
+my impl is here (GPU included + separate lr included + sparse):
+https://github.com/wchan/tensorflow/blob/master/tensorflow/core/kernels/training_ops.cc
+
+zffchen78(2016-01-16 19:04:07):Hi, mistobaan, please let us know how you plan to proceed on this? I can see the following work items:
+1. address the accum issue raised by osdf and wchan. I do not have background to judge whether it's a bug or its your design choice. I can only review the implementation matches the specification, where your specification says accum +=; whether that matches the intended algorithm. It's up to you three to judge;
+2. whether to add lr option. It's also up to you and others to discuss and agree on something. 
+
+1 & 2 must be settled before we can add this op since it affects the op's interface / specification and will be hard to fix later.
+
+3) gpu support and test;
+4) sparse support and test;
+
+You can get 1&2 done and merged first; and collaborate w/ others to get 3&4 done or you can incrementally get them done later.
+
+Mistobaan(2016-01-19 17:55:35):Hi!
+I am working on a patch that has all the above suggestions and the gpu code
+from william chen
+
+On Saturday, January 16, 2016, zffchen78 notifications@github.com wrote:
+
+> Hi, mistobaan, please let us know how you plan to proceed on this? I can
+> see the following work items:
+> 1. address the accum issue raised by osdf and wchan. I do not have
+> background to judge whether it's a bug or its your design choice. I can
+> only review the implementation matches the specification, where your
+> specification says accum +=; whether that matches the intended algorithm.
+> It's up to you three to judge;
+> 2. whether to add lr option. It's also up to you and others to discuss and
+> agree on something.
+> 
+> 1 & 2 must be settled before we can add this op since it affects the op's
+> interface / specification and will be hard to fix later.
+> 1. gpu support and test;
+> 2. sparse support and test;
+> 
+> You can get 1&2 done and merged first; and collaborate w/ others to get
+> 3&4 done or you can incrementally get them done later.
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/644#issuecomment-172246805
+> .
+
+## 
+
+LinkedIn: http://linkedin.com/in/fmilo
+Twitter: @fabmilo
+
+## Github: http://github.com/Mistobaan/
+
+Simplicity, consistency, and repetition - that's how you get through. (Jack
+Welch)
+Perfection must be reached by degrees; she requires the slow hand of time
+(Voltaire)
+The best way to predict the future is to invent it (Alan Kay)
+
+vrv(2016-02-01 19:00:36):@Mistobaan: any updates?
+
+Mistobaan(2016-02-01 22:06:25):@vrv I think the operation themselves are up to date and correct. I was not able to create a solid testing for GPU as I don't have a supported GPU environment at the moment.  I just rebased the patch. 
+
+vrv(2016-02-01 22:07:22):Ok, we'll probably soon have GPU testing, right @martinwicke ? :).  Then we can try pulling this in.
+
+vrv(2016-02-16 21:42:50):@tensorflow-jenkins: test this please
+
+tensorflow-jenkins(2016-02-16 21:42:52):Can one of the admins verify this patch?
+
+vrv(2016-02-16 21:57:26):tensorflow/core/kernels/training_ops.cc:338:8: error: template-id 'operator()<>' for 'void tensorflow::functor::ApplyAdadelta<Eigen::GpuDevice, double>::operator()(const GPUDevice&, tensorflow::TTypes<double, 1, long int>::Flat, tensorflow::TTypes<double, 1, long int>::Flat, tensorflow::TTypes<double, 1, long int>::Flat, tensorflow::TTypes<double, 1, long int>::ConstScalar, tensorflow::TTypes<double, 1, long int>::ConstScalar, tensorflow::TTypes<double, 1, long int>::ConstScalar, tensorflow::TTypes<double, 1, long int>::ConstFlat)' does not match any template declaration
+   void ApplyAdadelta<GPUDevice, T>::operator()(                           \
+        ^
+tensorflow/core/kernels/training_ops.cc:348:1: note: in expansion of macro 'DECLARE_GPU_SPEC'
+ DECLARE_GPU_SPEC(double);
+ ^
+tensorflow/core/kernels/training_ops.cc:345:41: note: saw 1 'template<>', need 2 for specializing a member function template
+       typename TTypes<T>::ConstFlat grad);                                \
+                                         ^
+tensorflow/core/kernels/training_ops.cc:348:1: note: in expansion of macro 'DECLARE_GPU_SPEC'
+ DECLARE_GPU_SPEC(double);
+ ^
+tensorflow/core/kernels/training_ops.cc:352:17: error: expected constructor, destructor, or type conversion before '(' token
+ REGISTER_KERNELS(GPU, float);
+                 ^
+tensorflow/core/kernels/training_ops.cc:353:17: error: expected constructor, destructor, or type conversion before '(' token
+ REGISTER_KERNELS(GPU, double);
+
+vrv(2016-02-18 19:57:49):(ping this thread when this is ready -- it looks like you added a commit but don't know if it's ready)
+
+bernardopires(2016-03-06 12:13:00):@Mistobaan, any update on this? I'm also really interested in trying AdaDelta. Thanks!
+
+vrv(2016-03-17 16:42:38):@tensorflow-jenkins: test this please
+
+vrv(2016-03-17 18:43:19):@Mistobaan: I think this looks good pending the GPU tests finishing -- the only other thing I think we need is for you to run
+
+ bazel-bin/tensorflow/core/ops/compat/update_ops tensorflow/core/ops
+
+and add that updated file to your commit for tracking backwards compatibility.
+
+Mistobaan(2016-03-21 21:52:38):@vrv I run and added the modified files as you requested. 
+
+vrv(2016-03-21 21:57:57):@tensorflow-jenkins: test this please
+
+vrv(2016-03-21 22:01:33):Looks like nothing built -- can you double check and verify that your commit compiles and passes in at least one config?
+
+Mistobaan(2016-03-21 23:08:11):@vrv let's try again I ran the updated command on an old branch and force pushed 
+
+vrv(2016-03-21 23:18:29):@tensorflow-jenkins: test this please
+
+madisonmay(2016-03-11 23:39:07):Docstring references Momentum instead of AdaDelta.
+
+googlebot(2015-12-29 22:17:31):Thanks for your pull request.  It looks like this may be your first contribution to a Google open source project. Before we can look at your pull request, you'll need to sign a Contributor License Agreement (CLA).
+
+:memo: **Please visit https://cla.developers.google.com/ to sign.**
+
+Once you've signed, please reply here (e.g. `I signed it!`) and we'll verify.  Thanks.
+
+---
+- If you've already signed a CLA, it's possible we don't have your GitHub username or you're using a different email address.  Check [your existing CLA data](https://cla.developers.google.com/clas) and verify that your [email is set on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+- If you signed the CLA as a corporation, please let us know the company's name.
+
+<!-- need_sender_cla -->
+
+fpmchu(2015-12-29 22:27:57):I signed it!
+
+googlebot(2015-12-29 22:27:58):CLAs look good, thanks!
+
+<!-- ok -->
+
+martinwicke(2015-12-29 23:30:43):the internal and OSS versions have diverged for a few days now. Also, they're different, kept in sync with a bunch of script. You can't copy any content from the third_party version into github, it won't work. You'll have to redo the change (it shoudl be possible to apply the patch to the public version you checked out from github, but no guarantees on that either).
+
+fpmchu(2015-12-30 02:48:59):I apologize.  Let me retry this.
+
+zhoubinjason(2015-12-30 20:19:28):I signed it!
+
+2015-12-29 17:18 GMT-05:00 googlebot notifications@github.com:
+
+> Thanks for your pull request. It looks like this may be your first
+> contribution to a Google open source project. Before we can look at your
+> pull request, you'll need to sign a Contributor License Agreement (CLA).
+> 
+> [image: :memo:] _Please visit https://cla.developers.google.com/
+> https://cla.developers.google.com/ to sign._
+> 
+> Once you've signed, please reply here (e.g. I signed it!) and we'll
+> 
+> ## verify. Thanks.
+> - If you've already signed a CLA, it's possible we don't have your
+>   GitHub username or you're using a different email address. Check your
+>   existing CLA data https://cla.developers.google.com/clas and verify
+>   that your email is set on your git commits
+>   https://help.github.com/articles/setting-your-email-in-git/.
+> - If you signed the CLA as a corporation, please let us know the
+>   company's name.
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/648#issuecomment-167889357
+> .
+
+samjabrahams(2015-12-31 21:55:41):Finally got my commits squashed properly, snagging all of these {#anchors}. See #660.
+
+martinwicke(2015-12-31 22:56:39):Awesome. I didn't know about the -N uniquification. Do we have a case like
+that? I'd like to check to make sure that our website behaves identically.
+
+On Thu, Dec 31, 2015 at 1:55 PM Sam Abrahams notifications@github.com
+wrote:
+
+> Finally got my commits squashed properly, snagging all of these
+> {#anchors}. See #660 https://github.com/tensorflow/tensorflow/pull/660.
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/648#issuecomment-168253516
+> .
+
+samjabrahams(2015-12-31 23:12:43):I haven't seen a case where it comes up in the TensorFlow docs- I just know that Github performs that action.
+
+Also, I noticed that the code doesn't handle apostrophes or other mid-word non-alphanumeric characters correctly. Whoops! Luckily it only messed up three links, so I'll get that patched in.
+
+I believe the change needed to make the python code work is to remove non-alphanumeric/- characters instead of replacing them with a space.
+
+samjabrahams(2016-01-01 00:17:22):Those three goofed links in #660 have been fixed. Also, I modified the anchor-creating Python function back in the line comments to work properly. Just had to change the first lambda to `lambda x: ""`
+
+samjabrahams(2016-01-02 20:56:01):After realizing I missed some details for the GitHub-ification of header anchors, [I played around with more edge cases](https://github.com/samjabrahams/tensorflow_util/blob/master/md/github_header_test.md) to hone the algorithm. I had to make three small changes to what I had above:
+1. GitHub does not remove trailing hyphens
+2. It replaces groups of whitespace with hyphens _before_ removing strange characters. 
+   - This can lead to trailing hyphens. e.g. "This header ends with ellipses ..." -> "#this-header-ends-with-ellipses-"
+3. Make sure that the regex substitution is flagged for UTF-8 encoding
+
+GitHub handles UTF-8 encoding in its header anchors, so make sure that any settings necessary to enable UTF-8 are switched on.
+
+I changed the code in the line notes above, but here is the fixed Python code again so going back up to read it isn't necessary. To test out Unicode letters in Python, make sure to explicitly make the string unicode with `u"This is my héader string!"` syntax:
+
+``` python
+def create_anchor_from_header(header, existingAnchors=None):
+
+    # Strip white space on the left/right and make lower case
+    out = header.strip().lower()
+
+    # Replace groups of white space with hyphens
+    out = re.sub(ur'\s+', lambda x: "-", out, flags=re.UNICODE)
+
+    # Remove non-alphanumeric characters, hyphens, and spaces
+    out = re.sub(ur'[^\w\- ]+', lambda x: "", out, flags=re.UNICODE)
+
+    if existingAnchors:
+        if out in existingAnchors:
+            i = 1
+            while (out + "-" + str(i)) in existingAnchors and i < 100:
+                i = i + 1
+            out += "-" + str(i)
+    return out
+```
+
+martinwicke(2016-01-04 17:29:10):This PR is superceded by #660, I'll close it.
+
+fpmchu(2016-01-05 00:20:02):I'm late to this.  Thanks @samjabrahams for taking this and making it much better :-)
+I wrote a small one to fix up some issues I found:
+  https://github.com/tensorflow/tensorflow/pull/683
+Not sure if there are other like this.
+
+martinwicke(2015-12-29 22:31:52):There are still a couple of these left... can you look for #[a-z_]\* and fix them all so we can tick off the files you've touched?
+
+fpmchu(2015-12-29 22:33:03):Ah sorry I missed them, let me do another round of checks then reply back.
+
+fpmchu(2015-12-29 23:00:35):Done.  Note that this only fixes os_setup.md, and any inward reference files (so that there are no broken links).  If I fix all files I touched it will quickly expand to all files :-)
+
+martinwicke(2015-12-29 23:26:14):Why did you change these to 0.5.0?
+
+martinwicke(2015-12-29 23:26:38):0.6.0
+
+martinwicke(2015-12-29 23:27:22):Are you basing off of an internal copy? Not recommended. 
+
+martinwicke(2015-12-29 23:27:57):Not recommended at all. Leak checking frowns on this.
+
+martinwicke(2015-12-29 23:28:12):ditto.
+
+martinwicke(2015-12-29 23:28:19):Ditto
+
+martinwicke(2015-12-29 23:28:24):Ditto (etc. below)
+
+samjabrahams(2015-12-30 20:05:27):Is it wise to simply remove the {#anchor} notation? From what I understand, this syntax is used internally to render the Markdown to HTML with id tags, which is then used on the tensorflow.org website.
+
+If the goal is to have this work on both Github and tensorflow.org, my suggestion is, rather than removing the {#anchor}, replace {#old-anchor} with a {#new-anchor}, such that "#new-anchor" matches the automatically created id inside of Github. 
+
+for example, I suggest that this line should become:
+`## Pip Installation {#pip-installation}`
+
+samjabrahams(2015-12-30 20:06:45):This should become
+`## Virtualenv installation {#virtualenv-installation}`
+
+etc
+
+martinwicke(2015-12-30 20:10:11):The tensorflow website (incidentally) has the same automatic anchor generation github does, so these are truly redundant.
+
+samjabrahams(2015-12-30 20:45:24):Good to know. If we want to make more of these changes to the rest of the non-auto-generated Markdown, I can modify the script I used in #584 to do so.
+
+martinwicke(2015-12-30 22:19:59):That would be cool -- basically, we can get rid of all {#...} tags. We just
+have to make sure we find all the occurrences. If your code can do that,
+awesome. Otherwise, it's not a particularly hard perl script to write.
+
+I have to do some plumbing to make sure I can test the website with those
+changes, but if you send a PR, I will do that.
+
+On Wed, Dec 30, 2015 at 12:45 PM Sam Abrahams notifications@github.com
+wrote:
+
+> In tensorflow/g3doc/get_started/os_setup.md
+> https://github.com/tensorflow/tensorflow/pull/648#discussion_r48630264:
+> 
+> > -## Virtualenv installation {#virtualenv_install}
+> 
+> Good to know. If we want to make more of these changes to the rest of the
+> non-auto-generated Markdown, I can modify the script I used in #584
+> https://github.com/tensorflow/tensorflow/pull/584 to do so.
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/648/files#r48630264.
+
+samjabrahams(2015-12-30 22:54:39):Sounds good. Right now I'm writing the script to do two things:
+1. Remove the {#...} tags
+2. Replace all of the old Markdown inline links to existing {#...} tags and change them to the auto-generated style. i.e. check for any text similar to `[text](#oldheader)` and changing it to `[text](#new-auto-generated-header)`
+
+Should get this done by early tomorrow.
+
+martinwicke(2015-12-31 20:13:47):Sounds good. Do you have the exact transformation for the auto generated
+anchors? I think it's lower(), strip(), s/[^a-z ]*//g, s/ */-/g
+
+But I may be missing something subtle.
+On Wed, Dec 30, 2015 at 14:54 Sam Abrahams notifications@github.com wrote:
+
+> In tensorflow/g3doc/get_started/os_setup.md
+> https://github.com/tensorflow/tensorflow/pull/648#discussion_r48637615:
+> 
+> > -## Virtualenv installation {#virtualenv_install}
+> 
+> Sounds good. Right now I'm writing the script to do two things:
+> 1. Remove the {#...} tags
+> 2. Replace all of the old Markdown inline links to existing {#...}
+>    tags and change them to the auto-generated style. i.e. check for any text
+>    similar to [text](#oldheader) and changing it to
+>    [text](#new-auto-generated-header)
+> 
+> Should get this done by early tomorrow.
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/648/files#r48637615.
+
+samjabrahams(2015-12-31 20:37:54):Almost that- it includes numerics as well as hyphens/underscores: [^a-z0-9\-], or [^\w\-]
+
+This is the Python I'm using to make the header tags:
+
+``` python
+def create_anchor_from_header(header, existingAnchors=None):
+
+    # Strip white space on the left/right and make lower case
+    out = header.strip().lower()
+
+    # Replace groups of white space with hyphens
+    out = re.sub(ur'\s+', lambda x: "-", out, flags=re.UNICODE)
+
+    # Remove non-alphanumeric characters, hyphens, and spaces
+    out = re.sub(ur'[^\w\- ]+', lambda x: "", out, flags=re.UNICODE)
+
+    if existingAnchors:
+        if out in existingAnchors:
+            i = 1
+            while (out + "-" + str(i)) in existingAnchors and i < 100:
+                i = i + 1
+            out += "-" + str(i)
+    return out
+```
+
+I've got the main changes down. I'm just going through and replacing links from other files to those old headers. Should be done very soon.
+
+googlebot(2015-12-30 21:59:28):Thanks for your pull request.  It looks like this may be your first contribution to a Google open source project. Before we can look at your pull request, you'll need to sign a Contributor License Agreement (CLA).
+
+:memo: **Please visit https://cla.developers.google.com/ to sign.**
+
+Once you've signed, please reply here (e.g. `I signed it!`) and we'll verify.  Thanks.
+
+---
+- If you've already signed a CLA, it's possible we don't have your GitHub username or you're using a different email address.  Check [your existing CLA data](https://cla.developers.google.com/clas) and verify that your [email is set on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+- If you signed the CLA as a corporation, please let us know the company's name.
+
+<!-- need_sender_cla -->
+
+joshburkart(2015-12-30 23:08:45):Withdrawing; will submit CL internally.
+
+samjabrahams(2015-12-31 23:20:30):Messed up apostrophes are taken care of.
+
+martinwicke(2016-01-04 16:37:12):I'll test internally to make sure this matches exactly the pipeline other
+tools have. I was pretty sure that's true, but the trailing '-' scared me a
+little. Worst case, we'll have to include only anchors with a trailing '-',
+still a big improvement.
+
+On Sun, Jan 3, 2016 at 7:56 PM Vijay Vasudevan notifications@github.com
+wrote:
+
+> Assigned #660 https://github.com/tensorflow/tensorflow/pull/660 to
+> @martinwicke https://github.com/martinwicke.
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/660#event-504391321.
+
+samjabrahams(2016-01-04 20:02:37):From what I've seen, you only end up with a trailing anchor when you do something odd like leaving space between the final punctuation words. Something like "This header trails off ...". The last "create_anchor_from_header" function I posted works for the tests I played around with [here](https://github.com/samjabrahams/tensorflow_util/blob/master/md/github_header_test.md)
+
+I'm going to reapply the latest function to double check that there aren't any edge cases in the changed files.
+
+martinwicke(2016-01-04 20:17:49):I looked, there aren't, so don't worry. I'll merge once my tests are done.
+
+On Mon, Jan 4, 2016 at 12:08 PM Sam Abrahams notifications@github.com
+wrote:
+
+> From what I've seen, you only end up with a trailing anchor when you do
+> something odd like leaving space between the final punctuation words.
+> Something like "This header trails off ...". The last
+> "create_anchor_from_header" function I posted works for the tests I played
+> around with here
+> https://github.com/samjabrahams/tensorflow_util/blob/master/md/github_header_test.md
+> 
+> I'm going to reapply the latest function to double check that there aren't
+> any edge cases in the changed files.
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/660#issuecomment-168789604
+> .
+
+martinwicke(2016-01-04 22:07:15):I'm good to merge this -- but this only does os_setup.md, correct? I'll change the title appropriately, or alternative, you could run this on all the files.
+
+samjabrahams(2016-01-04 23:10:33):This should change all non-API docs that have {#anchor} notation, and every link that points to those anchors both internally and from other files. See the 7 changed files.
+
+It looks like most of the documentation stopped using the {#anchor} notation aside from a few files and the auto-generated API docs
+
+martinwicke(2016-01-04 23:16:27):Great. Thanks a lot for this!
+
+samjabrahams(2015-12-31 23:05:27):Noticed that apostrophes aren't handled correctly. This should be `#configure-tensorflows-canonical-view-of-cuda-libraries`
+
+I'll patch this in
+
+samjabrahams(2015-12-31 23:05:44):Ditto
+
+samjabrahams(2015-12-31 23:05:55):Ditto
+
+mrry(2016-01-04 17:55:28):One issue with this change is that it makes multiple copies of the input data (by default 32), which could have an unfortunate effect on memory usage. Perhaps a cleaner optimization would be to produce intervals (rather than ranges), which could be used to `tf.slice()` the appropriate elements from the input tensor(s), rather than `tf.gather()` them?
+
+ppwwyyxx(2016-01-09 04:20:12):Thanks. I'm not sure what do you mean. What's the difference between **interval** and **range**?
+
+And also, why do you think a slice operation would be faster than gather? It looks like they are doing the same thing since we only need to produce one element at a time.
+
+tensorflow-jenkins(2016-01-09 04:20:13):Can one of the admins verify this patch?
+
+mrry(2016-01-20 01:52:17):Sorry for the delay in getting back to you! Looking at your PR more closely, it seems like I misunderstood the nature of your change (and the nature of `slice_input_producer()`, which I had mistakenly assumed produces batches rather than single elements...). I'm still a bit unclear about why your change makes things more efficient: as far as I can tell, the change will end up copying more data out of `input_tensor` on each iteration, which is potentially wasteful. Do you have details of a benchmark that shows the improvement?
+
+Looking at the implementation, it also looks like the `array_ops.gather()` is the only thing that your change avoids, but at the expense of copying the input tensor into the queue repeatedly, which could potentially lead to a performance regression. It seems like you could get almost all of the benefit by replacing the `array_ops.gather()` with an `array_ops.slice()`, which in many cases could avoid the copy altogether.
+
+Does that make sense?
+
+ppwwyyxx(2016-01-20 16:28:02):``` python
+import tensorflow as tf
+import numpy as np
+import time
+import sys
+import cv2
+
+def get_output(img):
+    img = tf.train.slice_input_producer([img], shuffle=False, capacity=32)
+    img = tf.train.batch(img, 128)
+
+    img = tf.reshape(img, [-1, 28 * 28 * 3])
+    W = tf.get_variable('W', [28 * 28 * 3, 10],
+                        initializer=tf.truncated_normal_initializer(stddev=0.1))
+    out = tf.matmul(img, W)
+    return tf.sigmoid(out)
+
+G = tf.Graph()
+with G.as_default():
+    FAKE = np.random.rand(28, 28, 3)
+    img = tf.constant(FAKE, dtype=tf.float32, shape=[28, 28, 3])
+    img = tf.train.batch([img], 128)
+    output = get_output(img)
+
+    sess = tf.Session()
+    sess.run(tf.initialize_all_variables())
+
+    coord = tf.train.Coordinator()
+    tf.train.start_queue_runners(
+        sess=sess, coord=coord, daemon=True, start=True)
+
+    start = time.time()
+    for k in range(5):
+        sess.run(output)
+        print k
+    print time.time() - start, " seconds"
+    coord.request_stop()
+```
+
+I made a script for testing. On my laptop without GPU, I see the following numbers:
+- Run with 0.6.0 release: 16s.
+- With my patch: 0.25s
+- Without `slice + batch` (delete the first two lines in `get_output`): 0.14s
+
+And it surprises me that a `slice + batch` can slow down the run time so much. Last time I tested (with real data and models) the difference wasn't that much.
+I'm also interested in why that happens. Maybe there are ways to optimize this script that I didn't notice.
+
+Also, I noticed that if I passed a constant variable of shape 128x28x28x3 to `get_output` instead, there is no performance issue anymore.
+
+mrry(2016-01-20 22:40:43):I think that there's a better way to solve your problem:
+
+``` python
+def get_output(img):
+    img = tf.train.limit_epochs([img], num_epochs=None)  # Produce infinitely many times.
+    img = tf.train.batch(img, 128, enqueue_many=True)  # Enqueues a batch at a time.
+
+    img = tf.reshape(img, [-1, 28 * 28 * 3])
+    W = tf.get_variable('W', [28 * 28 * 3, 10],
+                        initializer=tf.truncated_normal_initializer(stddev=0.1))
+    out = tf.matmul(img, W)
+    return tf.sigmoid(out)
+```
+
+On my workstation, this modified version of your benchmark takes between 0.05 and 0.08 seconds.
+
+ppwwyyxx(2016-01-20 22:48:12):In this case of course, this script is just made to test the speed of `input_slice_producer.`
+If for example I want to apply some image processing functions (random brightness, etc) on each image in a batch, then I may still need to use slice producer to take single image from a batch.
+
+tensorflow-jenkins(2016-02-12 16:54:33):Can one of the admins verify this patch?
+
+vrv(2016-03-17 22:09:33):What's the status of this?
+
+vrv(2016-04-20 16:33:41):Closing due to inactivity.
+
+Mistobaan(2016-01-04 00:59:04):Nice! I think this is clearly and improvement over the existing one. I tried on my macbook with cuda and it works. I also published a [small tutorial](https://medium.com/@fabmilo/how-to-compile-tensorflow-with-cuda-support-on-osx-fd27108e27e1#.kaq068rjh) on how to use this patch]. Hope it can be merged soon. @vrv @mrry thoughts ?
+
+ville-k(2016-01-04 01:20:26):Thanks for trying this out @Mistobaan and writing a tutorial!  I'd add a step for installing GNU coreutils ("brew install coreutils") to the tutorial - most people probably don't have it installed.
+
+vrv(2016-01-04 03:11:13):This is very nice!  Thanks for this contribution -- we'll have @zheng-xq take a look at this soon.
+
+Mistobaan(2016-01-04 16:32:56):@ville-k good point. Updated :)
+
+zheng-xq(2016-01-05 00:08:19):@leary-google, could you review the stream-execuctor portion of this change? 
+
+fpmchu(2016-01-05 02:07:16):@Mistobaan I followed your instructions, but "brew cask install cuda" defaults to CUDA 7.0, and @ville-k patch is using 7.5 by default.  I tried both.  With CUDA 7.0, I get a compile error as such:
+
+```
+INFO: From Compiling tensorflow/core/kernels/cwise_op_gpu_sin.cu.cc:
+nvcc fatal   : The version ('70002') of the host compiler ('Apple clang') is not supported
+ERROR: /Users/fpmc/git/tensorflow/tensorflow/core/BUILD:339:1: error while parsing .d file: /private/var/tmp/_bazel_fpmc/b41e6b4c9df9b99106d3673ec4f590dc/tensorflow/bazel-out/local_darwin-opt/bin/tensorflow/core/_objs/gpu_kernels/tensorflow/core/kernels/cwise_op_gpu_sin.cu.d (No such file or directory).
+```
+
+By manually downloading CUDA 7.5 and installing it, it compiles.
+
+fpmchu(2016-01-05 02:19:56):@ville-k In testing your change I find that the newly added ALT_PATH doesn't really work.  If you have `libcudnn.6.5.dylib` located inside `/usr/local/cuda/` and not `/usr/local/cuda/lib/`, the symlink command at the end of your `cuda_config.sh` will end up silently creating a bad symlink like this
+
+```
+libcudnn.6.5.dylib@ -> /usr/local/cuda/lib/libcudnn.6.5.dylib/lib/libcudnn.6.5.dylib
+```
+
+I think having the ALT_PATH stuff is hard to get right.
+
+ville-k(2016-01-05 06:07:39):@fpmchu Thanks for testing the ALT_PATH build scenario for cuDNN!  The fix for the problem you discovered turned out to be pretty simple - I have it on a separate branch for now: 
+https://github.com/ville-k/tensorflow/commit/1232b37d3596a154a74e162db33c888111eba17d
+
+@vrv What's the project's policy for issues found and fixed during PR review?  New commits on the existing PR or open a separate PR?
+
+vrv(2016-01-05 06:09:35):New commits on existing PR seems fine -- we'll just ask to squash the commits prior to validation and merging.
+
+fpmchu(2016-01-05 06:32:22):@ville-k Cool.  While the fix looks ok, I'm still not understanding the purpose of adding ALT_PATH.  Is it just to allow users to put them in /usr/local/lib?  What's wrong with using /usr/local/cuda/lib?
+
+ville-k(2016-01-05 07:31:39):@fpmchu ALT_PATH is there to support existing lib search path functionality for both linux and mac. The original configure and cuda_config.sh scripts look for cudnn.so.6.5 under both "/usr/local/cuda" and "/usr/local/cuda/lib64". Depending on the platform, these locations will now be searched if the user inputs "/usr/local/cuda" as the cudnn install dir:
+**Linux**
+- /usr/local/cuda/lib64/cudnn.so.6.5 
+- /usr/local/cuda/cudnn.so.6.5  (ALT_PATH)
+
+**Mac**
+- /usr/local/cuda/lib/cudnn.6.5.dylib
+- /usr/local/cuda/cudnn.6.5.dylib  (ALT_PATH)
+
+Mistobaan(2016-01-05 18:46:09):Thanks @fpmchu to try the tutorial out. I think it installed 7.0 because you have an old cuda formula. I updated the tutorial to suggest to update homebrew first and check for the cuda version. 
+
+fpmchu(2016-01-06 01:27:08):Thanks @Mistobaan.  I actually think you mean `brew update` though.  I did try "upgrade" before and that didn't work.  I didn't know that "update" is the thing to do to "upgrade brew" :-)
+
+martinwicke(2016-01-07 22:21:11):Because of peculiarities in our internal build process, we won't be able to merge this right now. I'll leave this open since it may be useful for people. When we find someone to resolve the internal problems, we may be able to absorb it at a later time.
+
+I'm sorry about that -- I would love to have this in.
+
+tensorflow-jenkins(2016-01-07 22:21:12):Can one of the admins verify this patch?
+
+ville-k(2016-01-08 15:25:33):Thanks for the update @martinwicke ! Is the main issue causing problems with your internal build process the automatic generation of the "platform.bzl" file? 
+
+martinwicke(2016-01-08 16:15:28):That, and reuse of shared code elsewhere. The code elsewhere can be updated
+(internally) which is why we need someone here to fix that up. The problem
+with stream_executor is that it almost has to be treated like generated
+code. In sorry this bit you after you've done all this work, I'm still
+hoping we can absorb it somehow, and we'll make the restrictions on
+stream_executor clearer for the future.
+On Fri, Jan 8, 2016 at 07:25 Ville Kallioniemi notifications@github.com
+wrote:
+
+> Thanks for the update @martinwicke https://github.com/martinwicke ! Is
+> the main issue causing problems with your internal build process the
+> automatic generation of the "platform.bzl" file?
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/664#issuecomment-170030821
+> .
+
+NathanHowell(2016-01-08 21:37:20):I get a segfault when the  cuda libs are not setup properly due to `getenv("LD_LIBRARY_PATH")` returning null:
+
+```
+(lldb) bt
+* thread #1: tid = 0x30ae49, 0x00007fff8ed8e752 libsystem_c.dylib`strlen + 18, queue = 'com.apple.main-thread', stop reason = EXC_BAD_ACCESS (code=1, address=0x0)
+  * frame #0: 0x00007fff8ed8e752 libsystem_c.dylib`strlen + 18
+    frame #1: 0x0000000105f0d7a4 _pywrap_tensorflow.so`std::__1::basic_ostream<char, std::__1::char_traits<char> >& std::__1::operator<<<std::__1::char_traits<char> >(std::__1::basic_ostream<char, std::__1::char_traits<char> >&, char const*) [inlined] std::__1::char_traits<char>::length(__s=0x0000000000000000) + 52 at string:651
+    frame #2: 0x0000000105f0d790 _pywrap_tensorflow.so`std::__1::basic_ostream<char, std::__1::char_traits<char> >& std::__1::operator<<<std::__1::char_traits<char> >(__os=0x00007fff5fbfbb10, __str=0x0000000000000000) + 32 at ostream:882
+    frame #3: 0x000000010895c96a _pywrap_tensorflow.so`perftools::gputools::internal::DsoLoader::GetDsoHandle(tensorflow::StringPiece, void**, perftools::gputools::internal::DsoLoader::LoadKind) [inlined] std::__1::enable_if<(__os=0x00007fff5fbfbb10, __x=0x00007fff5fbfbb08)) && (is_base_of<std::__1::ios_base, tensorflow::internal::LogMessage>::value), tensorflow::internal::LogMessage&&>::type std::__1::operator<<<tensorflow::internal::LogMessage, char*>(tensorflow::internal::LogMessage&&, char* const&) + 19 at ostream:1057
+<trimmed>
+(lldb) frame select 4
+frame #4: 0x000000010895c957 _pywrap_tensorflow.so`perftools::gputools::internal::DsoLoader::GetDsoHandle(path=(data_ = "libcuda.dylib", size_ = 13), dso_handle=0x00007fff5fbfc138, load_kind=kLocal) + 887 at dso_loader.cc:99
+   96     string path_string = path.ToString();
+   97     *dso_handle = dlopen(path_string.c_str(), dynload_flags);
+   98     if (*dso_handle == nullptr) {
+-> 99       LOG(INFO) << "Couldn't open CUDA library " << path
+   100                << ". LD_LIBRARY_PATH: " << getenv("LD_LIBRARY_PATH");
+   101      // TODO(b/22689637): Eliminate unnecessary ToString once StrCat has been
+   102      // moved to the open-sourceable version.
+```
+
+NathanHowell(2016-01-10 00:50:05):I eventually did get this working but the version of Eigen referenced in here is very broken. Eigen HEAD (fd9611fa2d9c) does work aside from a nvcc build break in TensorIntDiv.h, `DividerHelper<64, T>::computeMultiplier` is missing a cast... but it does at least seem to work.
+
+Previous failure looked like this:
+
+> libc++abi.dylib: terminating with uncaught exception of type std::__1::system_error: mutex lock failed: Invalid argument
+
+After a bit of hunting around it turns out that the mutex instances had already been destructed after someone called `exit(1)` :hushed: 
+
+```
+(lldb) bt
+* thread #2: tid = 0x4649e, 0x00007fff98e3f738 libsystem_c.dylib`exit, stop reason = breakpoint 1.1
+  * frame #0: 0x00007fff98e3f738 libsystem_c.dylib`exit
+    frame #1: 0x00000001066e9f0e _pywrap_tensorflow.so`void Eigen::internal::EigenMetaKernel_Vectorizable<Eigen::TensorEvaluator<Eigen::TensorAssignOp<Eigen::TensorMap<Eigen::Tensor<float, 1, 1, int>, 16>, Eigen::TensorCwiseUnaryOp<Eigen::internal::scalar_right<float, float, Eigen::internal::scalar_difference_op<float>, true>, Eigen::TensorMap<Eigen::Tensor<float const, 1, 1, int>, 16> const> const> const, Eigen::GpuDevice>, int>(Eigen::TensorEvaluator<Eigen::TensorAssignOp<Eigen::TensorMap<Eigen::Tensor<float, 1, 1, int>, 16>, Eigen::TensorCwiseUnaryOp<Eigen::internal::scalar_right<float, float, Eigen::internal::scalar_difference_op<float>, true>, Eigen::TensorMap<Eigen::Tensor<float const, 1, 1, int>, 16> const> const> const, Eigen::GpuDevice>, int) + 14
+    frame #2: 0x00000001066e6ec1 _pywrap_tensorflow.so`tensorflow::functor::BinaryFunctor<Eigen::GpuDevice, tensorflow::functor::sub<float>, 1>::Right(Eigen::GpuDevice const&, Eigen::TensorMap<Eigen::Tensor<float, 1, 1, long>, 16>, Eigen::TensorMap<Eigen::Tensor<float const, 1, 1, long>, 16>, Eigen::TensorMap<Eigen::TensorFixedSize<float const, Eigen::Sizes<>, 1, long>, 16>) + 257
+```
+
+And it turns out that all the `EigenMetaKernel_Vectorizable` specializations don't work as intended:
+
+```
+(lldb) disassemble
+_pywrap_tensorflow.so`void Eigen::internal::EigenMetaKernel_Vectorizable<Eigen::TensorEvaluator<Eigen::TensorAssignOp<Eigen::TensorMap<Eigen::Tensor<float, 1, 1, int>, 16>, Eigen::TensorCwiseUnaryOp<Eigen::internal::scalar_right<float, float, Eigen::internal::scalar_difference_op<float>, true>, Eigen::TensorMap<Eigen::Tensor<float const, 1, 1, int>, 16> const> const> const, Eigen::GpuDevice>, int>:
+    0x1066e9f00 <+0>:  pushq  %rbp
+    0x1066e9f01 <+1>:  movq   %rsp, %rbp
+    0x1066e9f04 <+4>:  movl   $0x1, %edi
+    0x1066e9f09 <+9>:  callq  0x1069fe13e               ; symbol stub for: exit
+    0x1066e9f0e <+14>: nop
+```
+
+ville-k(2016-01-10 17:28:54):I'm not able to reproduce the issue with LD_LIBRARY_PATH you mentioned @NathanHowell Which version of OSX and Python are you using?
+I reported the missing cast issue to Eigen before this PR and they fixed it for the version that I'm using (their fix was to add a constructor, not cast the argument). Sounds like they might've had some regression if it's broken in their HEAD. I'll push an update to this PR today with latest from master and try to see if I can find a rev of Eigen that is never and does not have have regression.
+
+NathanHowell(2016-01-10 17:36:06):@ville-k the segfault might have been from an older version of Xcode, I upgraded to 7.2 trying to track down the other issue and I think it's been fixed... but it should use `DYLD_LIBRARY_PATH` on osx rather than `LD_LIBRARY_PATH` right?
+
+ville-k(2016-01-10 18:10:43):@NathanHowell I was surprised about LD_LIBRARY_PATH working too when I stumbled into it working by accident. Apple added this at some point for UNIX conformance - they're checking both env vars nowadays:
+http://www.opensource.apple.com/source/dyld/dyld-360.18/src/dyld.cpp
+
+elbamos(2016-01-24 18:46:42):Worked for me as well with @Mistobaan 's instructions.  Note that `coreutils` has to be installed from brew even if you think it's already installed, because the installer calls `greadlink`, so the brew package is a hard dependency on OS X.  In addition, there should be a better way of handling the `LD_LIBRARY_PATH` issue.  Setting any of those environment variables manually can wreak all sorts of havok on OS X.  Neither theano nor torch needs it set explicitly. 
+
+elbamos(2016-01-25 22:56:20):@ville-k would you mind terribly rebasing?  On linux, updates to bazel have created a number of installation issues where fixes were rolled into the git in the last few weeks.
+
+NathanHowell(2016-01-26 00:08:08):@elbamos I have a rebased/hacked up branch here: https://github.com/NathanHowell/tensorflow/tree/cuda_osx2 (EDIT: cuda_osx3 is broken)
+
+It also needs a patch to Eigen, not sure if it's 100% correct but it at least builds and runs:
+
+```
+--- ./bazel-tensorflow/external/eigen_archive/eigen-eigen-c8e5d094f3a9/unsupported/Eigen/CXX11/src/Tensor/TensorIntDiv.h    2016-01-25 15:51:44.000000000 -0800
++++ ./bazel-tensorflow/external/eigen_archive/eigen-eigen-c8e5d094f3a9/unsupported/Eigen/CXX11/src/Tensor/TensorIntDiv.h    2016-01-25 16:04:11.000000000 -0800
+@@ -98,7 +98,7 @@
+       return static_cast<uint64_t>((static_cast<__uint128_t>(1) << (64+log_div)) / static_cast<__uint128_t>(divider) - (static_cast<__uint128_t>(1) << 64) + 1);
+ #else
+       const uint64_t shift = 1ULL << log_div;
+-      TensorUInt128<uint64_t, uint64_t> result = (TensorUInt128<uint64_t, static_val<0> >(shift, 0) / TensorUInt128<static_val<0>, uint64_t>(divider) - TensorUInt128<static_val<1>, static_val<0> >(1, 0) + TensorUInt128<static_val<0>, static_val<1> >(1));
++      TensorUInt128<uint64_t, uint64_t> result = (TensorUInt128<uint64_t, static_val<0> >(shift, 0) / TensorUInt128<static_val<0>, uint64_t>(static_cast<uint64_t>(divider)) - TensorUInt128<static_val<1>, static_val<0> >(1, 0) + TensorUInt128<static_val<0>, static_val<1> >(1));
+       return static_cast<uint64_t>(result);
+ #endif
+     }
+```
+
+ville-k(2016-01-26 06:52:17):@elbamos I started a rebase over the weekend, but ran into the Eigen issue also reported here: https://github.com/tensorflow/tensorflow/issues/883
+I'll give it another try tomorrow.
+
+ville-k(2016-01-27 08:42:47):@elbamos I just rebased and pointed this PR to temporarily use my fork of Eigen that builds on OSX (Eigen PR is pending)
+
+elbamos(2016-01-27 14:12:09):@ville-k but I thought it was working on OS X as it was?
+
+elbamos(2016-01-28 03:24:53):Anyway here's what I get now with gcc 5.2:
+
+```
+INFO: From Compiling tensorflow/core/kernels/xent_op_gpu.cu.cc:
+nvcc warning : option '--relaxed-constexpr' has been deprecated and replaced by option '--expt-relaxed-constexpr'.
+nvcc warning : option '--relaxed-constexpr' has been deprecated and replaced by option '--expt-relaxed-constexpr'.
+/usr/lib/gcc/x86_64-linux-gnu/5/include/mwaitxintrin.h(36): error: identifier "__builtin_ia32_monitorx" is undefined
+
+/usr/lib/gcc/x86_64-linux-gnu/5/include/mwaitxintrin.h(42): error: identifier "__builtin_ia32_mwaitx" is undefined
+
+2 errors detected in the compilation of "/tmp/tmpxft_000041a1_00000000-10_xent_op_gpu.cu.compute_52.cpp1.ii".
+ERROR: /mnt/hfsshare/LIBRARIES/tensorflow/tensorflow/core/BUILD:339:1: output 'tensorflow/core/_objs/gpu_kernels/tensorflow/core/kernels/xent_op_gpu.cu.o' was not created.
+ERROR: /mnt/hfsshare/LIBRARIES/tensorflow/tensorflow/core/BUILD:339:1: not all outputs were created.
+Target //tensorflow/cc:tutorials_example_trainer failed to build
+INFO: Elapsed time: 34.791s, Critical Path: 34.04s
+```
+
+And with 4.9:
+
+```
+INFO: Found 1 target...
+ERROR: /mnt/hfsshare/LIBRARIES/tensorflow/tensorflow/stream_executor/BUILD:7:1: undeclared inclusion(s) in rule '//tensorflow/stream_executor:stream_executor':
+this rule is missing dependency declarations for the following files included by 'tensorflow/stream_executor/cuda/cuda_rng.cc':
+  '/usr/local/cuda-7.5/include/cuda_runtime.h'
+  '/usr/local/cuda-7.5/include/host_config.h'
+  '/usr/local/cuda-7.5/include/builtin_types.h'
+  '/usr/local/cuda-7.5/include/device_types.h'
+  '/usr/local/cuda-7.5/include/driver_types.h'
+  '/usr/local/cuda-7.5/include/surface_types.h'
+  '/usr/local/cuda-7.5/include/texture_types.h'
+  '/usr/local/cuda-7.5/include/vector_types.h'
+  '/usr/local/cuda-7.5/include/channel_descriptor.h'
+  '/usr/local/cuda-7.5/include/cuda_runtime_api.h'
+  '/usr/local/cuda-7.5/include/host_defines.h'
+  '/usr/local/cuda-7.5/include/cuda_device_runtime_api.h'
+  '/usr/local/cuda-7.5/include/driver_functions.h'
+  '/usr/local/cuda-7.5/include/vector_functions.h'
+  '/usr/local/cuda-7.5/include/vector_functions.hpp'.
+Target //tensorflow/cc:tutorials_example_trainer failed to build
+INFO: Elapsed time: 9.779s, Critical Path: 9.27s
+```
+
+Geka000(2016-02-03 15:10:56):I have this error on mac os x
+
+```
+tensorflow/stream_executor/cuda/cuda_dnn.cc:843:48: error: expected body of lambda expression
+  auto get_algorithm = [&](bool specify_limit) SHARED_LOCKS_REQUIRED(
+                                               ^
+./tensorflow/core/platform/default/thread_annotations.h:83:3: note: expanded from macro 'SHARED_LOCKS_REQUIRED'
+  THREAD_ANNOTATION_ATTRIBUTE__(shared_locks_required(__VA_ARGS__))
+  ^
+./tensorflow/core/platform/default/thread_annotations.h:42:42: note: expanded from macro 'THREAD_ANNOTATION_ATTRIBUTE__'
+#define THREAD_ANNOTATION_ATTRIBUTE__(x) __attribute__((x))
+```
+
+NathanHowell(2016-02-03 15:19:18):This is due to an old version of Clang/XCode. You probably just need to
+upgrade to XCode 7.x.
+On Feb 3, 2016 07:12, "Geka000" notifications@github.com wrote:
+
+> I have this error on mac os x
+> 
+> tensorflow/stream_executor/cuda/cuda_dnn.cc:843:48: error: expected body of lambda expression
+>   auto get_algorithm = [&](bool specify_limit) SHARED_LOCKS_REQUIRED(
+>                                                ^
+> ./tensorflow/core/platform/default/thread_annotations.h:83:3: note: expanded from macro 'SHARED_LOCKS_REQUIRED'
+>   THREAD_ANNOTATION_ATTRIBUTE__(shared_locks_required(**VA_ARGS**))
+>   ^
+> ./tensorflow/core/platform/default/thread_annotations.h:42:42: note: expanded from macro 'THREAD_ANNOTATION_ATTRIBUTE__'
+> #define THREAD_ANNOTATION_ATTRIBUTE__(x) **attribute**((x))
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/664#issuecomment-179285763
+> .
+
+tensorflow-jenkins(2016-02-04 05:55:41):Can one of the admins verify this patch?
+
+ville-k(2016-02-04 06:28:51):@martinwicke I changed this PR to use a checked in platform.bzl file rather than autogenerating it in the configure script. Hopefully this will no longer break your internal build system and will allow this PR to be merged.  I also [worked with](https://bitbucket.org/eigen/eigen/pull-requests/158/add-constructor-for-long-types/diff) the Eigen project to fix a compilation error that was preventing Eigen from building under Cuda 7.5 - this PR branch points to the latest Eigen with that fix. Here's a quick summary of how building under OSX with/without Cuda support now works:
+- when TF_UNOFFICIAL_SETTING=1 env variable is set while running the configure script, the configure script replaces the platform name, CUDA version and cuDNN version constants inside platform.bzl to match user selections.  For OSX, you need to select Cuda version 7.5.
+- unmodified platform.bzl file is used when configure is run in regular mode (i.e. not using unofficial settings) - OSX Cuda support will not work in this case.
+
+ville-k(2016-02-09 15:03:03):Hey @martinwicke let me know if there is there are any more changes needed to merge this PR. I'll be happy to address any concerns.
+
+ageitgey(2016-02-11 17:08:03):I built the latest version of this PR successfully. Thanks @ville-k!
+
+Using @Mistobaan's gist as a starting point, I wrote updated/expanded build instructions for those less familiar with building tensorflow:
+
+https://gist.github.com/ageitgey/819a51afa4613649bd18
+
+Hope that helps out someone who is looking to try this.
+
+ville-k(2016-02-13 14:43:44):Hey @vrv or @martinwicke could you guys give some feedback based on the changes I made and summarized in my previous comment. 
+
+vrv(2016-02-16 03:29:23):I think the biggest problem mentioned in https://github.com/tensorflow/tensorflow/pull/664#issuecomment-170044135 is the stream executor bits -- we don't own that code and it gets upstreamed a lot, so even if we accepted the change, it would likely get overwritten by our next upstreaming :(
+
+We'll try to figure out a better story for stream_executor soon -- the same problem exists for Windows too.
+
+normanhh3(2016-02-19 16:30:29):@ageitgey your [instructions](https://gist.github.com/ageitgey/819a51afa4613649bd18) worked great! I'm now using my GeForce GT 750M with 2GB of RAM to train with. :-) (Did this on OS X Yosemite - 10.10.5 - MacBook Pro Retina 15-inch Mid 2014)
+
+matspetter(2016-02-25 21:52:06):I have also followed the instruction above and all the building activities works fine but when I start python and try to import tensorflow I get this error:
+
+```
+MatsMacBookPro2:~ mats$ python
+Python 2.7.10 (default, Oct 23 2015, 18:05:06) 
+[GCC 4.2.1 Compatible Apple LLVM 7.0.0 (clang-700.0.59.5)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import tensorflow
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Library/Python/2.7/site-packages/tensorflow/__init__.py", line 23, in <module>
+    from tensorflow.python import *
+  File "/Library/Python/2.7/site-packages/tensorflow/python/__init__.py", line 37, in <module>
+    from tensorflow.core.framework.graph_pb2 import *
+  File "/Library/Python/2.7/site-packages/tensorflow/core/framework/graph_pb2.py", line 10, in <module>
+    from google.protobuf import descriptor_pb2
+  File "/Library/Python/2.7/site-packages/google/protobuf/descriptor_pb2.py", line 1533, in <module>
+    __module__ = 'google.protobuf.descriptor_pb2'
+  File "/Library/Python/2.7/site-packages/google/protobuf/reflection.py", line 123, in __new__
+    new_class = superclass.__new__(cls, name, bases, dictionary)
+TypeError: metaclass conflict: the metaclass of a derived class must be a (non-strict) subclass of the metaclasses of all its bases
+```
+
+I have a MacBook Pro Retina, 15-inch, Late 2013, GeForce GT 750M, 16GB RAM, running OS X 10.11.3
+
+martinwicke(2016-02-26 01:22:24):Check the installation instructions on the website for this one -- it's a
+common issue, probably reinstalling protobuf will fix it.
+
+On Thu, Feb 25, 2016 at 1:52 PM Mats Berggrund notifications@github.com
+wrote:
+
+> I have also followed the instruction above and all the building activities
+> works fine but when I start python and try to import tensorflow I get this
+> error:
+> 
+> MatsMacBookPro2:~ mats$ python
+> Python 2.7.10 (default, Oct 23 2015, 18:05:06)
+> [GCC 4.2.1 Compatible Apple LLVM 7.0.0 (clang-700.0.59.5)] on darwin
+> Type "help", "copyright", "credits" or "license" for more information.
+> 
+> > > > import tensorflow
+> > > > Traceback (most recent call last):
+> > > >   File "<stdin>", line 1, in <module>
+> > > >   File "/Library/Python/2.7/site-packages/tensorflow/**init**.py", line 23, in <module>
+> > > >     from tensorflow.python import *
+> > > >   File "/Library/Python/2.7/site-packages/tensorflow/python/**init**.py", line 37, in <module>
+> > > >     from tensorflow.core.framework.graph_pb2 import *
+> > > >   File "/Library/Python/2.7/site-packages/tensorflow/core/framework/graph_pb2.py", line 10, in <module>
+> > > >     from google.protobuf import descriptor_pb2
+> > > >   File "/Library/Python/2.7/site-packages/google/protobuf/descriptor_pb2.py", line 1533, in <module>
+> > > >     **module** = 'google.protobuf.descriptor_pb2'
+> > > >   File "/Library/Python/2.7/site-packages/google/protobuf/reflection.py", line 123, in **new**
+> > > >     new_class = superclass.**new**(cls, name, bases, dictionary)
+> > > > TypeError: metaclass conflict: the metaclass of a derived class must be a (non-strict) subclass of the metaclasses of all its bases
+> 
+> I have a MacBook Pro Retina, 15-inch, Late 2013, GeForce GT 750M, 16GB
+> RAM, running OS X 10.11.3
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/664#issuecomment-189002621
+> .
+
+matspetter(2016-02-26 06:15:18):unfortunately I have tried all that. From what I can see I have the correct protobuf installed:
+
+> > > import google.protobuf
+> > > print google.protobuf.**version**
+> > > 3.0.0a3
+
+martinwicke(2016-04-05 01:57:59):@matspetter Can you try again after updating protobuf again (to b2)? This may be resolved now.
+
+esd100(2016-04-07 03:29:59):Well, I spent about 10 hours trying to get this to work before finding this thread. I had to make a 50 changes and realized that you had actually made virtually all the same ones, plus another 50!
+
+I followed your instructions (except brew cask install cuda because I had already installed that earlier and tested it with the CUDA toolkit and it was working). Unfortunately, even though I got way further than I ever had before, it failed again, with the first command bazel build -c opt --config=cuda //tensorflow/cc:tutorials_example_trainer.
+
+It failed with 15 errors generated, almost all of them in tensorflow/stream_executor/cuda/cuda_dnn.cc
+
+This is so frustrating. I don't understand why it's so hard to get this to work for macs.
+
+esd100(2016-04-08 23:51:59):Is there any progress on checks for this? I notice that it has been over 90 days since the original post.
+
+Also, is there any reason that bazel should not be compiling with cuda_dnn v5?
+
+martinwicke(2016-04-08 23:59:47):For cudnn v5 see #1786.
+
+matspetter(2016-04-09 09:37:31):actually what I did was to make sure which versions of python I had installed. I had a whole mess of different versions from macports, osx itself (?), homebrew etc. I removed it all and reinstalled all from homebrew. Then I got it working
+
+omarev-git(2016-04-18 05:44:47):I have a MBP 2015, a Vidock + with external Nvidia 680 and running El Capitan (10.11.3), and the branch work fine. Really good contribution, thank you ville-k !!!
+
+vrv(2016-04-18 05:55:59):@ville-k: any interest in reviving this CL against master?  I think we'd like to merge these changes and then we'll try to keep it working as best we can.
+
+ville-k(2016-04-18 13:33:06):@vrv Absolutely!  I'll start rebasing tonight.
+
+omarev-git(2016-04-18 22:21:19):Fantastic!!!
+
+Sent from my iPhone
+
+On Apr 18, 2016, at 9:35 AM, Ville Kallioniemi <notifications@github.com<mailto:notifications@github.com>> wrote:
+
+@vrvhttps://github.com/vrv Absolutely! I'll start rebasing tonight.
+
+## 
+
+You are receiving this because you commented.
+Reply to this email directly or view it on GitHubhttps://github.com/tensorflow/tensorflow/pull/664#issuecomment-211380353
+
+ville-k(2016-04-21 05:24:07):@vrv I rebased my branch and removed some redundant functionality. The latest version of apple clang does [not appear to work](https://devtalk.nvidia.com/default/topic/879431/nvcc-amp-clang-7-no-typo-here-/?offset=20) with Cuda 7.5 and you'll have to downgrade to version 7.0.2. I'm using these configure options and bazel incantations to successfully build on OSX:
+1. `./configure` with these options
+   Host compiler: /usr/bin/clang
+   Cuda SDK version: 7.5
+   Cuda SDK location: /Developer/NVIDIA/CUDA-7.5
+   CuDnn version: 6.5
+   CuDnn location: /Developer/NVIDIA/CUDA-6.5
+2. `bazel build -c opt --config=cuda //tensorflow/tools/pip_package:build_pip_package`
+3. `./bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg`
+4. `pip install /tmp/tensorflow_pkg/tensorflow-0.8.0rc0-py3-none-any.whl`
+
+Mistobaan(2016-04-21 23:28:14):Nice! I tested on my machine with cudnn v5.0 and it works. [Updated the tutorial to help installing the previous version of Xcode 7.2 to make it compile](https://medium.com/@fabmilo/how-to-compile-tensorflow-with-cuda-support-on-osx-fd27108e27e1#.lqbb05men)
+
+vrv(2016-04-23 19:51:13):Doh, sorry for not getting to this -- looks like there are a few more conflicts.  I left some comments but this generally looks great -- nice refactoring!
+
+cc @zheng-xq 
+
+ville-k(2016-04-24 15:29:07):@vrv Rebased and addressed code review comments.
+
+vrv(2016-04-25 04:43:58):Okay, this generally looks good!  Let's weed out any test failures: test this please, @tensorflow-jenkins 
+
+markb729(2016-04-25 17:03:10):Good work on the update.
+
+There may still be an issue with cudnn v5 when packaged/installed with pip.
+
+For both cudnn v4 and v5, the compile completes successfully. Invoking an example trainer,
+bazel-bin/tensorflow/cc/tutorials_example_trainer, runs successfully with BOTH libraries:
+
+> > > I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcublas.7.5.dylib locally
+> > > I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library **libcudnn.4.dylib or ibcudnn.5.dylib** locally
+> > > I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcufft.7.5.dylib locally
+> > > I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcuda.dylib locally
+> > > I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcurand.7.5.dylib locally
+> > > I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:883] OS X does not support NUMA - returning NUMA node zero
+> > > I tensorflow/core/common_runtime/gpu/gpu_init.cc:102] Found device 0 with properties:
+> > > name: GeForce GTX 980 Ti
+> > > major: 5 minor: 2 memoryClockRate (GHz) 1.076
+> > > ...
+> > > 000001/000009 lambda = 2.000000 x = [0.894427 -0.447214] y = [1.788854 -0.894427]
+
+However, when packaged and installed with pip, a compile with cudnn 4 works as expected but cudnn 5 will fail on load of the cudnn.5.dylib library:
+
+> > > import tensorflow as tf
+> > > I tensorflow/stream_executor/dso_loader.cc:108] successfully opened CUDA library libcublas.7.5.dylib locally
+> > > Segmentation fault: 11
+
+This is the point at which libcudnn.5.dylib loads. Since cudnn 5 works with the example trainer, the packaging must be breaking something, perhaps a misplaced non-versioned symlink? Odd that cudnn 4 works though. Perhaps a misplaced non-versioned symlink? 
+
+vrv(2016-04-25 22:46:13):@markb729: right now we don't package one binary that works with both cudnn4 and 5, because the APIs are different.
+
+At some point I think it would be conceivable to implement the stream executor in such a way that different cudnn versions are different implementations of the same interface, and we dispatch exactly once during initialization to the right one.
+
+vrv(2016-04-27 05:36:06):@tensorflow-jenkins test this please 
+
+vrv(2016-04-27 07:02:10):One more try!   test this please
+
+vrv(2016-04-28 03:49:41):Woohoo!!  thank you so much for this contribution.  We'll try our best to keep it working, though without OS X / GPU test machines, we can't promise too much.
+
+ville-k(2016-04-28 04:48:02):@vrv Awesome! I really appreciate your thoughtful feedback and help in figuring out the build issues!
+
+martinwicke(2016-04-28 05:28:52):Finally! Thanks for all the hard work! I will get an external GPU so we can test this and make sure it continues to work.
+
+Mistobaan(2016-05-02 21:32:02):Nice ! 👍   
+
+chrhansen(2016-05-14 00:08:54):Hi guys, I'm new here. I was wondering if there shouldn't be a "MacOS **G**PU Tests" in the lists of tests being run at http://ci.tensorflow.org to make sure the new CUDA/GPU functionality keeps working?
+
+martinwicke(2016-05-14 00:11:34):Yes. We're installing hardware for that over the weekend. A test should
+come some time next week.
+On Fri, May 13, 2016 at 17:09 Christian Hansen notifications@github.com
+wrote:
+
+> Hi guys, I'm new here. I was wondering if there shouldn't be a "MacOS _G_PU
+> Tests" in the lists of tests being run at http://ci.tensorflow.org to
+> make sure the new CUDA/GPU functionality keeps working?
+> 
+> —
+> You are receiving this because you were mentioned.
+> 
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/664#issuecomment-219187149
+
+jstaker7(2016-06-05 02:37:05):I'm trying to build with CUDA 8.0, CuDNN 5.0, and clang-703.0.31 (CUDA test projects seem to build just fine).
+
+I get the following error:
+
+INFO: Found 1 target...
+INFO: From Executing genrule //third_party/gpus/cuda:cuda_config_check [for host]:
+/bin/bash: greadlink: command not found
+ERROR: /Projects/tensorflow/third_party/gpus/cuda/BUILD:204:1: declared output 'third_party/gpus/cuda/cuda.config' was not created by genrule. This is probably because the genrule actually didn't create this output, or because the output was a directory and the genrule was run remotely (note that only the contents of declared file outputs are copied from genrules run remotely).
+ERROR: /Projects/tensorflow/third_party/gpus/cuda/BUILD:204:1: not all outputs were created.
+Target //tensorflow/tools/pip_package:build_pip_package failed to build
+INFO: Elapsed time: 120.460s, Critical Path: 0.23s
+
+Any ideas?
+
+Edit: Oops! Never mind, I forget to install coreutils. I'm running into more trouble with CUDA 8.0, but it looks like these are known issues not related to this ticket.
+
+martin-gorner(2016-06-30 14:17:47):Since Apple does not sell any computers with Nvidia GPUs,  could you tell us what hardware you are using this with ? Is is some sort of Thunderbolt-attached GPU enclosure with an Nvidia card in it ?
+
+jstaker7(2016-06-30 14:55:13):Once-upon-a-time Apple did provide computers with NVIDIA chips. I have a 2012 MacBook Pro with a 650M. 
+
+esd100(2016-06-30 16:34:07):Yes. I have the same the same MacBook pro with 650m card.
+
+royalstream(2016-07-04 04:48:45):I have a 2014 MacBook Pro with a 750m card which is still acceptably recent.
+I hope Apple is going to offer NVIDIA as an option in some future Macs, if not this year maybe next year.
+And of course there's also [iBuildMacs.com](https://ibuildmacs.com/) and [create.pro](https://create.pro/)
+
+yaroslavvb(2016-07-04 05:32:19):@martin-gorner Apple sells refurbished laptops with NVidia, ie, http://www.apple.com/shop/product/FE294LL/A/refurbished-154-inch-macbook-pro-23ghz-quad-core-intel-i7-with-retina-display
+
+martin-gorner(2016-07-28 08:55:48):Has anyone tried this with GPU in a Thunderbolt enclosure ? This video seems to imply that CUDA works well in that situation: https://youtu.be/Bsf9lHM8qLk
+
+martinwicke(2016-07-28 15:07:22):Our (new) Mac GPU tests run in just such a setup: Mac Pro + Quadro M4000 in
+a Bizon2.
+On Thu, Jul 28, 2016 at 01:56 martin-gorner notifications@github.com
+wrote:
+
+> Has anyone tried this with GPU in a Thunderbolt enclosure ? This video
+> seems to imply that CUDA works well in that situation:
+> https://youtu.be/Bsf9lHM8qLk
+> 
+> —
+> You are receiving this because you were mentioned.
+> Reply to this email directly, view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/664#issuecomment-235838384,
+> or mute the thread
+> https://github.com/notifications/unsubscribe-auth/AAjO_Y_Kae-uJER4i9bXzTIJg8y5tqBdks5qaG6ggaJpZM4G9X8_
+> .
+
+ghost(2019-07-23 21:06:20):> Once-upon-a-time Apple did provide computers with NVIDIA chips. I have a 2012 MacBook Pro with a 650M.
+
+i have the same mac pro. do you have it using gpu?i had been trying for 3 days trying to find good tutorials to make it work but nothing.
+vrv(2016-04-23 19:44:27):the default cudnn version is now 4.0.7 I think
+
+vrv(2016-04-23 19:47:28):i think we prefer the style: int patch = 0;
+
+vrv(2016-04-23 19:50:32):This has changed from being default of "" to "7.0", which I think is misleading.  Is there a reason why you filled in a default again?
+
+ville-k(2016-04-24 14:10:04):Good catch - I had renamed the lib during development. The naming of the lib is a bit inconsistent between platforms. I'll make the default to be a platform dependent: 4.0.7 on Linux and 4 on OS X.
+
+ville-k(2016-04-24 14:10:24):Changing.
+
+ville-k(2016-04-24 14:16:23):I had accidentally checked in this file after running configure. Will change CUDA_VERSION, CUDNN_VERSION and PLATFORM to be empty to make this fail loudly if a bug creeps into configure.
+
+vrv(2016-04-24 17:46:53):this is backwards, right?
+
+vrv(2016-04-24 17:49:18):nit: maybe just filename instead of file_name?  
+
+vrv(2016-04-24 17:50:38):same buffer_size = 0U here?
+
+vrv(2016-04-24 17:54:22):(can you use two space indents in this file for consistency with the other .bzl files? sorry :(
+
+ville-k(2016-04-25 02:21:20):I'm not sure what you're referring to,  can you clarify?
+
+vrv(2016-04-25 02:22:01):Isn't the default version on Linux 7.5 and the default version on OS X 7.0 ?  You have it the other way here.
+
+ville-k(2016-04-25 02:26:35):Changing.
+
+ville-k(2016-04-25 02:28:04):Agreed.
+
+ville-k(2016-04-25 02:32:36):NP, much prefer consistency.
+
+vrv(2016-04-25 02:37:18):This is probably worth adding a comment on why this only applies for non-apple.
+
+vrv(2016-04-25 02:38:08):same here -- is there a similar check for the OS X side of things?
+
+ville-k(2016-04-25 02:40:40):Oh, sounds like Linux has caught up;) When I created the pull request,  master was using 7.0 with Linux, but OS X clang would only work with 7.5.  I'll make both default to 7.5.
+
+ville-k(2016-04-25 03:07:32):Agreed. 
+
+ville-k(2016-04-25 03:56:51):Agreed.  I haven't been able to find a public API for getting the kernel driver version that is reported by OSX CUDA preferences panel :(
+
+vrv(2016-04-25 04:58:18):So the error here is: 
+
+ERROR: /workspace/third_party/gpus/cuda/BUILD:94:12: in srcs attribute of cc_library rule //third_party/gpus/cuda:cudnn: file '//third_party/gpus/cuda:lib64/libcudnn.so.' is misplaced here (expected .cc, .cpp, .cxx, .c++, .C, .c, .h, .hh, .hpp, .hxx, .inc, .S, .s, .asm, .a, .pic.a, .lo, .pic.lo, .so, .dylib, .o or .pic.o).
+
+Prior to your change, if the user did not set a version, it would default to libcudnn.so, which is a symlink to whatever the latest installed version is (and this is what our tests use).  Now it's being set to libcudnn.so.${TF_CUDNN_VERSION} and that variable is empty.
+
+Is it possible to switch back to the old mode of doing things, where the default is the empty version and the user can specify a specific version (OS X users will manually type in 4 and 7.5 for the versions).  That will also make sure that existing users who depend on the current behavior aren't broken by this change.
+
+ville-k(2016-04-26 06:29:26):I pushed a change that makes the *_library_path functions in platform.bzl handle an empty version string.  I'll take a look tomorrow to see if I can make the configure script work the way it did before.
+
+ville-k(2016-04-27 05:27:12):@vrv My latest commit restores the original behavior of defaulting to the symlinked cuda libraries when version is left empty in configure.
+
+vrv(2016-04-27 05:35:43):I think the problem is that you are assuming the version is always set -- but we allow people to use the unversioned library (libfoo.so, not libfoo.so.version).
+
+I'll kick off a test just to make sure, but I still think this may not work.
+
+ville-k(2016-04-27 06:20:28):Looks like you were viewing an outdated diff - this was fixed in a previous commit: https://github.com/tensorflow/tensorflow/pull/664/commits/0933043bf4691c72ae3af95d5df3b7e197a3516f
+
+vrv(2016-04-27 06:22:00):Sorry, I still am terrible at github. 
+
+vrv(2016-04-27 06:31:07):Is this possibly the cause of the test failure?
+ERROR: cannot find cudnn.h under: /usr/lib/x86_64-linux-gnu
+
+ville-k(2016-04-27 06:36:47):I bet! looks like I rebased that final elif out of existence:)
+
+ville-k(2016-04-27 06:59:45):@vrv should be fixed now .
+
+dongjoon-hyun(2016-01-02 22:02:07):Thank you!
+
+googlebot(2016-01-03 03:23:42):Thanks for your pull request.  It looks like this may be your first contribution to a Google open source project. Before we can look at your pull request, you'll need to sign a Contributor License Agreement (CLA).
+
+:memo: **Please visit https://cla.developers.google.com/ to sign.**
+
+Once you've signed, please reply here (e.g. `I signed it!`) and we'll verify.  Thanks.
+
+---
+- If you've already signed a CLA, it's possible we don't have your GitHub username or you're using a different email address.  Check [your existing CLA data](https://cla.developers.google.com/clas) and verify that your [email is set on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+- If you signed the CLA as a corporation, please let us know the company's name.
+
+<!-- need_sender_cla -->
+
+zackchase(2016-01-03 03:29:53):I signed it!
+
+On Sat, Jan 2, 2016 at 7:24 PM, googlebot notifications@github.com wrote:
+
+> Thanks for your pull request. It looks like this may be your first
+> contribution to a Google open source project. Before we can look at your
+> pull request, you'll need to sign a Contributor License Agreement (CLA).
+> 
+> [image: :memo:] _Please visit https://cla.developers.google.com/
+> https://cla.developers.google.com/ to sign._
+> 
+> Once you've signed, please reply here (e.g. I signed it!) and we'll
+> 
+> ## verify. Thanks.
+> - If you've already signed a CLA, it's possible we don't have your
+>   GitHub username or you're using a different email address. Check your
+>   existing CLA data https://cla.developers.google.com/clas and verify
+>   that your email is set on your git commits
+>   https://help.github.com/articles/setting-your-email-in-git/.
+> - If you signed the CLA as a corporation, please let us know the
+>   company's name.
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/670#issuecomment-168456156
+> .
+
+googlebot(2016-01-03 03:29:54):CLAs look good, thanks!
+
+<!-- ok -->
+
+vrv(2016-01-04 03:55:40):Cool, squash the commits into one and we'll merge it in.  Thanks!
+
+zackchase(2016-01-04 05:47:55):No problem. Done! Should appear as one commit now.
+
+On Sun, Jan 3, 2016 at 7:56 PM, Vijay Vasudevan notifications@github.com
+wrote:
+
+> Cool, squash the commits into one and we'll merge it in. Thanks!
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/670#issuecomment-168575579
+> .
+
+rafaljozefowicz(2016-01-03 03:29:42):Line 41 references the paper.
+
+zackchase(2016-01-03 03:35:11):Sorry didn't see it. Should the ref be in init or in the class docstring?
+
+Elsewhere, the arxiv reference is in the class docstring:
+
+class GRUCell(RNNCell):"""Gated Recurrent Unit cell (cf.
+http://arxiv.org/abs/1406.1078)."""
+
+On Sat, Jan 2, 2016 at 7:30 PM, rafaljozefowicz notifications@github.com
+wrote:
+
+> In tensorflow/python/training/adam.py
+> https://github.com/tensorflow/tensorflow/pull/670#discussion_r48689729:
+> 
+> > @@ -29,7 +29,7 @@
+> > 
+> >  class AdamOptimizer(optimizer.Optimizer):
+> > -  """Optimizer that implements the Adam algorithm.
+> > -  """Optimizer that implements the Adam algorithm (http://arxiv.org/abs/1412.6980).
+> 
+> Line 41 references the paper.
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/670/files#r48689729.
+
+rafaljozefowicz(2016-01-03 03:38:52):I think what you have looks good. Can you remove that other reference and maybe point to specific version of the paper (v7)? The formulas were updated from previous versions.
+
+zackchase(2016-01-03 03:44:22):Done! Pointing to v7 and removed the duplicate reference.
+
+On Sat, Jan 2, 2016 at 7:39 PM, rafaljozefowicz notifications@github.com
+wrote:
+
+> In tensorflow/python/training/adam.py
+> https://github.com/tensorflow/tensorflow/pull/670#discussion_r48689777:
+> 
+> > @@ -29,7 +29,7 @@
+> > 
+> >  class AdamOptimizer(optimizer.Optimizer):
+> > -  """Optimizer that implements the Adam algorithm.
+> > -  """Optimizer that implements the Adam algorithm (http://arxiv.org/abs/1412.6980).
+> 
+> I think what you have looks good. Can you remove that other reference and
+> maybe point to specific version of the paper (v7)? The formulas were
+> updated from previous versions.
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/670/files#r48689777.
+
+samjabrahams(2016-01-05 05:41:50):Thanks for checking over the last PR! It looks like I definitely missed changing the '#sources' links, so that's good. I was looking over the change on line 110 of adding_an_op/index.md, and after seeing where the links point, there might be an even better anchor to use. Moving to a line note for context.
+
+samjabrahams(2016-01-05 05:48:27):Before making any of the {#anchor} changes on #660, this link originally pointed to [this part of the file](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/g3doc/get_started/os_setup.md#pip-installation) (which #660 maintained, using the GitHub style anchor tag), as opposed to this change which points to [this part of the file](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/g3doc/get_started/os_setup.md#create-the-pip-package-and-install) several sections down. However, it looks like your change is probably going to a more relevant part of the page, as they will need to install from sources as opposed to 'easy-installing' from pip. 
+
+I'm thinking maybe this line should read
+
+```
+[build and reinstall TensorFlow](../../get_started/os_setup.md#installing-from-sources), the
+```
+
+to point to the [very start of the "Installing from Sources"](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/g3doc/get_started/os_setup.md#installing-from-sources) section as opposed to the very end of it.
+
+Thoughts? Probably over thinking a one-line change to a doc file, but this piqued my curiosity.
+
+martinwicke(2016-01-05 06:01:40):I think create-the-pip-package-and-install is the right tag. Inside the
+adding-an-op tutorial they'd already have a source install.
+
+On Mon, Jan 4, 2016 at 9:48 PM Sam Abrahams notifications@github.com
+wrote:
+
+> In tensorflow/g3doc/how_tos/adding_an_op/index.md
+> https://github.com/tensorflow/tensorflow/pull/683#discussion_r48814272:
+> 
+> > @@ -107,7 +107,7 @@ REGISTER_KERNEL_BUILDER(Name("ZeroOut").Device(DEVICE_CPU), ZeroOutOp);
+> > 
+> > ```
+> > 
+> >  Once you
+> > -[build and reinstall TensorFlow](../../get_started/os_setup.md#pip-installation), the
+> > +[build and reinstall TensorFlow](../../get_started/os_setup.md#create-the-pip-package-and-install), the
+> > ```
+> 
+> Before making any of the {#anchor} changes on #660
+> https://github.com/tensorflow/tensorflow/pull/660, this link originally
+> pointed to this part of the file
+> https://github.com/tensorflow/tensorflow/blob/master/tensorflow/g3doc/get_started/os_setup.md#pip-installation
+> (which #660 https://github.com/tensorflow/tensorflow/pull/660
+> maintained, using the GitHub style anchor tag), as opposed to this change
+> which points to this part of the file
+> https://github.com/tensorflow/tensorflow/blob/master/tensorflow/g3doc/get_started/os_setup.md#create-th%0D%20e-pip-pa%0D%20ckage-and-install
+> several sections down. However, it looks like your change is probably going
+> to a more relevant part of the page, as they will need to install from
+> sources as opposed to 'easy-installing' from pip.
+> 
+> I'm thinking maybe this line should read
+> 
+> [build and reinstall TensorFlow](../../get_started/os_setup.md#installing-from-sources), the
+> 
+> to point to the very start of the "Installing from Sources"
+> https://github.com/tensorflow/tensorflow/blob/master/tensorflow/g3doc/get_started/os_setup.md#installing-from-sources
+> section as opposed to the very end of it.
+> 
+> Thoughts? Probably over thinking a one-line change to a doc file, but this
+> piqued my curiosity.
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/683/files#r48814272.
+
+vrv(2016-01-05 05:55:28):@tensorflow-jenkins, test this please.
+
+martinwicke(2016-01-07 01:20:56):Pre-empted by internal commit.
+
+dongjoon-hyun(2016-01-05 16:34:07):Thank you.
+
+googlebot(2016-01-05 13:06:39):Thanks for your pull request.  It looks like this may be your first contribution to a Google open source project. Before we can look at your pull request, you'll need to sign a Contributor License Agreement (CLA).
+
+:memo: **Please visit https://cla.developers.google.com/ to sign.**
+
+Once you've signed, please reply here (e.g. `I signed it!`) and we'll verify.  Thanks.
+
+---
+- If you've already signed a CLA, it's possible we don't have your GitHub username or you're using a different email address.  Check [your existing CLA data](https://cla.developers.google.com/clas) and verify that your [email is set on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+- If you signed the CLA as a corporation, please let us know the company's name.
+
+<!-- need_sender_cla -->
+
+yilinjuang(2016-01-05 13:14:20):I signed it!
+
+googlebot(2016-01-05 13:14:21):CLAs look good, thanks!
+
+<!-- ok -->
+
+vrv(2016-01-05 19:33:28):(squash the commits once this is done and i'll run a quick test before merging)
+
+tensorflow-jenkins(2016-01-06 04:17:24):Can one of the admins verify this patch?
+
+tensorflow-jenkins(2016-01-06 04:17:24):Can one of the admins verify this patch?
+
+yilinjuang(2016-01-06 04:22:56):@vrv, done, thanks
+
+vrv(2016-01-06 05:42:18):@tensorflow-jenkins, test this please.
+
+vrv(2016-01-06 05:43:14):(ugh, give us some time to fix our CI testing, sorry)
+
+martinwicke(2016-01-06 17:17:32):Jenkins, test this please.
+
+vrv(2016-01-06 21:48:40):@martinwicke: why is one check stuck?
+
+martinwicke(2016-01-06 22:14:33):We're working on it. Looking good though, I think we can merge (I'll take the beating if I'm wrong).
+
+martinwicke(2016-01-06 19:01:00):Jenkins, test this please.
+
+tensorflow-jenkins(2016-01-06 19:01:02):Can one of the admins verify this patch?
+
+vrv(2016-01-05 19:16:30):Is this different than #693 ?  That one seems to handle a few more cases
+
+jimfleming(2016-01-05 19:27:55):Nope, I guess not. I did a search for `write_graph` and it didn't show up.
+
+vrv(2016-01-05 19:28:35):No worries, it was just sent a few hours ago :)
+
+googlebot(2016-01-05 20:49:00):Thanks for your pull request.  It looks like this may be your first contribution to a Google open source project. Before we can look at your pull request, you'll need to sign a Contributor License Agreement (CLA).
+
+:memo: **Please visit https://cla.developers.google.com/ to sign.**
+
+Once you've signed, please reply here (e.g. `I signed it!`) and we'll verify.  Thanks.
+
+---
+- If you've already signed a CLA, it's possible we don't have your GitHub username or you're using a different email address.  Check [your existing CLA data](https://cla.developers.google.com/clas) and verify that your [email is set on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+- If you signed the CLA as a corporation, please let us know the company's name.
+
+<!-- need_sender_cla -->
+
+benoitsteiner(2016-01-05 21:11:12):I signed it
+
+On Tue, Jan 5, 2016 at 12:50 PM, googlebot notifications@github.com wrote:
+
+> Thanks for your pull request. It looks like this may be your first
+> contribution to a Google open source project. Before we can look at your
+> pull request, you'll need to sign a Contributor License Agreement (CLA).
+> 
+> [image: :memo:] _Please visit https://cla.developers.google.com/
+> https://cla.developers.google.com/ to sign._
+> 
+> Once you've signed, please reply here (e.g. I signed it!) and we'll
+> 
+> ## verify. Thanks.
+> - If you've already signed a CLA, it's possible we don't have your
+>   GitHub username or you're using a different email address. Check your
+>   existing CLA data https://cla.developers.google.com/clas and verify
+>   that your email is set on your git commits
+>   https://help.github.com/articles/setting-your-email-in-git/.
+> - If you signed the CLA as a corporation, please let us know the
+>   company's name.
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/698#issuecomment-169129411
+> .
+
+googlebot(2016-01-05 21:11:13):CLAs look good, thanks!
+
+<!-- ok -->
+
+tensorflow-jenkins(2016-01-06 01:33:34):Can one of the admins verify this patch?
+
+martinwicke(2016-01-06 05:46:05):Jenkins, test this please
+
+tensorflow-jenkins(2016-01-06 05:46:07):Can one of the admins verify this patch?
+
+vrv(2016-01-06 05:50:09):martin: you need a period after "please" :)
+
+@tensorflow-jenkins: test this please.
+
+martinwicke(2016-01-06 05:50:57):I need to change that regex, please.
+
+On Tue, Jan 5, 2016 at 9:50 PM Vijay Vasudevan notifications@github.com
+wrote:
+
+> martin: you need a period after "please" :)
+> 
+> @tensorflow-jenkins https://github.com/tensorflow-jenkins: test this
+> please.
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/698#issuecomment-169235658
+> .
+
+martinwicke(2016-01-06 06:14:17):Jenkins, retest this please.
+
+martinwicke(2016-01-06 07:29:50):retest this please.
+
+tensorflow-jenkins(2016-01-06 01:36:42):Can one of the admins verify this patch?
+
+eerwitt(2016-01-06 03:12:00):I've improperly squashed a commit on this branch and now it doesn't properly reflect the history of this change (missing revert). Opening a new pull request which includes all changes properly.
+
+martinwicke(2016-01-05 23:40:07):Let's just cut out the fake latin, and end the sentence with: "flag:"
+
+eerwitt(2016-01-06 00:07:14):++
+
+This change was not meant to be included. I'll remove and update the pull.
+
+tensorflow-jenkins(2016-01-06 03:16:59):Can one of the admins verify this patch?
+
+tensorflow-jenkins(2016-01-06 03:16:59):Can one of the admins verify this patch?
+
+tensorflow-jenkins(2016-01-06 03:16:59):Can one of the admins verify this patch?
+
+martinwicke(2016-01-07 01:21:59):Can you squash your commits?
+
+tensorflow-jenkins(2016-01-06 21:33:49):Can one of the admins verify this patch?
+
+martinwicke(2016-01-07 01:10:24):No, it was correct before. [0,0) means excluding 0, [0,0] means including 0, which would also mean that 0 would be valid and the error message would be confusing indeed.
+
+eerwitt(2016-01-07 01:20:59):Ah, that makes sense. Thank you
+
+tensorflow-jenkins(2016-01-07 00:16:22):Can one of the admins verify this patch?
+
+martinwicke(2016-01-07 01:23:38):Thanks!
+
+dongjoon-hyun(2016-01-07 01:25:32):Thank you!
+
+tensorflow-jenkins(2016-01-07 01:54:39):Can one of the admins verify this patch?
+
+googlebot(2016-01-07 01:54:40):Thanks for your pull request.  It looks like this may be your first contribution to a Google open source project. Before we can look at your pull request, you'll need to sign a Contributor License Agreement (CLA).
+
+:memo: **Please visit https://cla.developers.google.com/ to sign.**
+
+Once you've signed, please reply here (e.g. `I signed it!`) and we'll verify.  Thanks.
+
+---
+- If you've already signed a CLA, it's possible we don't have your GitHub username or you're using a different email address.  Check [your existing CLA data](https://cla.developers.google.com/clas) and verify that your [email is set on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+- If you signed the CLA as a corporation, please let us know the company's name.
+
+<!-- need_sender_cla -->
+
+martinwicke(2016-01-07 01:59:28):Can you squash the two commits?
+On Wed, Jan 6, 2016 at 17:54 Benoit Steiner notifications@github.com
+wrote:
+
+> TensorFlow now pulls the eigen code directly from the eigen upstream
+> 
+> ## repository. There is no need to keep a local copy anymore.
+> 
+> You can view, comment on, or merge this pull request online at:
+> 
+>   https://github.com/tensorflow/tensorflow/pull/711
+> Commit Summary
+> - Pruned our local copy of Eigen of code that we don't use in
+>   TensorFlow
+> - Pruned our local copy of Eigen of more code that TensorFlow doesn't
+>   use
+> 
+> File Changes
+> - _D_ third_party/eigen3/Eigen/src/CholmodSupport/CholmodSupport.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-0 (607)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Block.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-1 (126)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Cwise.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-2 (192)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/CwiseOperators.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-3 (298)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Geometry/AlignedBox.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-4 (159)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Geometry/All.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-5 (115)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Geometry/AngleAxis.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-6 (228)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Geometry/Hyperplane.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-7 (254)
+> - _D_
+>   third_party/eigen3/Eigen/src/Eigen2Support/Geometry/ParametrizedLine.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-8 (141)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Geometry/Quaternion.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-9 (495)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Geometry/Rotation2D.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-10
+>   (145)
+> - _D_
+>   third_party/eigen3/Eigen/src/Eigen2Support/Geometry/RotationBase.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-11
+>   (123)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Geometry/Scaling.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-12
+>   (167)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Geometry/Transform.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-13
+>   (786)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Geometry/Translation.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-14
+>   (184)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/LU.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-15
+>   (120)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Lazy.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-16 (71)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/LeastSquares.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-17
+>   (170)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Macros.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-18 (20)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/MathFunctions.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-19 (57)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Memory.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-20 (45)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Meta.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-21 (75)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/Minor.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-22
+>   (117)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/QR.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-23 (67)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/SVD.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-24
+>   (637)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/TriangularSolver.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-25 (42)
+> - _D_ third_party/eigen3/Eigen/src/Eigen2Support/VectorBlock.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-26 (94)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/AlignedBox.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-27
+>   (379)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/AngleAxis.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-28
+>   (233)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/EulerAngles.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-29
+>   (104)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/Homogeneous.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-30
+>   (307)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/Hyperplane.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-31
+>   (270)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/OrthoMethods.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-32
+>   (221)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/ParametrizedLine.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-33
+>   (195)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/Quaternion.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-34
+>   (778)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/Rotation2D.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-35
+>   (157)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/RotationBase.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-36
+>   (206)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/Scaling.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-37
+>   (166)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/Transform.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-38 (0)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/Translation.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-39 (0)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/Umeyama.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-40 (0)
+> - _D_ third_party/eigen3/Eigen/src/Geometry/arch/Geometry_SSE.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-41 (0)
+> - _D_ third_party/eigen3/Eigen/src/Householder/BlockHouseholder.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-42 (0)
+> - _D_ third_party/eigen3/Eigen/src/Householder/Householder.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-43 (0)
+> - _D_ third_party/eigen3/Eigen/src/Householder/HouseholderSequence.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-44 (0)
+> - _D_
+>   third_party/eigen3/Eigen/src/IterativeLinearSolvers/BasicPreconditioners.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-45 (0)
+> - _D_ third_party/eigen3/Eigen/src/IterativeLinearSolvers/BiCGSTAB.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-46 (0)
+> - _D_
+>   third_party/eigen3/Eigen/src/IterativeLinearSolvers/ConjugateGradient.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-47 (0)
+> - _D_
+>   third_party/eigen3/Eigen/src/IterativeLinearSolvers/IncompleteLUT.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-48 (0)
+> - _D_
+>   third_party/eigen3/Eigen/src/IterativeLinearSolvers/IterativeSolverBase.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-49 (0)
+> - _D_ third_party/eigen3/Eigen/src/Jacobi/Jacobi.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-50 (0)
+> - _D_ third_party/eigen3/Eigen/src/MetisSupport/MetisSupport.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-51 (0)
+> - _D_ third_party/eigen3/Eigen/src/OrderingMethods/Eigen_Colamd.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-52 (0)
+> - _D_ third_party/eigen3/Eigen/src/OrderingMethods/Ordering.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-53 (0)
+> - _D_ third_party/eigen3/Eigen/src/PaStiXSupport/PaStiXSupport.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-54 (0)
+> - _D_ third_party/eigen3/Eigen/src/PardisoSupport/PardisoSupport.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-55 (0)
+> - _D_ third_party/eigen3/Eigen/src/QR/ColPivHouseholderQR.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-56 (0)
+> - _D_ third_party/eigen3/Eigen/src/QR/ColPivHouseholderQR_MKL.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-57 (0)
+> - _D_ third_party/eigen3/Eigen/src/QR/FullPivHouseholderQR.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-58 (0)
+> - _D_ third_party/eigen3/Eigen/src/QR/HouseholderQR.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-59 (0)
+> - _D_ third_party/eigen3/Eigen/src/QR/HouseholderQR_MKL.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-60 (0)
+> - _D_ third_party/eigen3/Eigen/src/SPQRSupport/SuiteSparseQRSupport.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-61 (0)
+> - _D_ third_party/eigen3/Eigen/src/SVD/JacobiSVD.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-62 (0)
+> - _D_ third_party/eigen3/Eigen/src/SVD/JacobiSVD_MKL.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-63 (0)
+> - _D_ third_party/eigen3/Eigen/src/SVD/UpperBidiagonalization.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-64 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/AmbiVector.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-65 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/CompressedStorage.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-66 (0)
+> - _D_
+>   third_party/eigen3/Eigen/src/SparseCore/ConservativeSparseSparseProduct.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-67 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/MappedSparseMatrix.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-68 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseBlock.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-69 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseColEtree.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-70 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseCwiseBinaryOp.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-71 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseCwiseUnaryOp.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-72 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseDenseProduct.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-73 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseDiagonalProduct.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-74 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseDot.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-75 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseFuzzy.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-76 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseMatrix.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-77 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseMatrixBase.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-78 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparsePermutation.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-79 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseProduct.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-80 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseRedux.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-81 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseSelfAdjointView.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-82 (0)
+> - _D_
+>   third_party/eigen3/Eigen/src/SparseCore/SparseSparseProductWithPruning.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-83 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseTranspose.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-84 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseTriangularView.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-85 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseUtil.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-86 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseVector.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-87 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/SparseView.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-88 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseCore/TriangularSolver.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-89 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-90 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLUImpl.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-91 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_Memory.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-92 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_Structs.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-93 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_SupernodalMatrix.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-94 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_Utils.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-95 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_column_bmod.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-96 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_column_dfs.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-97 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_copy_to_ucol.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-98 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_gemm_kernel.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-99 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_heap_relax_snode.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-100 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_kernel_bmod.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-101 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_panel_bmod.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-102 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_panel_dfs.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-103 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_pivotL.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-104 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_pruneL.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-105 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseLU/SparseLU_relax_snode.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-106 (0)
+> - _D_ third_party/eigen3/Eigen/src/SparseQR/SparseQR.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-107 (0)
+> - _D_ third_party/eigen3/Eigen/src/StlSupport/StdDeque.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-108 (0)
+> - _D_ third_party/eigen3/Eigen/src/StlSupport/StdList.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-109 (0)
+> - _D_ third_party/eigen3/Eigen/src/StlSupport/StdVector.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-110 (0)
+> - _D_ third_party/eigen3/Eigen/src/StlSupport/details.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-111 (0)
+> - _D_ third_party/eigen3/Eigen/src/SuperLUSupport/SuperLUSupport.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-112 (0)
+> - _D_ third_party/eigen3/Eigen/src/UmfPackSupport/UmfPackSupport.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-113 (0)
+> - _D_ third_party/eigen3/unsupported/Eigen/FFT
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-114 (0)
+> - _D_ third_party/eigen3/unsupported/Eigen/KroneckerProduct
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-115 (0)
+> - _D_ third_party/eigen3/unsupported/Eigen/src/FFT/CMakeLists.txt
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-116 (0)
+> - _D_ third_party/eigen3/unsupported/Eigen/src/FFT/ei_fftw_impl.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-117 (0)
+> - _D_ third_party/eigen3/unsupported/Eigen/src/FFT/ei_kissfft_impl.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-118 (0)
+> - _D_
+>   third_party/eigen3/unsupported/Eigen/src/KroneckerProduct/CMakeLists.txt
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-119 (0)
+> - _D_
+>   third_party/eigen3/unsupported/Eigen/src/KroneckerProduct/KroneckerTensorProduct.h
+>   https://github.com/tensorflow/tensorflow/pull/711/files#diff-120 (0)
+> 
+> Patch Links:
+> - https://github.com/tensorflow/tensorflow/pull/711.patch
+> - https://github.com/tensorflow/tensorflow/pull/711.diff
+> 
+> —
+> Reply to this email directly or view it on GitHub
+> https://github.com/tensorflow/tensorflow/pull/711.
+
+googlebot(2016-01-07 02:05:06):CLAs look good, thanks!
+
+<!-- ok -->
+
+googlebot(2016-01-07 02:14:15):We found a Contributor License Agreement for you (the sender of this pull request) and all commit authors, but as best as we can tell these commits were authored by someone else.  If that's the case,  please add them to this pull request and have them confirm that they're okay with these commits being contributed to Google.  If we're mistaken and you did author these commits, just reply here to confirm.
+
+<!-- need_author_consent -->
+
+martinwicke(2016-01-07 08:03:54):Can you rebase and squash again (see [rebaseandsqua.sh](rebaseandsqua.sh))? The merge made things very ugly.
+
+googlebot(2016-01-07 18:49:19):Thanks for your pull request.  It looks like this may be your first contribution to a Google open source project. Before we can look at your pull request, you'll need to sign a Contributor License Agreement (CLA).
+
+:memo: **Please visit https://cla.developers.google.com/ to sign.**
+
+Once you've signed, please reply here (e.g. `I signed it!`) and we'll verify.  Thanks.
+
+---
+- If you've already signed a CLA, it's possible we don't have your GitHub username or you're using a different email address.  Check [your existing CLA data](https://cla.developers.google.com/clas) and verify that your [email is set on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+- If you signed the CLA as a corporation, please let us know the company's name.
+
+<!-- need_sender_cla -->
+
+martinwicke(2016-01-07 18:55:33):Can you rebase to head?
+
+tensorflow-jenkins(2016-01-07 02:48:39):Can one of the admins verify this patch?
+
+tensorflow-jenkins(2016-01-08 19:55:52):Can one of the admins verify this patch?
+
+googlebot(2016-01-08 19:55:53):Thanks for your pull request.  It looks like this may be your first contribution to a Google open source project. Before we can look at your pull request, you'll need to sign a Contributor License Agreement (CLA).
+
+:memo: **Please visit https://cla.developers.google.com/ to sign.**
+
+Once you've signed, please reply here (e.g. `I signed it!`) and we'll verify.  Thanks.
+
+---
+- If you've already signed a CLA, it's possible we don't have your GitHub username or you're using a different email address.  Check [your existing CLA data](https://cla.developers.google.com/clas) and verify that your [email is set on your git commits](https://help.github.com/articles/setting-your-email-in-git/).
+- If you signed the CLA as a corporation, please let us know the company's name.
+
+<!-- need_sender_cla -->
+
+ageron(2016-01-19 17:42:06):I added my email to my profile, hope this helps the CLA check.
+
+googlebot(2016-01-19 17:42:08):CLAs look good, thanks!
+
+<!-- ok -->
+
+martinwicke(2016-01-30 04:20:01):I would love to have this in contrib/ can you move the files there? Then we can merge.
+
+rbharath(2016-02-23 07:15:52):Is this being actively worked on? If not, I'd be glad to give this a go. It would be very useful in getting tensorflow building on clusters with old versions of glibc and the like.
+
+tensorflow-jenkins(2016-02-23 07:15:54):Can one of the admins verify this patch?
+
+ageron(2016-02-23 10:14:04):@rbharath Hi, sorry for the delay, I've been caught up in another project over the past few weeks, I was hoping to get back to this sooner. Your help is most welcome, thanks a lot! Please feel free to ping me if something is not clear in the code, and I'll try to come back to this within the next couple of weeks.
+
+rbharath(2016-02-23 22:47:56):@ageron: Glad to be useful! I'll give this a shot. I'm no cmake expert, but hopefully I can make enough progress to get somewhere useful.
+
+rbharath(2016-02-24 02:13:12):@ageron I checked out this PR and tried to get tensorflow to build on my machine using cmake (Ubuntu 12.04 with glic 2.15, gcc 4.9.1, cmake 3.5). I made it a ways, but the build crashes when trying to compile the re2 library:
+
+```
+libbenchmark.a(benchmark.cc.o): In function `_Z8RunBenchPN7testing9BenchmarkEii.part.2':
+benchmark.cc:(.text+0x4f): undefined reference to `clock_gettime'
+benchmark.cc:(.text+0x149): undefined reference to `clock_gettime'
+benchmark.cc:(.text+0x195): undefined reference to `clock_gettime'
+benchmark.cc:(.text+0x377): undefined reference to `clock_gettime'
+libbenchmark.a(benchmark.cc.o): In function `StopBenchmarkTiming()':
+benchmark.cc:(.text+0x47a): undefined reference to `clock_gettime'
+libbenchmark.a(benchmark.cc.o):benchmark.cc:(.text+0x4da): more undefined references to     `clock_gettime' follow
+```
+
+The cmake code uses the command ExternalProject to internally download re2 and build it. The failure above is due the linking flag '-lrt' being missing (the rt library was merged into glibc from 2.17 onwards, but I have an old version of glibc locally). The strange thing here though is that I can clone re2 from github manually and get it to build outside of cmake, so there's some arcana about the cmake build that's confusing me. Do you have any thoughts?
+
+ageron(2016-02-24 22:17:47):@rbharath That's really weird, I'm looking into it.  Also, I'm moving cmake to tensorflow/contrib/cmake, as requested, and catching up to all the changes that have happened in the last few weeks.  I'll try to finish by tomorrow.
+
+ageron(2016-02-25 14:27:39):@rbharath I updated the code to move cmake/ to tensorflow/contrib/cmake/, and I updated to the latest upstream commit and fixed a couple issues.  The code builds and runs fine on my MacOSX machine (`tf_tutorials_example_trainer`), but I just tried to build it on an Ubuntu VM, and it failed with similar issues as you (linkage errors).  Adding the following code just after "find_package(Threads)" in tensorflow/contrib/cmake/CMakeLists.txt fixed the build problem:
+
+```
+IF (UNIX)
+    LINK_LIBRARIES(${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS} -lm -lrt)
+ENDIF (UNIX)
+```
+
+Now it builds all the way to the end, but I get a segfault when I run tf_tutorials_example_trainer on Ubuntu.  I'm investigating why, here's a quick dbg session:
+[debug_tf.txt](https://github.com/tensorflow/tensorflow/files/146645/debug_tf.txt)
+
+Before building TensorFlow, I installed a few packages:
+
+```
+sudo apt-get install build-essential
+sudo apt-get install zlib1g-dev
+```
+
+I also built and installed Protobuf 3 from the source in google/protobuf (I followed the instructions in google/protobuf/cmake/README.md, without gmock)
+As I installed it in a non-standard directory, I added the following options to the cmake commands when building TensorFlow:
+
+```
+-DPROTOBUF_PROTOC_EXECUTABLE=[...]/install/bin/protoc
+-DPROTOBUF_INCLUDE_DIR=[...]/install/include
+-DPROTOBUF_PROTOC_LIBRARY=[...]/install/lib/libprotoc.a
+-DPROTOBUF_LIBRARY=[...]/install/lib/libprotobuf.a
+```
+
+ageron(2016-02-25 14:45:01):@martinwicke Hi Martin, I moved the `cmake/` directory to `tensorflow/contrib/cmake`, and caught up to the latest upstream commit.
+
+martinwicke(2016-02-25 17:01:43):Thanks @ageron! I'm merging this for the greater good, even if it's still broken. 
+
+martinwicke(2016-02-25 17:04:42):Merged. Is the segfault the same problem you had in your first version?  
+
+rbharath(2016-02-26 00:08:26):@ageron, @martinwicke  I managed to get around the linking issues in re2 (The fix suggested above didn't quite work for me, but something close did. However, I'm now running into a make error when compiling `tf_core_kernels`
+
+```
+/home/rbharath/tensorflow/tensorflow/core/kernels/matrix_solve_ls_op.cc: In member function ‘void tensorflow::MatrixSolveLsOp<Scalar, SupportsBatchOperationT>::ComputeMatrix(tensorflow::OpKernelContext*, const typename tensorflow::BinaryLinearAlgebraOp<Scalar, SupportsBatchOperationT>::ConstMatrixMap&, const typename tensorflow::BinaryLinearAlgebraOp<Scalar, SupportsBatchOperationT>::ConstMatrixMap&,   typename tensorflow::BinaryLinearAlgebraOp<Scalar, SupportsBatchOperationT>::MatrixMap*)’:
+/home/rbharath/tensorflow/tensorflow/core/kernels/matrix_solve_ls_op.cc:111:41: error: ‘Matrix’ is not a class, namespace, or enumeration
+           (Scalar(l2_regularizer) * Matrix::Ones(cols, 1)).asDiagonal();
+                                     ^
+/home/rbharath/tensorflow/tensorflow/core/kernels/matrix_solve_ls_op.cc:131:41: error: ‘Matrix’ is not a class, namespace, or enumeration
+           (Scalar(l2_regularizer) * Matrix::Ones(rows, 1)).asDiagonal();
+                                     ^
+make[2]: ***   [CMakeFiles/tf_core_kernels.dir/home/rbharath/tensorflow/tensorflow/core/kernels/matrix_solve_ls_op.cc.o] Error 1
+make[1]: *** [CMakeFiles/tf_core_kernels.dir/all] Error 2
+make: *** [all] Error 2
+```
+
+Do you have any thoughts on possible fixes?
+
+vrv(2016-02-26 00:14:07):I think your version of gcc doesn't know how to parse
+
+"using typename BinaryLinearAlgebraOp<Scalar, SupportsBatchOperationT>::Matrix;" higher in the file -- my suggestion is to either upgrade your gcc and/or maybe downgrade our code to use less sophisticated C++ features :)
+
+rbharath(2016-02-26 21:54:21):@vrv Thanks for the pointer!
+
+@martinwicke I've made the changes required to get CMake to compile on ubuntu in PR #1309. Could you take a quick look?
+
+@ageron: Unfortunately, I'm also seeing a segfault in my compiled version. I'll do some digging on my end as well to see if I can figure something out.
+
+martinwicke(2016-02-27 23:25:41):I'm closing this PR (it's merged). Feel free to continue using it as a message board, or move to #1309.
+
+tensorflow-jenkins(2016-01-08 22:22:08):Can one of the admins verify this patch?
+
+zheng-xq(2016-01-09 00:20:52):@dongjoon-hyun, Thank you for your contribution. Unfortunately, TensorFlow doesn't really own stream-executor. And this has to be fixed there first. I will pass on your changes to the stream-executor team to incorporate them upstream. Then TensorFlow will benefit from it automatically. 
+
+dongjoon-hyun(2016-01-09 00:25:04):Oh, I see. Thank you for informing me that, @zheng-xq .
+
+By the way, could you give me some URLs for contributing stream-executor code? Github or googlesource? I hope to contribute there directly next time if it is possible.
+
+zheng-xq(2016-01-09 00:37:10):Unfortunately, the stream-executor team is still working on their own open-sourcing. That's why TensorFlow currently carries a copy. When they are ready for their own open-sourcing, we will drop our copy, and refer to the public one. But for now, you are doing the right thing. Although we cannot accept the pull request, we will pass them to the stream-executor to make the change upstream. 
+
+dongjoon-hyun(2016-01-09 00:46:00):I see. Now I understand the situation. Okay, no problem.
+Thank you for taking the passing jobs. :)
+
+vrv(2016-01-11 05:57:15):Closing for now, I assume this is on the roadmap, @zheng-xq and @leary-google ?
+
+tensorflow-jenkins(2016-01-08 23:29:18):Can one of the admins verify this patch?
+
+dongjoon-hyun(2016-01-09 18:31:30):Thank you, @dsmilkov .
+
