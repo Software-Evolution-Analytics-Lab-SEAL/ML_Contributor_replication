@@ -1,0 +1,5 @@
+facebook-github-bot
+onnxbot
+docusaurus-bot
+pytorchmergebot
+dependabot[bot]
