@@ -17,7 +17,7 @@ We have provided the collected data under **/data**. The code under **/data_coll
 
 **data_collect/github_crawler.py** collects the commits/pull requests/issues subject projects from GitHub.
 
-**data_collect/project_data_analyzer.py** collects contributor timezone and commit, and extracts contributor features.
+**data_collect/project_data_analyzer.py** collects contributor commit time and timezone, and extracts contributor features.
 
 **data_collect/collect_fork_history.py** collects the timestamps of forks from Github.
 
