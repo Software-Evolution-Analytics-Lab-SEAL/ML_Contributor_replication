@@ -13,15 +13,15 @@ We have provided our dataset under **/data**. The collected repository data for 
 **data/contributor_period_activity.csv** and **data/contributor_activity_sequence.csv** contain the extracted OSS engagement features.
 
 ### Data Collection
-We have provided the collected data under **/data**. The code under **/data_collect** directory is only for recreating our dataset.
+We have provided our dataset under **/data**. The code under **/data_collection** directory is only for recreating our dataset.
 
-**data_collect/github_crawler.py** collects the commits/pull requests/issues of our subject projects from GitHub.
+**data_collection/github_crawler.py** collects the commits/pull requests/issues of our subject projects from GitHub.
 
-**data_collect/project_data_analyzer.py** collects contributor commit time and timezone, and extracts contributor features.
+**data_collection/project_data_analyzer.py** collects contributor commit time and timezone, and extracts contributor features.
 
-**data_collect/collect_fork_history.py** collects the timestamps of forks from Github.
+**data_collection/collect_fork_history.py** collects the timestamps of forks from Github.
 
-**data_collect/collect_fork_history.py** collects the timestamps of star ratings from Github.
+**data_collection/collect_fork_history.py** collects the timestamps of star ratings from Github.
 
 ### Approach
 Executing code under **/approach** directory requires a conda environment. Unzip the zipped files under tensorflow_tensorflow and pytorch_pytorch before executing the code in this directory.
