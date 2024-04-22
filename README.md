@@ -7,18 +7,27 @@ With the increasing popularity of machine learning (ML), a growing number of dev
 ## Usage
 ### Dataset
 We have provided our dataset under **/data**. The collected repository data for our subject projects are in separate directories (e.g., data/tensorflow_tensorflow). 
-data/contributor_features.csv, data/contributor_period_activity.csv and data/contributor_activity_sequence.csv contains the contributor features and the extracted OSS engagement features.
+
+**data/contributor_features.csv** contains the extracted contributor features.
+
+**data/contributor_period_activity.csv** and **data/contributor_activity_sequence.csv** contain the extracted OSS engagement features.
 
 ### Data Collection
 We have provided the collected data under **/data**. The code under **/data_collect** directory is only for recreating our dataset.
-**data_collect/github_crawler.py** collects the commits/pull requests/issues subject projects from GitHub
+
+**data_collect/github_crawler.py** collects the commits/pull requests/issues subject projects from GitHub.
+
 **data_collect/project_data_analyzer.py** collects contributor timezone and commit, and extracts contributor features.
+
 **data_collect/collect_fork_history.py** collects the timestamps of forks from Github.
+
 **data_collect/collect_fork_history.py** collects the timestamps of star ratings from Github.
 
 ### Approach
 Executing code under **/approach** directory requires a conda environment. Make sure to unzip the zipped data under tensorflow_tensorflow and pytorch_pytorch before executing the code in this directory.
-**approach/profile_clustering.ipynb** reproducing our profile identification. The result is in data/contributor_features.csv column 'profile.
+
+**approach/profile_clustering.ipynb** reproducing our profile identification. The result is in data/contributor_features.csv column 'profile'.
+
 **approach/workload_composition_work_preference_technical_importance.ipynb** reproducing the workload composition pattern identification, work preference feature extraction, and technical importance calculation. The results are in data/contributor_period_activity.csv and data/contributor_activity_sequence.csv.
 
 ### Experiment
