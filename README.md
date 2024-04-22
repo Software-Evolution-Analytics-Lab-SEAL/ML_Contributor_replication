@@ -15,7 +15,7 @@ We have provided our dataset under **/data**. The collected repository data for 
 ### Data Collection
 We have provided the collected data under **/data**. The code under **/data_collect** directory is only for recreating our dataset.
 
-**data_collect/github_crawler.py** collects the commits/pull requests/issues subject projects from GitHub.
+**data_collect/github_crawler.py** collects the commits/pull requests/issues of our subject projects from GitHub.
 
 **data_collect/project_data_analyzer.py** collects contributor commit time and timezone, and extracts contributor features.
 
@@ -24,7 +24,7 @@ We have provided the collected data under **/data**. The code under **/data_coll
 **data_collect/collect_fork_history.py** collects the timestamps of star ratings from Github.
 
 ### Approach
-Executing code under **/approach** directory requires a conda environment. Make sure to unzip the zipped data under tensorflow_tensorflow and pytorch_pytorch before executing the code in this directory.
+Executing code under **/approach** directory requires a conda environment. Unzip the zipped files under tensorflow_tensorflow and pytorch_pytorch before executing the code in this directory.
 
 **approach/profile_clustering.ipynb** reproducing our profile identification. The result is in data/contributor_features.csv column 'profile'.
 
