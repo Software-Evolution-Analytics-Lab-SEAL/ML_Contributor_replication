@@ -20,10 +20,10 @@ approach/workload_composition_work_preference_technical_importance.ipynb reprodu
 ### Experiment
 The code under /experiments directory reproduces our experiments and results for each RQ. Executing code under this directory requires a conda environment. 
 ### RQ1 Result
-The code is in experiments/rq1.ipynb.
+The code is in **experiments/rq1.ipynb**.
 ### RQ2 Result
-The code is in experiments/rq2.ipynb.
+The code is in **experiments/rq2.ipynb**.
 ### RQ3 Result
-The code is in experiments/rq3.ipynb.
+The code is in **experiments/rq3.ipynb**.
 ### RQ4 Result
-The code is in experiments/rq4.ipynb.
+The code is in **experiments/rq4.ipynb**.
