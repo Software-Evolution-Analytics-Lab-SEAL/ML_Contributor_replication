@@ -3,7 +3,6 @@
 ## Abstract
 With the increasing popularity of machine learning (ML), a growing number of developers have been attracted to developing and adopting ML approaches for many domains, such as natural language processing, computer vision, and recommendation systems. To ensure the success of ML software development and maintenance processes, it is crucial to establish a comprehensive understanding of ML contributors who could potentially affect the success of a project. Without such knowledge, there is a risk of inefficient resource allocation and hindered collaboration within the open-source environment. Existing research efforts to study ML contributors focus on the understanding of difficulties and challenges perceived by ML contributors using user surveys. There is a lack of understanding of the characteristics of open-source ML contributors based on their activities observed from the software repositories (e.g., their code changes, raised issues, or participated discussions). In this paper, we aim to understand the characteristics of contributors' activities by identifying contributor profiles in ML libraries. We further study the OSS engagement of ML contributors from three aspects: workload composition, work preferences, and technical importance. By investigating 7,640 contributors from 6 popular ML libraries (i.e., Tensorflow, PyTorch, Keras, MXNet, Theano and ONNX), we identify four ML contributor profiles, namely - Core-Afterhour, Core-Workhour, Peripheral-Afterhour, and Peripheral-Workhour contributors. We find that 1) project experience, code contribution diversity, collaborations, and geological location are significant features of all profiles; 2) contributors in the Core profiles exhibit significantly different OSS engagement compared to Peripheral profiles; 3) the distribution of contributors’ work preferences and workload compositions significantly affect the increase of project popularity; and 4) long-term contributors evolve towards making fewer, constant, balanced and less technical contributions.
 
-## Setup
 ## Usage
 ### Dataset
 We have provided our dataset under **/data**. The collected repository data for our subject projects are in separate directories (e.g., data/tensorflow_tensorflow). 
@@ -14,6 +13,8 @@ We have provided our dataset under **/data**. The collected repository data for 
 
 ### Data Collection
 We have provided our dataset under **/data**. The code under **/data_collection** directory is only for recreating our dataset.
+
+Execute pip **install -r /path/to/requirements.txt** to install the required dependencies to execute the data collection scripts. Make sure to execute the data collection scripts following the order below. Modifications are needed to execute each script and more instructions are included in the head comments inside each script.
 
 **data_collection/github_crawler.py** collects the commits/pull requests/issues of our subject projects from GitHub.
 
