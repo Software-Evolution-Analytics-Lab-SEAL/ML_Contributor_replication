@@ -14,7 +14,7 @@ We have provided our dataset under **/data**. The collected repository data for 
 ### Data Collection
 We have provided our dataset under **/data**. The code under **/data_collection** directory is only for recreating our dataset.
 
-Execute ```pip install -r data_collection/requirements.txt``` to install the required dependencies to execute the data collection scripts. Make sure to execute the data collection scripts following the order below. Modifications are needed to execute each script and more instructions are included in the head comments inside each script.
+Run command ```pip install -r data_collection/requirements.txt``` to install the required dependencies to execute the data collection scripts. Make sure to execute the data collection scripts following the order below. Modifications are needed to execute each script and more instructions are included in the head comments inside each script.
 
 **data_collection/github_crawler.py** collects the commits/pull requests/issues of our subject projects from GitHub.
 
@@ -27,7 +27,7 @@ Execute ```pip install -r data_collection/requirements.txt``` to install the req
 ### Approach
 Executing code under **/approach** directory requires a conda environment. Unzip the zipped files under tensorflow_tensorflow and pytorch_pytorch before executing the code in this directory.
 
-Execute ```pip install -r approach/requirements.txt``` to install the required dependencies to execute the approach scripts. Open the following ipynb files in an IDE and click "Run ALL" to execute the scripts.
+Run command ```pip install -r approach/requirements.txt``` to install the required dependencies to execute the approach scripts. Open the following ipynb files in an IDE and click "Run ALL" to execute the scripts.
 
 **approach/profile_clustering.ipynb** reproducing our profile identification. The result is in data/contributor_features.csv column 'profile'.
 
@@ -36,7 +36,7 @@ Execute ```pip install -r approach/requirements.txt``` to install the required d
 ### Experiment
 The code under **/experiments** directory reproduces our experiments and results for each RQ. Executing code under this directory requires a conda environment. 
 
-Execute ```pip install -r experiments/requirements.txt``` to install the required dependencies to execute the experiment scripts for each RQ. Open the following ipynb files in an IDE and click "Run ALL" to execute the scripts.
+Run command ```pip install -r experiments/requirements.txt``` to install the required dependencies to execute the experiment scripts for each RQ. Open the following ipynb files in an IDE and click "Run ALL" to execute the scripts.
 
 ### RQ1 Result
 The code is in **experiments/rq1.ipynb**.
