@@ -36,7 +36,7 @@ Execute ```pip install -r approach/requirements.txt``` to install the required d
 ### Experiment
 The code under **/experiments** directory reproduces our experiments and results for each RQ. Executing code under this directory requires a conda environment. 
 
-Execute ```pip install -r experiment/requirements.txt``` to install the required dependencies to execute the RE experiment scripts. Open the following ipynb files in an IDE and click "Run ALL" to execute the scripts.
+Execute ```pip install -r experiments/requirements.txt``` to install the required dependencies to execute the experiment scripts for each RQ. Open the following ipynb files in an IDE and click "Run ALL" to execute the scripts.
 
 ### RQ1 Result
 The code is in **experiments/rq1.ipynb**.
