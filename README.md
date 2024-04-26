@@ -39,10 +39,10 @@ The code under **/experiments** directory reproduces our experiments and results
 Run command ```pip install -r experiments/requirements.txt``` to install the required dependencies to execute the experiment scripts for each RQ. Open the following ipynb files in an IDE and click "Run ALL" to execute the scripts.
 
 ### RQ1 Result
-The code is in **experiments/rq1.ipynb**.
+The code for reproducing RQ1 results is in **experiments/rq1.ipynb**.
 ### RQ2 Result
-The code is in **experiments/rq2.ipynb**.
+The code for reproducing RQ2 results is in **experiments/rq2.ipynb**.
 ### RQ3 Result
-The code is in **experiments/rq3.ipynb**.
+The code for reproducing RQ3 results is in **experiments/rq3.ipynb**.
 ### RQ4 Result
-The code is in **experiments/rq4.ipynb**.
+The code for reproducing RQ4 results is in **experiments/rq4.ipynb**.
