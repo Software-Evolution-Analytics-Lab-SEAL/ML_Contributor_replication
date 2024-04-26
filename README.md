@@ -14,7 +14,7 @@ We have provided our dataset under **/data**. The collected repository data for 
 ### Data Collection
 We have provided our dataset under **/data**. The code under **/data_collection** directory is only for recreating our dataset.
 
-Execute pip **install -r /path/to/requirements.txt** to install the required dependencies to execute the data collection scripts. Make sure to execute the data collection scripts following the order below. Modifications are needed to execute each script and more instructions are included in the head comments inside each script.
+Execute pip '''install -r data_collection/requirements.txt''' to install the required dependencies to execute the data collection scripts. Make sure to execute the data collection scripts following the order below. Modifications are needed to execute each script and more instructions are included in the head comments inside each script.
 
 **data_collection/github_crawler.py** collects the commits/pull requests/issues of our subject projects from GitHub.
 
