@@ -1,2 +1,3 @@
+dependabot[bot]
 deadsnakes-issues-bot
 mxnet-label-bot
