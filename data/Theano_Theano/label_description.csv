@@ -1,0 +1,84 @@
+,Label,Description
+0,Bug,
+1,C Code,
+2,CCW,
+3,CCW - In progress,
+4,CCW - Reserved,
+5,CCW-test,
+6,CI/Buildbot,
+7,Clean up,
+8,Closed as we stop development,
+9,Contribution Welcome,
+10,Convolution,
+11,Crash,
+12,Critical,
+13,Documentation,
+14,Easy fix,
+15,Enhancement,
+16,GPU,
+17,GPU - New back-end,
+18,High Priority,
+19,Interface,
+20,Jenkins,
+21,Lazy evaluation,
+22,libgpuarray,
+23,Linear algebra,
+24,Low Priority,
+25,Mac,
+26,Medium Priority,
+27,Memory,
+28,NaN,
+29,NeedSomeoneToFinish,
+30,Nice-To-Have,
+31,Not the place to request support,
+32,OpenCL,
+33,Optimization,
+34,Python Code Only,
+35,Regression,
+36,Scan,Involves the `Scan` `Op`
+37,Sparse,
+38,Speed-Up,
+39,Stability,
+40,Test,
+41,TypedList,
+42,Windows,
+43,backend compatibility,Issues relating to compatibility with backends called by this library
+44,blocked,
+45,bug,Something isn't working
+46,C-backend,
+47,CI,Involves continuous integration
+48,Conda,
+49,dependencies,Pull requests that update a dependency file
+50,documentation,Improvements or additions to documentation
+51,duplicate,This issue or pull request already exists
+52,enhancement,New feature or request
+53,github_actions,Pull requests that update GitHub Actions code
+54,good first issue,Good for newcomers
+55,gradient implementations,
+56,graph objects,
+57,graph rewriting,
+58,help wanted,Extra attention is needed
+59,important,
+60,invalid,This doesn't seem right
+61,JAX,Involves JAX transpilation
+62,MacOS,
+63,miniKanren,
+64,MWE needed,This issue needs a minimum working example that demonstrates the issue
+65,Numba,Involves Numba transpilation
+66,NumPy compatibility,
+67,Op implementation,Involves the implementation of an Op
+68,performance concern,
+69,question,Further information is requested
+70,random variables,Involves random variables and/or sampling
+71,refactor,This issue involves refactoring
+72,request discussion,
+73,SciPy compatibility,
+74,setup and installation,Relates to the setup and installation of Aesara
+75,shape inference,
+76,sparse tensors,
+77,tensor algebra,Relates to our use and representations of tensor algebra
+78,testing,
+79,tooling,"Relates to developer tools for printing, debugging, and/or manipulating Aesara objects"
+80,typing,Work related to type checking
+81,unexpected behavior,
+82,wontfix,This will not be worked on
