@@ -1,0 +1,41 @@
+,Label,Description
+0,Announcement,Official updates from the Keras team.
+1,API design review,API modifications. Needs discussion and approval from fchollet.
+2,awaiting review,
+3,backend:jax,
+4,backend:tensorflow,
+5,backend:torch,
+6,cla: no,
+7,cla: yes,
+8,dependencies,Pull requests that update a dependency file
+9,Duplicate,
+10,Gemma,Gemma model specific issues
+11,github_actions,Pull requests that update GitHub Actions code
+12,Good first issue,Issues which are good for first-time contributors. Usually easy to fix.
+13,keras-team-review-pending,Pending review by a Keras team member.
+14,kokoro:force-run,
+15,layers,
+16,python,Pull requests that update Python code
+17,ready to pull,Ready to be merged into the codebase
+18,saved_model,
+19,size:L,
+20,size:M,
+21,size:S,
+22,size:XL,
+23,size:XS,
+24,stale,
+25,stat:awaiting keras-eng,Awaiting response from Keras engineer
+26,stat:awaiting response from contributor,
+27,stat:contributions welcome,A pull request to fix this issue would be welcome.
+28,tf-keras,Transfer issues from keras-team/keras to keras-team/tf-keras
+29,To investigate,Looks like a bug. It needs someone to investigate.
+30,type:Bug,
+31,type:bug/performance,
+32,type:docs,Need to modify the documentation
+33,type:docs-bug,
+34,type:feature,The user is asking for a new feature.
+35,type:others,
+36,type:performance,
+37,type:support,User is asking for help / asking an implementation question. Stackoverflow would be better suited.
+38,User error,
+39,wontfix,
