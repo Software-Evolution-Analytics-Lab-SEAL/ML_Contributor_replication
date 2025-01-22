@@ -1,0 +1,117 @@
+,Label,Description
+0,1.4.0,
+1,1.9,
+2,2.17,Issues related to 2.17 release
+3,2.6.0,
+4,Android,
+5,API review,API Review
+6,awaiting PR merge,awaiting PR merge
+7,awaiting review,Pull request awaiting review
+8,build and push to gcr.io for staging,Used for TF DevInfra dockerfile staging
+9,cla: no,
+10,cla: yes,
+11,comp:apis,Highlevel API related issues
+12,comp:autograph,Autograph related issues
+13,comp:cloud,"PRs related to cloud platform (GCP, AWS ... etc)"
+14,comp:core,issues related to core part of tensorflow
+15,comp:data,tf.data related issues
+16,comp:dist-strat,Distribution Strategy related issues
+17,comp:eager,Eager related issues
+18,comp:gpu,GPU related issues
+19,comp:gpu:tensorrt,Issues specific to TensorRT
+20,comp:grappler,Grappler related issues
+21,comp:keras,Keras related issues
+22,comp:lite,TF Lite related issues
+23,comp:lite-examples,TensorFlow Lite Examples
+24,comp:lite-flex,
+25,comp:lite-kernels,TensorFlow Lite kernel issues
+26,comp:lite-support,Lite support library related issues
+27,comp:lite-tosa,TFLite TOSA conversion issues
+28,comp:lite-xnnpack,TensorFlow Lite XNNPack related issues
+29,comp:micro,Related to TensorFlow Lite Microcontrollers
+30,comp:mkl,MKL related issues
+31,comp:model,Model related issues
+32,comp:ops,OPs related issues
+33,comp:runtime,"c++ runtime, performance issues (cpu)"
+34,comp:signal,tf.signal related issues
+35,comp:tensorboard,Tensorboard related issues
+36,comp:tf.function,tf.function related issues
+37,comp:tfdbg,tf debugger
+38,comp:tpus,"tpu, tpuestimator"
+39,comp:xla,XLA
+40,contrib,Anything that comes under contrib directory
+41,dependencies,Pull requests that update a dependency file
+42,docker,Pull requests that update Docker code
+43,Fixed in Nightly,Issues that are resolved in nightly version
+44,github_actions,Pull requests that update GitHub Actions code
+45,good first issue,Good first issue for newcomers.
+46,invalid,Hacktoberfest spam PR
+47,iOS,
+48,kokoro:force-run,Tests on submitted change
+49,ModelOptimizationToolkit,TF Model Optimization Toolkit
+50,override-stale,This label should be used to override stale bot action on PR and Issue which demands additional time
+51,prime,for PR prioritization
+52,prtype:bugfix,PR to fix a bug
+53,python,Pull requests that update Python code
+54,ready to pull,PR ready for merge process
+55,regression issue,To spot regression issues in latest version
+56,release,release cherry-pick
+57,RNN,RNN related issues
+58,size:L,CL Change Size: Large
+59,size:M,CL Change Size: Medium
+60,size:S,CL Change Size: Small
+61,size:XL,CL Change Size:Extra Large
+62,size:XS,CL Change Size: Extra Small
+63,stale,This label marks the issue/pr stale - to be closed automatically if no activity
+64,stat:awaiting response,Status  - Awaiting response from author
+65,stat:awaiting tensorflower,Status  - Awaiting response from tensorflower
+66,stat:community support,Status  - Community Support
+67,stat:contribution welcome,Status - Contributions welcome
+68,subtype: raspberry pi,Raspberry Pi Build/Installation Issues
+69,subtype: ubuntu/linux,Ubuntu/Linux Build/Installation Issues
+70,subtype:bazel,Bazel related Build_Installation issues
+71,subtype:centos,Centos Build/Installation issues
+72,subtype:cpu-intel,To track windows cpu issues
+73,subtype:direct-ml-plugin,direct-ml-plugin issues
+74,subtype:macOS,macOS Build/Installation issues
+75,subtype:windows,Windows Build/Installation Issues
+76,TF 1.12,Issues related to TF 1.12
+77,TF 1.13,Issues related to TF 1.13
+78,TF 1.14,for issues seen with TF 1.14
+79,TF 1.15,for issues seen on TF 1.15
+80,TF 1.5.0,
+81,TF 2.0,Issues relating to TensorFlow 2.0
+82,TF 2.1,for tracking issues in 2.1 release
+83,TF 2.10,
+84,TF 2.11,Issues related to TF 2.11
+85,TF 2.12,For issues related to Tensorflow 2.12
+86,TF 2.13,For issues related to Tensorflow 2.13
+87,TF 2.15,For issues related to 2.15.x
+88,TF 2.16,
+89,TF 2.2,Issues related to TF 2.2
+90,TF 2.3,Issues related to TF 2.3
+91,TF 2.4,for issues related to TF 2.4
+92,TF 2.5,Issues related to TF 2.5
+93,TF 2.6.0-rc0,The issues encountered with TF 2.6.0-rc0
+94,TF 2.7,Issues related to TF 2.7.0
+95,TF 2.8,
+96,TF 2.9,Issues found in the TF 2.9 release (or RCs)
+97,TF2.14,For issues related to Tensorflow 2.14.x
+98,TFLiteConverter,For issues related to TFLite converter
+99,TFLiteGooglePlayServices,For issues related to TensorFlow Lite in Google Play Services
+100,TFLiteGpuDelegate,TFLite Gpu delegate issue
+101,TFLiteHexagonDelegate,
+102,TFLiteModelMaker,TFLite Model Maker related issues
+103,TFLiteNNAPIDelegate,For issues related to TFLite NNAPI Delegate
+104,type:bug,Bug
+105,type:build/install,Build and install issues
+106,type:docs-bug,Document issues
+107,type:docs-feature,"Doc issues for new feature, or clarifications about functionality"
+108,type:feature,Feature requests
+109,type:internal-todo,Label for internal cleanup issues
+110,type:others,"issues not falling in  bug, perfromance, support, build and install or feature"
+111,type:performance,Performance Issue
+112,type:support,Support issues
+113,waiting for patch release,PR will be reviewed and merged only if we do a patch release since PR is not on master branch
+114,WIP,
+115,wsl2,Windows Subsystem for Linux
