@@ -5,7 +5,7 @@ With the increasing popularity of machine learning (ML), many open source softwa
 
 ## Usage
 ### Dataset
-We have provided our dataset under **/data**. The collected repository data for our subject projects are in separate directories (e.g., data/tensorflow_tensorflow). 
+We have provided our dataset under **/data**. The collected repository data for our subject projects are in separate directories (e.g., data/tensorflow_tensorflow). Files greater than 25Mb are zipped, make sure to unzip all the files before running any scripts.
 
 **data/contributor_features.csv** contains the extracted contributor features.
 
