@@ -1,0 +1,105 @@
+,Label,Description
+0,API,
+1,arch:arm,ARM related issues
+2,Array API,
+3,Blocker,
+4,Breaking Change,Issue resolution would not be easily handled by the usual deprecation cycle.
+5,Bug,
+6,Build / CI,
+7,C/C++,
+8,CUDA CI,
+9,cython,
+10,dependencies,Pull requests that update a dependency file
+11,Developer API,Third party developer API related
+12,Documentation,
+13,Easy,Well-defined and straightforward way to resolve
+14,Enhancement,
+15,float32,Issues related to support for 32bit data
+16,free-threading,"PRs and issues related to support for free-threaded CPython (a.k.a. nogil or no-GIL, PEP 703)"
+17,frontend,
+18,good first issue,Easy with clear instructions to resolve
+19,good first PR to review,Simple atomic PR to review
+20,hacktoberfest,
+21,hacktoberfest-accepted,
+22,Hard,Hard level of difficulty
+23,help wanted,
+24,High Priority,High priority issues and pull requests
+25,Large Scale,
+26,Lock files,
+27,Low Priority,Low priority issues and pull requests
+28,Meta-issue,General issue associated to an identified list of tasks
+29,Metadata Routing,"all issues related to metadata routing, slep006, sample props"
+30,Moderate,Anything that requires some knowledge of conventions and best practices
+31,module:base,
+32,module:calibration,
+33,module:cluster,
+34,module:common,
+35,module:compose,
+36,module:covariance,
+37,module:cross_decomposition,
+38,module:datasets,
+39,module:decomposition,
+40,module:discriminant_analysis,
+41,module:ensemble,
+42,module:feature_extraction,
+43,module:feature_selection,
+44,module:gaussian_process,
+45,module:impute,
+46,module:inspection,
+47,module:isotonic,
+48,module:kernel_approximation,
+49,module:linear_model,
+50,module:manifold,
+51,module:metrics,
+52,module:mixture,
+53,module:model_selection,
+54,module:multiclass,
+55,module:multioutput,
+56,module:naive_bayes,
+57,module:neighbors,
+58,module:neural_network,
+59,module:pipeline,
+60,module:preprocessing,
+61,module:random_projection,
+62,module:semi_supervised,
+63,module:svm,
+64,module:test-suite,everything related to our tests
+65,module:tree,
+66,module:utils,
+67,Move to scikit-learn-extra,This PR should be moved to the scikit-learn-extras repository
+68,Needs Benchmarks,A tag for the issues and PRs which require some benchmarks
+69,Needs Decision,Requires decision
+70,Needs Decision - Close,Requires decision for closing
+71,Needs Decision - Include Feature,Requires decision regarding including feature
+72,Needs Info,
+73,Needs Investigation,Issue requires investigation
+74,Needs Reproducible Code,Issue requires reproducible code
+75,Needs Triage,Issue requires triage
+76,Needs work,
+77,New Feature,
+78,No Changelog Needed,
+79,Numerical Stability,
+80,OS:Linux,Problem specific to Linux
+81,OS:macOS,Problem specific to macOS (aka OSX or OS X)
+82,OS:Windows,Problem specific to Windows
+83,Packaging,
+84,Pandas compatibility,
+85,Performance,
+86,pypy,
+87,Question,
+88,Quick Review,For PRs that are quick to review
+89,Refactor,Code refactor
+90,Regression,
+91,RFC,
+92,segfault,
+93,spam,spam PR and issues
+94,Sprint,
+95,Stalled,
+96,Superseded,PR has been replace by a newer PR
+97,To backport,PR merged in master that need a backport to a release branch defined based on the milestone.
+98,upstream bug,
+99,Validation,related to input validation
+100,Waiting for Reviewer,
+101,Waiting for Second Reviewer,"First reviewer is done, need a second one!"
+102,wontfix,We won't be fixing this issue
+103,workflow,Development workflow changes
