@@ -1,0 +1,51 @@
+,Label,Description
+0,Android,
+1,Arbiter,Hyperparameter optimization
+2,ARM,
+3,Blas/Lapack,Blas/lapack related issues
+4,Bug,Bugs and problems
+5,Codegen,Code generation & multi language support issues
+6,CoreML,
+7,CUDA,Cuda specific issues
+8,DataVec / ETL,ETL & DataVec issues
+9,dependencies,Pull requests that update a dependency file
+10,DevOps,Issues related to CI/CD and pipelines
+11,DL4J,General DeepLearning4j issues
+12,DL4J Keras,Issues related to Keras import
+13,DL4J Zoo,DL4J model zoo & pretrained models
+14,Documentation,
+15,Duplicate,
+16,Eclipse IP,
+17,Enhancement,New features and other enhancements
+18,Epic,
+19,good first issue,
+20,Graalvm,
+21,GraphServer,Native GraphServer issues
+22,GUI,Issues related to User Interfaces
+23,help wanted,
+24,High Priority,
+25,Java 9/10/11,Issues related to Java 9/10/11
+26,LIBND4J,
+27,Low Priority,
+28,ND4J,ND4J Issues
+29,ND4S,ND4S - Scala wrapper for ND4J
+30,Nearest Neighbors,
+31,NLP,Natural Language Processing
+32,Onnx,Onnx import related issues
+33,Other Fix,
+34,Outdated,Label for outdated & locked issues
+35,pending,
+36,Performance,Issues related to framework performance
+37,python4j,
+38,Question,
+39,Release,Whether this PR is needed for release or not.
+40,Release Burndown,
+41,RL4J,
+42,SameDiff,Autodiff related issues
+43,Security,
+44,Spam,
+45,Spark,Issues related to Apache Spark framework
+46,Stalled,
+47,User Support,Support for users excluding bugs
+48,UX,Issues related to User Experience
+49,Won't Fix,
