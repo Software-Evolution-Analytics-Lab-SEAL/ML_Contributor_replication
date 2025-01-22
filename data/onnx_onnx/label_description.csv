@@ -1,0 +1,52 @@
+,Label,Description
+0,announce,Important information for users/developers
+1,auto update doc,Generate md/proto files automatically using the CI pipeline
+2,better engineering,Improve engineering quality of the project
+3,better error message,
+4,bug,
+5,build,Issues related to ONNX builds and packages
+6,CI pipelines,Issues related to the CI pipeline
+7,code style,Issues related to coding style or the linter
+8,compiler warning,
+9,contributions welcome,
+10,converters,Issues related to ONNX converters
+11,dependencies,Pull requests that update a dependency file
+12,do not merge,
+13,documentation,Issues related to ONNX documentation
+14,enhancement,Request for new feature or operator
+15,github_actions,Pull requests that update GitHub Actions code
+16,good first issue,Good for getting started
+17,inliner,
+18,ir,
+19,low priority,
+20,more info needed,More information is needed to process this issue
+21,no-issue-activity,
+22,no-pr-activity,
+23,onnx checker,
+24,onnx hub,
+25,onnx parser,
+26,operator,Issues related to ONNX operators
+27,optimizer,Issues related to ONNX optimizers
+28,partial data propagation,
+29,preprocessing,data preprocessing
+30,python,Pull requests that update Python code
+31,quantization,
+32,question,Questions about ONNX
+33,reference implementation,
+34,release notes,Important changes to call out in release notes
+35,review needed: operators approvers,Require reviews from members of operators-approvers
+36,run release CIs,Use this label to trigger release tests in CI
+37,runtime,Issues related to Runtime for ONNX
+38,schema,Issues related to operator schemas
+39,shape inference,Issues related to shape inference
+40,spec,
+41,spec clarification,Clarification of the ONNX spec needed
+42,stale,
+43,test,
+44,test ONNX Model Zoo,[Caution] It will test this PR with ONNX Model Zoo
+45,tracking,Tracking issues
+46,training,Issues related to ONNX training
+47,utility,
+48,version converter,Issues related to ONNX version converter
+49,vulnerability,
+50,website content,related to https://onnx.ai/onnx/
