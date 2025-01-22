@@ -1,0 +1,543 @@
+,Label,Description
+0,actionable,
+1,activation-checkpointing,Related to activation checkpointing and its interaction with torch.compile
+2,advanced,Label for advanced docathon tasks
+3,awaiting response (this tag is deprecated),This tag is deprecated while we figure out what to do with it
+4,base pinned,"The base branch for this pull request has been pinned to a specific commit, for determinism in CI."
+5,better-engineering,Relatively self-contained tasks for better engineering contributors
+6,better-on-discuss-forum,
+7,bug,
+8,caffe2,
+9,caffe2-op,
+10,cherry-picked,This PR was cherry-picked onto a release branch from master
+11,ci-no-td,Do not run TD on this PR
+12,ci-no-test-timeout,"Don't set timeouts for test running, caution: cannot be set in main"
+13,ci-scribe,Enable logging to Scribe on the CI job
+14,ci-td-distributed,
+15,ci-test-showlocals,Show local variables on test failures
+16,ci-verbose-test-logs,"Print test logs as tests happen, caution: results in interleaved and very long logs"
+17,ci: sev,critical failure affecting PyTorch CI
+18,ci: sev-infra.autoscale,labels a Ci Sev that is caused by infra - affecting runner autoscale mechanism
+19,ci: sev-infra.os,"labels a Ci Sev that is caused by infra - Source of the issue is the OS, misconfiguration, packages."
+20,ci: sev-infra.pet,labels a Ci Sev that is caused by infra - Affecting pet instances.
+21,ci: sev-infra.thirdparty,labels a Ci Sev that is caused by infra - trigger of the issue is a thirdparty
+22,ci: sev-mitigated,"This label marks a sev as mitigated and suppress ""ci: sev"""
+23,ciflow/android,Trigger android build and test (run_android_test.yml)
+24,ciflow/binaries,Trigger all binary build and upload jobs on the PR
+25,ciflow/binaries_conda,Trigger binary build and upload jobs for conda on the PR
+26,ciflow/binaries_libtorch,Trigger binary build and upload jobs for libtorch on the PR
+27,ciflow/binaries_wheel,Trigger binary build and upload jobs for wheel on the PR
+28,ciflow/inductor,
+29,ciflow/inductor-cu124,
+30,ciflow/inductor-micro-benchmark,
+31,ciflow/inductor-perf-compare,
+32,ciflow/inductor-perf-test-nightly,Trigger nightly inductor perf tests
+33,ciflow/inductor-rocm,Trigger inductor CI on ROCm
+34,ciflow/linux-aarch64,linux aarch64 CI workflow
+35,ciflow/mps,Run MPS tests (subset of trunk)
+36,ciflow/nightly,Trigger all jobs we run nightly (nightly.yml)
+37,ciflow/periodic,Trigger jobs ran periodically on master (periodic.yml) on the PR
+38,ciflow/rocm,
+39,ciflow/slow,
+40,ciflow/torchao,
+41,ciflow/torchbench,
+42,ciflow/trunk,Trigger trunk jobs on your pull request
+43,ciflow/unstable,Run all experimental or flaky jobs on PyTorch unstable workflow
+44,ciflow/xpu,Run XPU CI tasks
+45,cla signed,
+46,compile-cache,
+47,compile-docs,
+48,complex_autograd,
+49,core issue,
+50,csprng,Fix or feature required for torchcsprng
+51,days,
+52,dependency issue,
+53,detect-test-pollution-nack,detect-test-pollution didn't work to identify what the problem was
+54,DeviceMesh,
+55,distributed-backlog,
+56,docathon-h1-2024,
+57,docathon-h2-2023,Issues for the docathon in H2 2023
+58,docs-hackathon,
+59,dynamo-autograd-function,Dynamo Autograd function (compile)
+60,dynamo-ctx-manager,
+61,dynamo-dataclasses,
+62,dynamo-dicts,
+63,dynamo-functools,
+64,dynamo-functorch,Issues related to dynamo/compile on functorch transforms
+65,dynamo-logging,
+66,dynamo-must-fix,These bugs affect TorchDynamo reliability.
+67,dynamo-nn-modules,
+68,dynamo-perf,Impacts dynamo perf
+69,dynamo-polyfill,
+70,dynamo-side-effects,
+71,dynamo-symbolic-analysis,
+72,dynamo-tensor-subclasses,
+73,dynamo-torch-function,
+74,dynamo-triage-june2024,
+75,dynamo-user-empathy-day,
+76,dynamo-variable-tracker,
+77,easy,label for easy docathon tasks
+78,empathy-day,Label for issues from user empathy days
+79,Enable Org GHA Runners,
+80,enable-mem-leak-check,
+81,enhancement,"Not as big of a feature, but technically not a bug. Should be easy to fix"
+82,executorch-needs-help,Add this label to your issue/PR if you need help from the ExecuTorch team
+83,export-triage-review,This tag is used to tag issues that have been looked by PT2 Export team and pending discussions.
+84,export-triaged,This tag is used to tag issues that have been looked by PT2 Export team and determined the next step
+85,ezyang's list,Stuff ezyang doesn't want to lose
+86,fake_label,
+87,fb-exported,
+88,feature,"A request for a proper, new feature."
+89,fixathon,
+90,function request,A request for a new function or the addition of new arguments/modes to an existing function.
+91,fx,
+92,FX-TorchScript Compatibility,
+93,github_actions,Pull requests that update GitHub Actions code
+94,good first issue,
+95,hackamonth,
+96,hackathon,
+97,hacktoberfest,For participants of HacktoberFest: https://hacktoberfest.digitalocean.com/faq
+98,has workaround,
+99,high priority,
+100,imported,This issue has been imported to the internal tasks tool
+101,in progress,
+102,inductor_pattern_match,
+103,inductor-micro-benchmark,
+104,inference mode,Everything related to InferenceMode guard
+105,intel,This tag is for PR from Intel
+106,intel priority,matters to intel architecture from performance wise
+107,internal ramp-up task,Tasks that are suitable for new folks w/ high-touch guidance from senior PyTorch folks
+108,internals,
+109,jit-backlog,
+110,keep-going,"Don't stop on first failure, keep running tests until the end"
+111,land-failed,
+112,large,We think that this is a pretty chunky piece of work
+113,lazy,Lazy Tensor work items
+114,LazyTensor_nvfuser_integration,
+115,low priority,We're unlikely to get around to doing this in the near future
+116,matrix multiplication,
+117,medium,Label for medium docathon tasks
+118,merge-this-please,Was marked for merge with @pytorchbot merge this please
+119,mergebot,
+120,Merged,
+121,merging,
+122,mlops,any issue that is related to helping operate or run an ML pipeline or model serving and monitoring
+123,mlperf,
+124,mobile_perf,mobile performance
+125,mock_label,
+126,module: __torch_dispatch__,
+127,module: __torch_function__,
+128,module: 64-bit,"Problems related to incorrectly using 32-bit integers when 64-bit is needed (e.g., 8G tensors)"
+129,module: abi,libtorch C++ ABI related problems
+130,module: advanced indexing,"Related to x[i] = y, index functions"
+131,module: amp (automated mixed precision),autocast
+132,module: android,Related to Android support
+133,module: aotdispatch,umbrella label for AOTAutograd issues
+134,module: aotinductor,aot inductor
+135,module: arm,Related to ARM architectures builds of PyTorch. Includes Apple M1
+136,module: assert failure,The issue involves an assert failure
+137,module: autograd,"Related to torch.autograd, and the autograd engine in general"
+138,module: backend,non-standard backend support
+139,module: batching,
+140,module: bazel,
+141,module: bc-breaking,Related to a BC-breaking change
+142,module: benchmark,related to torch.utils.benchmark e.g. Timer
+143,module: bfloat16,
+144,module: binaries,Anything related to official binaries that we release to users
+145,module: boolean tensor,
+146,module: bootcamp,"We plan to do a full writeup on the issue, and then get someone to do it for onboarding"
+147,module: bottleneck,Related to torch.utils.bottleneck
+148,module: build,Build system issues
+149,module: build warnings,Related to warnings during build process
+150,module: c10d,Issues/PRs related to collective communications and process groups
+151,module: CapabilityBasedPartitioner,An FX optimization pass
+152,module: checkpoint,Related to torch.utils.checkpoint
+153,module: ci,Related to continuous integration
+154,module: codegen,Issues related to the codegen for Aten and Autograd
+155,module: collect_env.py,"Related to collect_env.py, which collects system information about users"
+156,module: compiled autograd,compiled_autograd
+157,module: complex,Related to complex number support in PyTorch
+158,module: convolution,"Problems related to convolutions (THNN, THCUNN, CuDNN)"
+159,module: copy on write,Related to copy on write
+160,module: core aten,Related to change to the Core ATen opset
+161,module: correctness (silent),issue that returns an incorrect result silently
+162,module: cpp,Related to C++ API
+163,module: cpp-extensions,Related to torch.utils.cpp_extension
+164,module: cpu,"CPU specific problem (e.g., perf, algorithm)"
+165,module: CPU_tensor_apply,Porting CPU_tensor_apply to TensorIterator
+166,module: crash,"Problem manifests as a hard crash, as opposed to a RuntimeError"
+167,module: cublas,Problem related to cublas support
+168,module: cuda,"Related to torch.cuda, and CUDA support in general"
+169,module: cuda graphs,Ability to capture and then replay streams of CUDA kernels
+170,module: CUDACachingAllocator,
+171,module: cudnn,"Related to torch.backends.cudnn, and CuDNN support"
+172,module: custom-operators,"custom operators, custom ops, custom-operators, custom-ops"
+173,module: data,torch.utils.data
+174,module: data parallel,
+175,module: dataloader,Related to torch.utils.data.DataLoader and Sampler
+176,module: ddp,Issues/PRs related distributed data parallel training
+177,module: deadlock,Problems related to deadlocks (hang without exiting)
+178,module: decompositions,Topics related to decomposition (excluding PrimTorch)
+179,module: dependency bug,"Problem is not caused by us, but caused by an upstream library we use"
+180,module: deploy,related to torch deploy torchdeploy
+181,module: deprecation,
+182,module: derivatives,Related to derivatives of operators
+183,module: determinism,
+184,module: DeviceMesh,
+185,module: devx,"Related to PyTorch contribution experience (HUD, pytorchbot)"
+186,module: dispatch,"DispatchStub, Type, void pointer table, c10 dispatch"
+187,module: distance functions,
+188,module: distributed_checkpoint,
+189,module: distributed_tool,tools to help distributed training
+190,module: distributions,Related to torch.distributions
+191,module: dlpack,
+192,module: doc infra,"Related to pytorch.org/docs, deployment of, and serving"
+193,module: docker,
+194,module: docs,"Related to our documentation, both in docs/ and docblocks"
+195,module: double backwards,Problem is related to double backwards definition on an operator
+196,module: dtensor,distributed tensor tag
+197,module: dynamic shapes,
+198,module: dynamo,
+199,module: edge cases,Adversarial inputs unlikely to occur in practice
+200,module: elastic,Related to torch.distributed.elastic
+201,module: embedding,
+202,module: empty tensor,
+203,module: error checking,Bugs related to incorrect/lacking error checking
+204,module: expecttest,Expect test related functionality
+205,module: fakeTensor,
+206,module: fft,
+207,module: first class dims,
+208,module: flaky-tests,Problem is a flaky test in CI
+209,module: flex attention,
+210,module: float8,For torch.float8_e5m2 and torch.float8_e4m3
+211,module: flop counter,FlopCounterMode mode
+212,module: forward ad,
+213,module: fsdp,
+214,module: functional UX,
+215,module: functionalization,used for issues that are specific to functionalization (AOTAutograd bugs should start w aotdispatch)
+216,module: functorch,Pertaining to torch.func or pytorch/functorch
+217,module: fx,
+218,module: fx.passes,Optimization passes written in FX (don't forget to select a more specific label)
+219,module: graph breaks,
+220,module: guards,
+221,module: half,Related to float16 half-precision floats
+222,module: higher order operators,torch.cond and similar
+223,module: hub,
+224,module: inductor,
+225,module: infallible views,
+226,module: infra,Relates to CI infrastructure
+227,module: initialization,Related to weight initialization on operators
+228,module: int overflow,
+229,module: intel,Specific to x86 architecture
+230,module: internals,Related to internal abstractions in c10 and ATen
+231,module: interpolation,
+232,module: ios,"Related to iOS support - build, API, Continuous Integration, document"
+233,module: jetson,Related to the Jetson builds by NVIDIA
+234,module: jiterator,
+235,module: known issue,
+236,module: language binding,"support for language bindings, including languages that aren't currently supported"
+237,module: lazy,
+238,module: library,Related to torch.library (for registering ops from Python)
+239,module: linear algebra,Issues related to specialized linear algebra operations in PyTorch; includes matrix multiply matmul
+240,module: lint,Issues related to our Python/C++ lint rules (run by Travis)
+241,module: logging,Features which make it easier to tell what PyTorch is doing under the hood
+242,module: loss,Problem is related to loss function
+243,module: LrScheduler,
+244,module: lts,related to Enterprise PyTorch
+245,module: m1,
+246,module: macos,Mac OS related issues
+247,module: magma,related to magma linear algebra cuda support
+248,module: masked operators,Masked operations
+249,module: memory format,"Memory format/layout related issues/changes (channels_last, nhwc)"
+250,module: memory usage,"PyTorch is using more memory than it should, or it is leaking memory"
+251,module: meta tensors,
+252,module: minifier,
+253,module: mkl,Related to our MKL support
+254,module: mkldnn,Related to Intel IDEEP or oneDNN (a.k.a. mkldnn) integration
+255,module: models,
+256,module: molly-guard,Features which help prevent users from committing common mistakes
+257,module: mpi,Problems related to MPI support
+258,module: mps,Related to Apple Metal Performance Shaders framework
+259,module: mta,Issues related to multi-tensor apply kernels and foreach functions
+260,module: mtia,Device MTIA related issues
+261,module: multi-gpu,Problem is related to running on multiple GPUs
+262,module: multi-headed-attention,
+263,module: multiprocessing,Related to torch.multiprocessing
+264,module: multithreading,Related to issues that occur when running on multiple CPU threads
+265,module: named tensor,Named tensor support
+266,module: NaNs and Infs,Problems related to NaN and Inf handling in floating point
+267,module: nccl,Problems related to nccl support
+268,module: nestedtensor,NestedTensor tag see issue #25032
+269,module: nn,Related to torch.nn
+270,module: nn.utils.parametrize,
+271,module: nnpack,Related to our NNPack integration
+272,module: norms and normalization,
+273,module: numba,
+274,module: numerical-reproducibility,
+275,module: numerical-stability,Problems related to numerical stability of operations
+276,module: numpy,"Related to numpy support, and also numpy compatibility of our operators"
+277,module: nvfuser,
+278,module: onnx,Related to torch.onnx
+279,module: op-unification,Problem would be solved if we unified Caffe2 and PyTorch implementations of an operator
+280,module: opcheck,Related to opcheck testing for custom operators
+281,module: openblas,
+282,module: openmp,Related to OpenMP (omp) support in PyTorch
+283,module: optimizer,Related to torch.optim
+284,module: padding,
+285,module: partial aliasing,Related to correctly supporting overlapping storages in operations
+286,module: performance,"Issues related to performance, either of kernel code or framework glue"
+287,module: pickle,Problems related to pickling of PyTorch objects
+288,module: pipelining,Pipeline Parallelism
+289,module: pooling,
+290,module: porting,Issues related to porting TH/THNN legacy to ATen native
+291,module: POWER,Issues specific to the POWER/ppc architecture
+292,module: primTorch,
+293,module: printing,Issues related to the printing format of tensors
+294,module: PrivateUse1,private use
+295,module: protobuf,
+296,module: ProxyTensor,make_fx and related
+297,module: pruning,
+298,module: pt2 accuracy,
+299,module: pt2 optimizer,Relating to torch.compile'd optim
+300,module: pt2-dispatcher,"PT2  dispatcher-related issues (e.g., aotdispatch, functionalization, faketensor, custom-op,"
+301,module: pybind,Related to our Python bindings / interactions with other Python libraries
+302,module: python array api,Issues related to the Python Array API
+303,module: python dispatcher,
+304,module: python frontend,For issues relating to PyTorch's Python frontend
+305,module: pytree,
+306,module: random,Related to random number generation in PyTorch (rng generator)
+307,module: reductions,
+308,module: regression,"It used to work, and now it doesn't"
+309,module: reinplacing,"inductor reinplacing, re-inplacing, auto-functionalization, auto functionalization, custom op"
+310,module: risc-v,All issues related to RISC-V architecture
+311,module: rnn,"Issues related to RNN support (LSTM, GRU, etc)"
+312,module: rocm,AMD GPU support for Pytorch
+313,module: rpc,"Related to RPC, distributed autograd, RRef, and distributed optimizer"
+314,module: safe resize,
+315,module: sanitizers,
+316,module: scatter & gather ops,
+317,module: scientific computing,
+318,module: scipy compatibility,
+319,module: selective build,
+320,module: serialization,"Issues related to serialization (e.g., via pickle, or otherwise) of PyTorch objects"
+321,module: shape checking,
+322,module: single threaded,Related to single-threaded execution
+323,module: sleef,Problems related to SLEEF support
+324,module: sorting and selection,
+325,module: sparse,Related to torch.sparse
+326,module: special,"Functions with no exact solutions, analogous to those in scipy.special"
+327,module: startup-tracing-compile,"Compilation mechanism or time spent in (re)compilation, tracing, startup"
+328,module: static linking,Related to statically linked libtorch (we dynamically link by default)
+329,module: structured kernels,Related to new structured kernels functionality
+330,module: tbb,
+331,module: tensor creation,
+332,module: tensorboard,
+333,module: tensorflow,
+334,module: TensorIterator,
+335,module: tensorpipe,Related to Tensorpipe RPC Agent
+336,module: testing,Issues related to the torch.testing module (not tests)
+337,module: tests,Issues related to tests (not the torch.testing module)
+338,module: tf32,Related to tf32 data format
+339,module: third_party,
+340,module: torchbind,
+341,module: trace,Related to structured logging under TORCH_TRACE trace_structured
+342,module: trigonometric functions,
+343,module: type promotion,Related to semantics of type promotion
+344,module: typing,Related to mypy type annotations
+345,module: undefined reference,"Build issues that manifest as ""undefined reference"""
+346,module: unknown,"We do not know who is responsible for this feature, bug, or test case."
+347,module: unsigned int,"Related to the new uint16, uint32, uint64 types"
+348,module: user triton,related to ability to directly torch.compile triton kernels
+349,module: ux,
+350,module: vectorization,"Related to SIMD vectorization, e.g., Vec256"
+351,module: viewing and reshaping,
+352,module: vision,
+353,module: vmap,
+354,module: vulkan,
+355,module: windows,Windows support for PyTorch
+356,module: wsl,Related to Windows Subsystem for Linux
+357,module: xla,Related to XLA support
+358,module: xnnpack,
+359,module: xpu,Intel XPU related issues
+360,months,
+361,msft-collab,
+362,needs design,
+363,needs reproduction,Someone else needs to try reproducing the issue given the instructions. No action needed from user
+364,needs research,"We need to decide whether or not this merits inclusion, based on research world"
+365,new-layer,
+366,newcomer,
+367,NNC,
+368,no longer merging,
+369,no-delete-branch,Add this to prevent the branch of this PR from being deleted by automation
+370,no-stale,
+371,not4land,
+372,oncall: cpu inductor,CPU Inductor issues for Intel team to triage
+373,oncall: distributed,Add this issue/PR to distributed oncall triage queue
+374,oncall: distributed checkpointing,Oncall label should be attached to any issues related to distributed checkpointing.
+375,oncall: export,
+376,oncall: fx,
+377,oncall: java,
+378,oncall: jit,Add this issue/PR to JIT oncall triage queue
+379,oncall: mobile,"Related to mobile support, including iOS and Android"
+380,oncall: package/deploy,Add issue/PR to torch.package TODO board
+381,oncall: profiler,"profiler-related issues (cpu, gpu, kineto)"
+382,oncall: pt2,
+383,oncall: quantization,Quantization support in PyTorch
+384,oncall: r2p,Add this issue/PR to R2P (elastic) oncall triage queue
+385,oncall: releng,In support of CI and Release Engineering
+386,oncall: speech_infra,Speech Infra oncall
+387,oncall: transformer/mha,Issues related to Transformers and MultiheadAttention
+388,oncall: visualization,"Related to visualization in PyTorch, e.g., tensorboard"
+389,onnx-needs-import,"This PR is related to ONNX, but touches files outside of merge rule patterns, and hence needs import"
+390,onnx-needs-info,needs information from the author / reporter before ONNX team can take action
+391,onnx-triaged,triaged by ONNX team
+392,op-bench,PyTorch/Caffe2 Operator Micro-benchmarks
+393,open source,
+394,OSS contribution wanted,PR from open source contributors welcome to solve this issue.
+395,patch release triage,
+396,pipeline parallelism,Issues related to https://pytorch.org/docs/master/pipeline.html
+397,postmortem,
+398,pre_dispatch tracing,"Issues related to using `make_fx(..., pre_dispatch=True)` or `export(..., pre_dispatch=True)`"
+399,production-ecosystem,production ecosystem integration improvements or issues
+400,proposal accepted,The core team has reviewed the feature request and agreed it would be a useful addition to PyTorch
+401,pt_distributed_rampup,Ramp up tasks for new developers on PT distributed
+402,pt2-pass-rate-regression,Track regression of PT2 dashboard pass rate
+403,python,Pull requests that update Python code
+404,pytorchbenchmark-false-positive,
+405,quansight-approved,Used for PRs that have been reviewed by QS devs
+406,quansight-nack,High-prio issues that have been reviewed by Quansight and are judged to be not actionable.
+407,quantization_release_1.3,
+408,ready for review (this tag is deprecated),"All PRs are ready for review unless they are draft, WIP, or have undismissed requested changes"
+409,release notes: AO frontend,
+410,release notes: AO Pruning,pruning in the torch.ao and nn.utils.prune
+411,release notes: autograd,release notes category
+412,release notes: benchmark,release notes category
+413,release notes: build,release notes category
+414,release notes: complex,release notes category
+415,release notes: composability,release notes category
+416,release notes: cpp,release notes category
+417,release notes: cuda,release notes category
+418,release notes: cudnn,
+419,release notes: dataloader,release notes category
+420,release notes: DeviceMesh,
+421,release notes: devx,
+422,release notes: distributed (c10d),release notes category
+423,release notes: distributed (checkpoint),
+424,release notes: distributed (composable),
+425,release notes: distributed (ddp),release notes category
+426,release notes: distributed (dtensor),release notes category
+427,release notes: distributed (fsdp),release notes category
+428,release notes: distributed (fsdp2),release notes category
+429,release notes: distributed (miscellaneous),
+430,release notes: distributed (pipeline),release notes category
+431,release notes: distributed (rpc),release notes category
+432,release notes: distributed (sharded),release notes category
+433,release notes: distributed (tools),
+434,release notes: distributed (torchelastic),
+435,release notes: dynamo,
+436,release notes: export,
+437,release notes: foreach_frontend,release notes category
+438,release notes: functorch,release notes category; Pertaining to torch.func or pytorch/functorch
+439,release notes: fx,release notes category
+440,release notes: gnn,gnn related optimizations
+441,release notes: hub,release notes category (torchhub)
+442,release notes: inductor,
+443,release notes: intel,release notes category
+444,release notes: jit,release notes category
+445,release notes: lazy,release notes category
+446,release notes: linalg_frontend,release notes category
+447,release notes: memory format,release notes category
+448,release notes: Meta API,release notes category
+449,release notes: mobile,release notes category
+450,release notes: mps,Release notes category
+451,release notes: nested tensor,Changes that have a direct impact on nested tensors
+452,release notes: nn,release notes category
+453,release notes: onnx,torch.onnx related changes that should show up in the release notes
+454,release notes: optim,
+455,release notes: optimizer,"Relating to optimizers, torch.optim"
+456,release notes: package/deploy,release notes category
+457,release notes: performance_as_product,release notes category
+458,release notes: profiler,release notes category
+459,release notes: python_frontend,python frontend release notes category
+460,release notes: quantization,release notes category
+461,release notes: releng,release notes category
+462,release notes: rocm,mandatorylabel
+463,release notes: sparse,release notes category
+464,release notes: visualization,release notes category
+465,release notes: vulkan,release notes category
+466,release notes: xpu,release notes category
+467,release tracker,Add this label to release tracker issues
+468,Reverted,
+469,rocm,This tag is for PRs from ROCm team
+470,rocm priority,high priority ROCm PRs from performance or other aspects
+471,ruby,Pull requests that update Ruby code
+472,security,
+473,shadow review,Request the triage shadow to take a second look at your triage and see if they agree or not
+474,sharded_tensor,
+475,skip-pr-sanity-checks,
+476,skipped,Denotes a (flaky) test currently skipped in CI.
+477,small,We think this is a small issue to fix. Consider knocking off high priority small issues
+478,Stale,
+479,suppress-api-compatibility-check,Suppresses the failures of API backward-compatibility linter (Lint/bc_linter)
+480,suppress-bc-linter,Suppresses the failures of API backward-compatibility linter (Lint/bc_linter)
+481,tensor subclass,Related to tensor subclasses
+482,test-config/asan,
+483,test-config/backwards_compat,
+484,test-config/crossref,
+485,test-config/default,
+486,test-config/deploy,
+487,test-config/distributed,
+488,test-config/docs_test,
+489,test-config/dynamo,Use this label to run only dynamo tests
+490,test-config/executorch,
+491,test-config/force_on_cpu,
+492,test-config/functorch,Use this label to run only functorch tests
+493,test-config/inductor,
+494,test-config/inductor-micro-benchmark,
+495,test-config/jit_legacy,
+496,test-config/mps,
+497,test-config/multigpu,
+498,test-config/nogpu_AVX512,
+499,test-config/slow,
+500,test-config/tsan,
+501,test-config/xla,
+502,todo,"Not as important as medium or high priority tasks, but we will work on these."
+503,todo-elimination,
+504,topic: bc breaking,topic category
+505,topic: binaries,
+506,topic: bug fixes,topic category
+507,topic: build,
+508,topic: deprecation,topic category
+509,topic: devs,Developer feature
+510,topic: docs,topic category
+511,topic: fuzzer,
+512,topic: improvements,topic category
+513,topic: inductor halide backend,
+514,topic: new features,topic category
+515,topic: not user facing,topic category
+516,topic: performance,topic category
+517,topic: security,
+518,tracker,A tracking issue
+519,triage review,
+520,triaged,"This issue has been looked at a team member, and triaged and prioritized into an appropriate module"
+521,TSConverter,
+522,TSRootCause:BetterEngineering,
+523,TSRootCause:DefaultTypes,
+524,TSRootCause:DynamicBehaviors,
+525,TSRootCause:InvalidCustomClass,
+526,TSRootCause:ModuleInheritance,
+527,TSRootCause:PoorIRVisibility,
+528,TSRootCause:PyTorchParityGap,
+529,TSRootCause:TypeAnnotation,
+530,TSRootCause:TypeChecking,
+531,TSRootCause:TypeRefinement,
+532,TSRootCause:Unclassified,
+533,TSRootCause:UnsupportedConstructs,
+534,TSUsability,
+535,unstable,
+536,upstream triton,Upstream Triton Issue
+537,vllm-compile,
+538,weeks,
+539,windows-triaged,
+540,with-ssh,
+541,ZeroTensor,
