@@ -1,0 +1,113 @@
+,Label,Description
+0,AMP,
+1,Android,
+2,API change,
+3,Application,
+4,ARM,
+5,Autograd,
+6,Backend,Issues related to the backend of MXNet
+7,Backport 1.x,Pending backport to 1.x
+8,BLAS,
+9,Breaking,
+10,Bug,
+11,Build,
+12,C API,
+13,C++,Related to C++
+14,Call for Contribution,
+15,CD,
+16,CI,
+17,Clojure,
+18,CMake,CMake related bugs/issues/improvements
+19,Community,
+20,Converter,
+21,CoreML,Issues related to CoreML converter
+22,CUDA,
+23,Customization,
+24,Cython,
+25,Data-loading,
+26,dependencies,Pull requests that update a dependency file
+27,Deprecated,Issues on Deprecated APIs/Features
+28,Disabled test,
+29,Discussion,
+30,Distributed,
+31,Doc,
+32,Docker,
+33,Edge devices,
+34,Environment Variables,Issues related to setting env vars
+35,Estimator,
+36,Example,
+37,Exception Handling,
+38,Exploration,
+39,Feature request,
+40,FFI,
+41,Flaky,
+42,focus progress,
+43,FP16,
+44,Gluon,
+45,good first issue,
+46,HowTo,
+47,Installation,
+48,Java,Label to identify Java API component
+49,Julia,
+50,Keras,
+51,KVStore,
+52,Licenses,
+53,Logo,
+54,Makefile,
+55,Maven,
+56,Memory,
+57,Metric,
+58,MKL,
+59,MKLDNN,
+60,Model Zoo,
+61,Modeling,
+62,Module,
+63,NDArray,
+64,needs triage,
+65,Numpy,
+66,ONNX,
+67,OpenCV,OpenCV related issues
+68,Operator,
+69,Optimizer,
+70,OSX,
+71,Pending Requester Info,
+72,Performance,
+73,Perl,
+74,pip,
+75,pr-awaiting-merge,Review and CI is complete. Ready to Merge
+76,pr-awaiting-response,PR is reviewed and waiting for contributor to respond
+77,pr-awaiting-review,PR is waiting for code review
+78,pr-awaiting-testing,PR is reviewed and waiting CI build and test
+79,pr-work-in-progress,PR is still work in progress
+80,Profiler,MXNet profiling issues
+81,Python,
+82,Quantization,Issues/Feature Requests related to Quantization
+83,R,
+84,R1.6.0,
+85,R1.7.0,
+86,random,
+87,RFC,Post requesting for comments
+88,RNN,
+89,Roadmap,
+90,RTC,Run-time compilation
+91,ruby,Pull requests that update Ruby code
+92,Scala,
+93,Security,
+94,Sparse,
+95,Symbol,
+96,TensorRT,
+97,Test,
+98,Thread Safety,
+99,Trademark,
+100,TVM OP,Operators implemented using TVM
+101,Ubuntu,
+102,Unclear Error/Doc,
+103,Upstream,
+104,UX,
+105,v1.x,Targeting v1.x branch
+106,v2.0,
+107,Visualization,
+108,Website,
+109,Windows,
+110,WIP,
+111,won't fix,
