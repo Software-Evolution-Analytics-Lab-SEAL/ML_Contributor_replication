@@ -1,0 +1,44 @@
+,Label,Description
+0,backend compatibility,Issues relating to compatibility with backends called by this library
+1,blocked,
+2,bug,Something isn't working
+3,C-backend,
+4,CI,Involves continuous integration
+5,Conda,
+6,dependencies,Pull requests that update a dependency file
+7,documentation,Improvements or additions to documentation
+8,duplicate,This issue or pull request already exists
+9,enhancement,New feature or request
+10,github_actions,Pull requests that update GitHub Actions code
+11,good first issue,Good for newcomers
+12,GPU,
+13,gradient implementations,
+14,graph objects,
+15,graph rewriting,
+16,help wanted,Extra attention is needed
+17,important,
+18,invalid,This doesn't seem right
+19,JAX,Involves JAX transpilation
+20,MacOS,
+21,miniKanren,
+22,MWE needed,This issue needs a minimum working example that demonstrates the issue
+23,Numba,Involves Numba transpilation
+24,NumPy compatibility,
+25,Op implementation,Involves the implementation of an Op
+26,performance concern,
+27,question,Further information is requested
+28,random variables,Involves random variables and/or sampling
+29,refactor,This issue involves refactoring
+30,request discussion,
+31,Scan,Involves the `Scan` `Op`
+32,SciPy compatibility,
+33,setup and installation,Relates to the setup and installation of Aesara
+34,shape inference,
+35,sparse tensors,
+36,tensor algebra,Relates to our use and representations of tensor algebra
+37,testing,
+38,tooling,"Relates to developer tools for printing, debugging, and/or manipulating Aesara objects"
+39,typing,Work related to type checking
+40,unexpected behavior,
+41,Windows,
+42,wontfix,This will not be worked on
