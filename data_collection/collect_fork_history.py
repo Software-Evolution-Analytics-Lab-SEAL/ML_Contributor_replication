@@ -17,7 +17,7 @@ import sys
 # Modify this place, add github authentication tokens, e.g., Github("ghp_1x1x1x1x1x2w2w2w3E3E3E3E4R4R4R4R")
 github_instances = []
 
-repo_names = ["tensorflow/tensorflow", "pytorch/pytorch", "keras-team/keras", "apache/mxnet", "Theano/Theano", "onnx/onnx"]
+repo_names = ["tensorflow/tensorflow", "pytorch/pytorch", "keras-team/keras", "apache/mxnet", "Theano/Theano", "onnx/onnx", "aesara-devs/aesara", "deeplearning4j/deeplearning4j", "scikit-learn/scikit-learn"]
 
 gi_counter = 0
 gi = github_instances[0]
