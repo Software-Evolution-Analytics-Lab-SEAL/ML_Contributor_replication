@@ -729,7 +729,7 @@ known_bots = ['tensorflower-gardener','tensorflow-jenkins','onnxbot','facebook-g
 start = datetime.datetime(2008,1,1)
 end = datetime.datetime(2022,4,30)
 
-repo_names = ["tensorflow/tensorflow", "pytorch/pytorch", "keras-team/keras", "Theano/Theano", "onnx/onnx", "apache/mxnet"]
+repo_names = ["tensorflow/tensorflow", "pytorch/pytorch", "keras-team/keras", "Theano/Theano", "onnx/onnx", "apache/mxnet", "aesara-devs/aesara", "deeplearning4j/deeplearning4j", "scikit-learn/scikit-learn"]
 
 # clone the github repository of the subject projects
 git_repo_dir = os.path.join(os.path.dirname(__file__), '..',"git_repos")
@@ -747,8 +747,12 @@ if not os.path.exists(os.path.join(git_repo_dir,'Theano')):
     git.Git(git_repo_dir).clone("https://github.com/Theano/Theano")
 if not os.path.exists(os.path.join(git_repo_dir,'onnx')):
     git.Git(git_repo_dir).clone("https://github.com/onnx/onnx")
-
-
+if not os.path.exists(os.path.join(git_repo_dir,'aesara')):
+    git.Git(git_repo_dir).clone("https://github.com/aesara-devs/aesara")
+if not os.path.exists(os.path.join(git_repo_dir,'deeplearning4j')):
+    git.Git(git_repo_dir).clone("https://github.com/deeplearning4j/deeplearning4j")
+if not os.path.exists(os.path.join(git_repo_dir,'scikit-learn')):
+    git.Git(git_repo_dir).clone("https://github.com/scikit-learn/scikit-learn")
 
 for repo_name in repo_names:
     dir = os.path.join(basedir, repo_name.replace('/', '_'))
