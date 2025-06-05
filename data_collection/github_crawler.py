@@ -736,7 +736,7 @@ start = time.time()
 if not os.path.exists(basedir):  # Create a directory to store all the collected project data 
     os.makedirs(basedir)
 
-repos = ["tensorflow/tensorflow", "pytorch/ptrorch", "apache/mxnet","keras-team/keras","Theano/Theano", "onnx/onnx"]
+repos = ["tensorflow/tensorflow", "pytorch/ptrorch", "apache/mxnet","keras-team/keras","Theano/Theano", "onnx/onnx", "aesara-devs/aesara", "deeplearning4j/deeplearning4j", "scikit-learn/scikit-learn"]
 # global variables
 for repo_name in repos:
     dir = os.path.join(basedir, repo_name.replace('/', '_'))
