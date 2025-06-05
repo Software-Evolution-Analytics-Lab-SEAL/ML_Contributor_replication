@@ -42,7 +42,7 @@ query ($endCursor: String) {
 # Modify this directory to where you want to store the collected data
 basedir = os.path.join(os.path.dirname(__file__),'..','data')
 
-repos = ["tensorflow/tensorflow", "pytorch/ptrorch", "apache/mxnet","keras-team/keras","Theano/Theano", "onnx/onnx"]
+repos = ["tensorflow/tensorflow", "pytorch/ptrorch", "apache/mxnet","keras-team/keras","Theano/Theano", "onnx/onnx", "aesara-devs/aesara", "deeplearning4j/deeplearning4j", "scikit-learn/scikit-learn"]
 
 for repo_name in repos:
     dir = os.path.join(basedir, repo_name.replace('/', '_'))
